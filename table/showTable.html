@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<title>ShowTable</title>
+	</head>
+	<body>
+		<!-- container start -->
+		<div class="container">
+			<!-- header start -->
+			<div class="row">
+				<div class="pull-left list-inline">
+					<label>欢迎陈荣同学！</label>
+					<a href="#">退出</a>
+				</div>
+				<div class="pull-right">
+					<button type="button" class="btn btn-info btn-xs">
+						<span class="glyphicon glyphicon-cog"> 账号管理</span>
+					</button>
+				</div>
+			</div>
+			<!-- header end -->
+			
+			<!-- 导航 start -->
+			<nav class="navbar navbar-default" role="navigation">
+				<!-- 导航居中样式 -->
+				<style>
+					.navbar-default .navbar-nav{
+					text-align: center;
+					float: none;
+					}
+				
+					.navbar-default .navbar-nav li{
+					display: inline-block;
+					float: none;
+					}
+				</style>
+				<div class="container-fluid">
+					<!-- <div class="navbar-header">
+						<a class="navbar-brand" href="#">连接</a>
+					</div> -->
+					<div>
+						<!-- Todo js完成清空，插入，删除操作 -->
+						<ul class="nav navbar-nav">
+							<!-- 表名 -->
+							<li><h3>products &nbsp;&nbsp;&nbsp;&nbsp;</h3></li>
+							<li>
+								<form class="form-inline">
+									<button type="button" class="btn btn-info btn-sm" onclick="#">
+										<span class="glyphicon glyphicon-search"></span> 查找
+									</button>
+									<select class="form-control">
+										<option>id</option>
+										<option>name</option>
+										<option>price</option>
+										<option>category</option>
+										<option>pnum</option>
+										<option>imgurl</option>
+										<option>description</option>
+									</select>
+									<input class="form-control" type="text" placeholder="value" />
+								</form>
+							</li>
+							<li><a href="#"><span class="glyphicon glyphicon-sort-by-order"></span> 升序</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-sort-by-order-alt"></span> 降序</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-saved"></span> 保存</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-repeat"></span> 刷新</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<!-- 导航 end -->
+			
+			<!-- table start -->
+			<table class="table table-condensed table-responsive table-hover table-striped">
+				<!-- <caption><h2>products</h2></caption> -->
+				<!-- 表头 -->
+				<thead>
+					<tr>
+						<td><a class="text-primary"><h4>id</h4></a></td>
+						<td><a class="text-primary"><h4>name</h4></a></td>
+						<td><a class="text-primary"><h4>price</h4></a></td>
+						<td><a class="text-primary"><h4>category</h4></a></td>
+						<td><a class="text-primary"><h4>pnum</h4></a></td>
+						<td><a class="text-primary"><h4>imgurl</h4></a></td>
+						<td><a class="text-primary"><h4>description</h4></a></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>05e20c1a-0401-4c0a-82ab-6fb0f37db397</td>
+						<td>靳老师别墅</td>
+						<td>9000000</td>
+						<td>电子数码</td>
+						<td>206</td>
+						<td>/WEB-INF/upload/5/e/d/5/4/5/e/b/5f0d34dc-157f-49ba-ad39-1b28927ba6ae_1005714.jpg</td>
+						<td>贵族的生活，美女很多</td>
+					</tr>
+					<tr>
+						<td>09f47493-214d-44bc-927d-6ce0bf89a057</td>
+						<td>爱疯9S(0315-01)</td>
+						<td>1000</td>
+						<td>电子数码</td>
+						<td>20</td>
+						<td>/WEB-INF/upload/5/2/3/4/7/8/d/c/1838eaa6-6459-420f-b8e2-6ea9f43c4b5e_dfd259ab-bcc7-43f6-a9d5-62872ff5671e.jpg</td>
+						<td>爱疯9S(0315-01)</td>
+					</tr>
+					<tr>
+						<td>103e5414-0da2-4fba-b92f-0ba876e08939</td>
+						<td>滑雪套装</td>
+						<td>2000</td>
+						<td>日用百货</td>
+						<td>210</td>
+						<td>/WEB-INF/upload/4/d/2/a/2/3/1/8/b3c3fc7a-222c-49be-9491-f466553d2284_386718.jpg</td>
+						<td>这种运动值得你拥有</td>
+					</tr>
+					<tr>
+						<td>77feb539-a575-487b-8500-df38520f3239</td>
+						<td>战地1 豪华版 Origin平台正版激活码</td>
+						<td>780</td>
+						<td>图书杂志</td>
+						<td>555</td>
+						<td>/WEB-INF/upload/5/e/e/6/c/4/9/b/67c1a752-9020-4372-bcda-3375ef01c878_preview.jpg</td>
+						<td>怎么样,想想办法,干他一炮?</td>
+					</tr>
+					<tr>
+						<td>3f36ac54-5da0-4cd8-9991-2ee86cc348c2</td>
+						<td>金士顿8G内存条</td>
+						<td>780</td>
+						<td>电子数码</td>
+						<td>888</td>
+						<td>/WEB-INF/upload/2/2/b/7/f/2/f/4/06402c91-aa25-45d5-b0c3-3ac276a7cd05_244c59c6-bf0a-451b-81e6-18f8bb257e5f.jpg</td>
+						<td>3级内存条，拿货220，数量有限！</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- table end -->
+			
+		</div>
+		<!-- container end -->
+	</body>
+</html>

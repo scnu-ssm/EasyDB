@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<title>EasyDB</title>
+	</head>
+	<body>
+		<div class="container">
+			<!-- header -->
+			<div class="row">
+				<div class="pull-left">
+					<label>欢迎陈荣同学！</label>
+					<a href="#">退出</a>
+				</div>
+				<div class="pull-right">
+					<button type="button" class="btn btn-info btn-xs">
+						<span class="glyphicon glyphicon-cog"> 账号管理</span>
+					</button>
+				</div>
+			</div>
+			<!-- header end -->
+
+			<!-- 导航 start -->
+			<nav class="navbar navbar-default" role="navigation">
+				<!-- 导航居中样式 -->
+				<style>
+					.navbar-default .navbar-nav{
+					text-align: center;
+					float: none;
+					}
+
+					.navbar-default .navbar-nav li{
+					display: inline-block;
+					float: none;
+					}
+				</style>
+				<div class="container-fluid">
+					<div>
+						<ul class="nav navbar-nav">
+							<li><a href="#"><span class="glyphicon glyphicon-play"></span> 运行</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-remove"></span> 清空</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-import"></span> 导入</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-export"></span> 导出</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<!-- 导航 end -->
+
+			<!-- sql输入框 start -->
+			<div class="panel panel-info">
+				<div class="panel-heading">
+			        <h3 class="panel-title">SQL</h3>
+				</div>
+				<div class="panel-body">
+			        <form>
+						<textarea class="form-control" rows="12"></textarea>
+					</form>
+				</div>
+			</div>
+			<!-- sql输入框 end -->
+
+			<!-- 结果输出框 start -->
+			<div class="panel panel-success">
+				<div class="panel-heading">
+			        <h3 class="panel-title">RESULT</h3>
+				</div>
+				<div class="panel-body">
+					<form>
+						<textarea class="form-control" rows="8" disabled="disabled"></textarea>
+					</form>
+				</div>
+			</div>
+			<!-- 结果输出框 end -->
+		</div>
+	</body>
+</html>

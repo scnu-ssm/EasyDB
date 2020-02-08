@@ -505,28 +505,7 @@ $(document).ready(function () {
 
   // 定义展开数据库按钮的点击事情
   $(document).on("click", ".btn-open", function () {
-       var father = $(this).parent().parent();
-       var collapse =
-      "<div id='collapse_0' class='panel-collapse collapse'>" +
-         "<div class='panel-body'>" +
-             "<ul class='list-group'>" +
-                 "<li class='list-group-item'>database1" +
-                     "<button type='button' class='btn btn-info btn-xs pull-right'>" +
-                     "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
-                     "</button>" +
-                     "<a class='pull-right'>&nbsp;&nbsp;</a>" +
-                     "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#deleteDatabaseModal'>" +
-                     "<span class='glyphicon glyphicon-minus'>&nbsp;删除数据库</span>" +
-                     "</button>" +
-                     "<a class='pull-right'>&nbsp;&nbsp;</a>" +
-                     "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#updateDatabaseModal'>" +
-                     "<span class='glyphicon glyphicon-pencil'>&nbsp;编辑数据库</span>" +
-                     "</button>" +
-                 "</li>" +
-             "</ul>" +
-         "</div>" +
-      "</div>";
-      father.append(collapse);
+        // 请求数据库的查询接口
   });
 
 });

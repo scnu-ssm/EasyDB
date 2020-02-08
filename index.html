@@ -23,17 +23,36 @@
   <!-- header -->
   <div class="row">
     <div class="pull-left">
-      <label>欢迎翘毛同学</label>
-      <a href="#">退出</a>
+      <label id="welcomeText">欢迎使用EasyDB!</label>
+      &nbsp;&nbsp;
+      <button id="btnLogout" type="button" class="btn btn-info btn-sm" style="display: none" data-toggle="modal" data-target="#logoutModal">
+        <span>退出登陆</span>
+      </button>
     </div>
     <div class="pull-right">
-      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#loginModal">
+      <button id="btnLogin" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#loginModal">
         <span>登录</span>
       </button>
       &nbsp;&nbsp;
-      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#registerModal">
+      <button id="btnRegister" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#registerModal">
         <span>注册</span>
       </button>
+      <div class="btn-group">
+        <button id="btnUserManage" type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown" style="display: none">更多
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li>
+            <a id="pensonalCenter" href="#userModal" data-toggle="modal">个人中心</a>
+          </li>
+          <li>
+            <a href="#aboutUsModal" data-toggle="modal">关于我们</a>
+          </li>
+          <li>
+            <a href="#feedBackModal" data-toggle="modal">反馈</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <!-- header end -->
@@ -287,6 +306,7 @@
       </div>
     </div>
     <!-- 连接 3 end -->
+
   </div>
   <!-- 展示所有连接 end-->
 
@@ -335,19 +355,19 @@
         <h4 class="modal-title"><b>注册</b></h4>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="用户名">
+          <input id="registerUname" type="text" class="form-control" placeholder="用户名">
         </div>
         <br>
         <div>
-          <input type="password" class="form-control" placeholder="密码">
+          <input id="registerPwd" type="password" class="form-control" placeholder="密码">
         </div>
         <br>
         <div>
-          <input type="password" class="form-control" placeholder="再次输入密码">
+          <input id="registerPwd1" type="password" class="form-control" placeholder="再次输入密码">
         </div>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="邮箱">
+          <input id="email" type="text" class="form-control" placeholder="邮箱">
         </div>
         <br><br>
         <button id="btRegister" type="button" class="btn btn-info btn-block">注册</button>
@@ -365,35 +385,31 @@
       <div class="modal-body" style="text-align: center">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <br>
-        <h4 class="modal-title"><b>修改密码</b></h4>
+        <h4 class="modal-title"><b>忘记密码</b></h4>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="用户名">
+          <input id="verUserName" type="text" class="form-control" placeholder="用户名">
         </div>
         <br>
         <div>
-          <input type="password" class="form-control" placeholder="新密码">
+          <input id="restPassword" type="password" class="form-control" placeholder="新密码">
         </div>
         <br>
         <div>
-          <input type="password" class="form-control" placeholder="再次输入密码">
+          <input id="restpassword1" type="password" class="form-control" placeholder="再次输入密码">
         </div>
         <br>
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="验证码">
+          <input id="code" type="text" class="form-control" placeholder="验证码">
           <div class="input-group-btn">
-            <button type="button" class="btn btn-info ">
-              <span>发送验证码至邮箱</span>
-            </button>
-
+            <button id="verification" type="button" class="btn btn-info btn-block">发送验证码至邮箱</button>
           </div>
         </div>
         <br><br>
-        <button type="button" class="btn btn-info btn-block">提交</button>
+        <button id="updatePasswordByCode" type="button" class="btn btn-info btn-block">提交</button>
         <br><br>
       </div>
     </div>
-    e
   </div>
 </div>
 <!-- 忘记密码 end -->
@@ -553,7 +569,6 @@
               <li value="utf-8"><a>utf-8</a></li>
               <li value="gbk"><a>gbk</a></li>
             </ul>
-            en
           </div>
         </div>
         <br>
@@ -590,7 +605,7 @@
         <br>
         <label>删除连接需慎重，确定删除吗？</label>
         <br><br>
-        <button  type="button" class="btn btn-warning btn-block">确定</button>
+        <button  type="button" class="btn btn-danger btn-block">确定</button>
         <br><br>
       </div>
     </div>
@@ -609,13 +624,125 @@
         <br>
         <label>删除数据库需慎重，确定删除吗？</label>
         <br><br>
-        <button  type="button" class="btn btn-warning btn-block">确定</button>
+        <button  type="button" class="btn btn-danger btn-block">确定</button>
         <br><br>
       </div>
     </div>
   </div>
 </div>
 <!-- 删除数据库模态框 end-->
+
+<!-- 确认退出模态框 start-->
+<div class="modal fade" id="logoutModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>注销用户</b></h4>
+        <br>
+        <label>确认退出登录吗？</label>
+        <br><br>
+        <button id="btnLogoutConfirm" type="button" class="btn btn-warning btn-block">确定</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 确认退出模态框 end-->
+
+<!-- 个人中心模态框 start -->
+<div class="modal fade" id="userModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>个人中心</b></h4>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">用户名&nbsp;&nbsp;&nbsp;</span>
+          <input id="userName" type="text" class="form-control" style="text-align: center" readonly>
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">email&ensp;&ensp;&nbsp;&nbsp;</span>
+          <input id="uesrEmail" type="text" class="form-control"style="text-align: center" readonly>
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <button id="btnUpdatePassword" type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#updataPasswordModal" style="color: #2b669a">点击修改</button>
+        </div>
+        <br><br>
+        <button type="button" class="btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">关闭</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 个人中心模态框 start -->
+
+<!-- 修改密码模态框 start-->
+<div class="modal fade" id="updataPasswordModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>修改密码</b></h4>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">原密码&nbsp;&nbsp;&nbsp;</span>
+          <input id="oldPassword" type="password" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">新密码&nbsp;&nbsp;&nbsp;</span>
+          <input id="newPassword" type="password" class="form-control">
+        </div>
+        <br><br>
+        <button id="updatePassword" type="button" class="btn btn-info btn-block">提交</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 修改密码模态框 end-->
+
+<!-- 关于我们模态框 start-->
+<div class="modal fade" id="aboutUsModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>关于我们</b></h4>
+        <br>
+        <label>一些关于我们的文本，后面改</label>
+        <br><br><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 关于我们模态框 end-->
+
+<!-- 关于我们模态框 start-->
+<div class="modal fade" id="feedBackModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>反馈</b></h4>
+        <br>
+        <label>对我们的任何疑问、建议都可以反馈到 xxx@xxx.com</label>
+        <br><br><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 关于我们模态框 end-->
 
 </body>
 </html>

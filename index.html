@@ -86,226 +86,53 @@
   <!-- 展示所有连接 -->
   <div class="panel-group" id="accordion">
     <!--  连接1 start-->
-    <div class="panel panel-info">
-      <!-- 面板header -->
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          wtxLink
-        </h4>
-        <p>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#newDatabaseModal">
-            <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;新建数据库
-          </button>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateConnectModal">
-            <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;编辑连接
-          </button>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#deleteConnectModal">
-            <span class="glyphicon glyphicon-minus"></span>&nbsp;&nbsp;删除连接
-          </button>
-          <!-- 定义折叠，关联collapse_1折叠内容 -->
-          <button type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion"
-                  href="#collapse_1">
-            <span id="openAndClose" class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;展开
-          </button>
-        </p>
-        <!-- 面板body作为折叠内容 id命名折叠提供关联引用 -->
-        <div id="collapse_1" class="panel-collapse collapse">
-          <div class="panel-body">
-            <ul class="list-group">
-              <li class="list-group-item">database1
-                <button type="button" class="btn btn-info btn-xs pull-right">
-                  <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
-                  <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
-                        data-target="#updateDatabaseModal">
-                  <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
-                </button>
-              </li>
-              <li class="list-group-item">easymall
-                <button type="button" class="btn btn-info btn-xs pull-right">
-                  <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
-                  <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
-                        data-target="#updateDatabaseModal">
-                  <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
-                </button>
-              </li>
-              <li class="list-group-item">testDB
-                <button type="button" class="btn btn-info btn-xs pull-right">
-                  <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
-                  <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
-                        data-target="#updateDatabaseModal">
-                  <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
-                </button>
-              </li>
-            </ul>
-          </div>
+<!--    <div class="panel panel-info">
+    &lt;!&ndash; 面板header &ndash;&gt;
+    <div class="panel-heading" data-connectId="">
+      <h4 class="panel-title">
+        wtxLink
+      </h4>
+      <p>
+        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#newDatabaseModal">
+          <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;新建数据库
+        </button>
+        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateConnectModal">
+          <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;编辑连接
+        </button>
+        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#deleteConnectModal">
+          <span class="glyphicon glyphicon-minus"></span>&nbsp;&nbsp;删除连接
+        </button>
+        &lt;!&ndash; 定义折叠，关联collapse_1折叠内容 &ndash;&gt;
+        <button type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion"
+                href="#collapse_1">
+          <span id="openAndClose" class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;展开
+        </button>
+      </p>
+      &lt;!&ndash; 后期完善body &ndash;&gt;
+      &lt;!&ndash; 面板body作为折叠内容 id命名折叠提供关联引用 &ndash;&gt;
+      <div id="collapse_1" class="panel-collapse collapse">
+        <div class="panel-body">
+          <ul class="list-group">
+            <li class="list-group-item">database1
+              <button type="button" class="btn btn-info btn-xs pull-right">
+                <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
+              </button>
+              <a class="pull-right">&nbsp;&nbsp;</a>
+              <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
+                <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
+              </button>
+              <a class="pull-right">&nbsp;&nbsp;</a>
+              <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
+                      data-target="#updateDatabaseModal">
+                <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
+  </div>-->
     <!-- 连接 1 end -->
-
-    <!--  连接2 start-->
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          xzcLink
-        </h4>
-        <p>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#newDatabaseModal">
-            <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;新建数据库
-          </button>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateConnectModal">
-            <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;编辑连接
-          </button>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#deleteConnectModal">
-            <span class="glyphicon glyphicon-minus"></span>&nbsp;&nbsp;删除连接
-          </button>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion"
-                  href="#collapse_2">
-            <span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;展开
-          </button>
-        </p>
-        <div id="collapse_2" class="panel-collapse collapse">
-          <div class="panel-body">
-            <ul class="list-group">
-              <li class="list-group-item">database1
-                <button type="button" class="btn btn-info btn-xs pull-right">
-                  <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
-                  <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
-                        data-target="#updateDatabaseModal">
-                  <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
-                </button>
-              </li>
-              <li class="list-group-item">easymall
-                <button type="button" class="btn btn-info btn-xs pull-right">
-                  <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
-                  <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
-                        data-target="#updateDatabaseModal">
-                  <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
-                </button>
-              </li>
-              <li class="list-group-item">testDB
-                <button type="button" class="btn btn-info btn-xs pull-right">
-                  <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
-                  <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
-                        data-target="#updateDatabaseModal">
-                  <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 连接 2 end -->
-
-    <!--  连接3 start-->
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          crLink
-        </h4>
-        <p>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#newDatabaseModal">
-            <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;新建数据库
-          </button>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateConnectModal">
-            <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;编辑连接
-          </button>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#deleteConnectModal">
-            <span class="glyphicon glyphicon-minus"></span>&nbsp;&nbsp;删除连接
-          </button>
-          <button type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion"
-                  href="#collapse_3">
-            <span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;展开
-          </button>
-        </p>
-        <div id="collapse_3" class="panel-collapse collapse">
-          <div class="panel-body">
-            <ul class="list-group">
-              <li class="list-group-item">database1
-                <button type="button" class="btn btn-info btn-xs pull-right">
-                  <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
-                  <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
-                        data-target="#updateDatabaseModal">
-                  <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
-                </button>
-              </li>
-              <li class="list-group-item">easymall
-                <button type="button" class="btn btn-info btn-xs pull-right">
-                  <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
-                  <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
-                        data-target="#updateDatabaseModal">
-                  <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
-                </button>
-              </li>
-              <li class="list-group-item">testDB
-                <button type="button" class="btn btn-info btn-xs pull-right">
-                  <span class="glyphicon glyphicon-th-large">&nbsp;打开</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#deleteDatabaseModal">
-                  <span class="glyphicon glyphicon-minus">&nbsp;删除数据库</span>
-                </button>
-                <a class="pull-right">&nbsp;&nbsp;</a>
-                <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="modal"
-                        data-target="#updateDatabaseModal">
-                  <span class="glyphicon glyphicon-pencil">&nbsp;编辑数据库</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 连接 3 end -->
 
   </div>
   <!-- 展示所有连接 end-->
@@ -424,30 +251,30 @@
         <h4 class="modal-title"><b>新建连接</b></h4>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="连接名">
+          <input type="text" id="connectName" class="form-control" placeholder="连接名">
         </div>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="ip地址">
+          <input type="text" id="connectIP" class="form-control" placeholder="ip地址">
         </div>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="端口号">
+          <input type="text" id="connectPort" class="form-control" placeholder="端口号">
         </div>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="用户名">
+          <input type="text" id="connectUsername" class="form-control" placeholder="用户名">
         </div>
         <br>
         <div>
-          <input type="password" class="form-control" placeholder="密码">
+          <input type="password" id="connectPassword" class="form-control" placeholder="密码">
         </div>
         <br>
         <div>
-          <input type="password" class="form-control" placeholder="再次输入密码">
+          <input type="password" id="connectRepeatPassword" class="form-control" placeholder="再次输入密码">
         </div>
         <br><br>
-        <button type="button" class="btn btn-info btn-block">保存</button>
+        <button type="button" id="connectSave" class="btn btn-info btn-block">保存</button>
         <br><br>
       </div>
     </div>
@@ -508,35 +335,36 @@
     <div class="modal-content">
       <div class="modal-body" style="text-align: center">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <input type="hidden" id="updateInput" value="">
         <br>
         <h4 class="modal-title"><b>编辑连接</b></h4>
         <br>
         <div class="input-group">
           <span class="input-group-addon">连接名字</span>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" id="updateConnectName">
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon">ip地址&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" id="updateConnectIP">
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon">端口&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" id="updateConnectPort">
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon">用户名&ensp;&nbsp;&nbsp;</span>
-          <input type="text" class="form-control" value="root">
+          <input type="text" class="form-control" id="updateConnectUsername">
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon">密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <input type="password" class="form-control" value="123456">
+          <input type="password" class="form-control" id="updateConnectPassword">
         </div>
         <br><br>
-        <button type="button" class="btn btn-info btn-block">保存</button>
+        <button type="button" id="updateSave" class="btn btn-info btn-block">保存</button>
         <br><br>
       </div>
     </div>
@@ -600,12 +428,13 @@
     <div class="modal-content">
       <div class="modal-body" style="text-align: center">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <input type="hidden" id="hideInput" value="">
         <br>
         <h4 class="modal-title"><b>删除连接</b></h4>
         <br>
         <label>删除连接需慎重，确定删除吗？</label>
         <br><br>
-        <button  type="button" class="btn btn-danger btn-block">确定</button>
+        <button  type="button" id="deleteConnect" class="btn btn-danger btn-block">确定</button>
         <br><br>
       </div>
     </div>

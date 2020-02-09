@@ -27,34 +27,38 @@ $(document).ready(function () {
   //为登录按钮添加监听事件
   $("#btLogin").click(function () {
     //读取表单的数据
-    var uname = $("#uname").val()
-    var upwd = $("#upwd").val()
+    var uname = $("#uname").val();
+    var upwd = $("#upwd").val();
     //异步提交数据给后台API
-    $.ajax({
-      type:'post',
-      async:true,
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-      url:basePath+"/user/login",
-      data:{"username":uname,"password":upwd},
-      success:function (data,msg,xhr) {
-        console.log('异步请求登录API成功：', data)
-        if(data.code===200){
-          $('#loginModal').modal('hide')
-          window.location.reload()
-          alert('登录'+data.status+'    欢迎'+data.data+'!')
-        }else {
-          alert(data.data)
+    if(uname===''||upwd===''){
+      alert('用户名和密码不能为空！');
+    }else {
+      $.ajax({
+        type:'post',
+        async:true,
+        xhrFields: {
+          withCredentials: true
+        },
+        crossDomain: true,
+        url:basePath+"/user/login",
+        data:{"username":uname,"password":upwd},
+        success:function (data,msg,xhr) {
+          console.log('异步请求登录API成功：', data);
+          if(data.code===200){
+            $('#loginModal').modal('hide');
+            window.location.reload();
+            alert('登录'+data.status+'    欢迎'+data.data+'!')
+          }else {
+            alert(data.data)
+          }
+        },
+        error: function(xhr, err){
+          console.log('异步请求登录API失败：');
+          console.log(xhr);
+          console.log(err)
         }
-      },
-      error: function(xhr, err){
-        console.log('异步请求登录API失败：')
-        console.log(xhr);
-        console.log(err)
-      }
-    });
+      });
+    }
   });
 
   //为注册按钮添加监听事件
@@ -66,12 +70,13 @@ $(document).ready(function () {
     var email = $("#email").val();
     var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
 
-    if(upwd!==upwd1 || upwd=="" || upwd1==""){
-      alert("密码和再次输入密码为空或不匹配，请重新输入！")
+    if(uname===''||upwd===''){
+      alert('用户名和密码不能为空！');
+    }else if(upwd!==upwd1){
+      alert('密码和再次输入密码不匹配，请重新输入！')
     }else {
       if(!reg.test(email)){
         alert("邮箱格式错误，请重新输入！")
-
       }else {
         $.ajax({
           type:'post',
@@ -81,17 +86,17 @@ $(document).ready(function () {
           url:basePath+"/user/register",
           data:{"username":uname,"password":upwd,"email":email},
           success:function (data,msg,xhr) {
-            console.log('异步请求注册API成功：', data)
+            console.log('异步请求注册API成功：', data);
             if(data.code===200){
-              $('#registerModal').modal('hide')
+              $('#registerModal').modal('hide');
               alert('注册'+data.status+'   '+data.data+'!')
             }else {
               alert(data.data)
             }
           },
           error: function(xhr, err){
-            console.log('异步请求注册API失败：')
-            console.log(xhr)
+            console.log('异步请求注册API失败：');
+            console.log(xhr);
             console.log(err)
           }
         })
@@ -101,8 +106,7 @@ $(document).ready(function () {
 
   //为获取邮箱验证码添加监听事件
   $("#verification").click(function () {
-    var uname = $("#verUserName").val()
-    console.log(uname)
+    var uname = $("#verUserName").val();
     $.ajax({
       type:'post',
       async:true,
@@ -111,7 +115,7 @@ $(document).ready(function () {
       url:basePath+"/user/generateCode",
       data:{"username":uname},
       success:function (data,msg,xhr) {
-        console.log('异步请求生成邮件验证码API成功：', data)
+        console.log('异步请求生成邮件验证码API成功：', data);
         if(data.code===200){
           alert('验证码正在发送至'+data.data+'!')
         }else {
@@ -119,8 +123,8 @@ $(document).ready(function () {
         }
       },
       error: function(xhr, err){
-        console.log('异步请求生成邮件验证码API失败：')
-        console.log(xhr)
+        console.log('异步请求生成邮件验证码API失败：');
+        console.log(xhr);
         console.log(err)
       }
     })
@@ -129,35 +133,41 @@ $(document).ready(function () {
 
   //为忘记密码添加监听事件
   $("#updatePasswordByCode").click(function () {
-    var x = $("#code").val()
-    var y = $("#restPassword").val()
-    var z = $("#restPassword1").val()
-    console.log(x,y,z)
-    if(x==y&&x!==""||y!==""){
-      $.ajax({
-        type:'post',
-        async:false,
-        xhrFields:{withCredentials: true},
-        crossDomain:true,
-        url:basePath+"/user/UpdatePasswordByCode",
-        data:{"code":x,"restPassword":y},
-        success:function (data,msg,xhr) {
-          console.log('异步请求登录API成功：', data)
-          if(data.code===200){
-            $('#forgetPasswordModal').modal('hide')
-            alert(data.data+'!')
-          }else {
-            alert(data.data)
+    var uname = $("#verUserName").val();
+    var code = $("#code").val();
+    var x = $("#restPassword").val();
+    var y = $("#restPassword1").val();
+    if(uname===''){
+      alert('用户名不能为空！');
+    }else if (x === ''){
+      alert('新密码不能为空！');
+    }else {
+      if( x === y ){
+        $.ajax({
+          type:'post',
+          async:false,
+          xhrFields:{withCredentials: true},
+          crossDomain:true,
+          url:basePath+"/user/UpdatePasswordByCode",
+          data:{"code":code,"restPassword":y},
+          success:function (data,msg,xhr) {
+            console.log('异步请求登录API成功：', data);
+            if(data.code===200){
+              $('#forgetPasswordModal').modal('hide');
+              alert(data.data+'!')
+            }else {
+              alert(data.data)
+            }
+          },
+          error: function(xhr, err){
+            console.log('异步请求登录API失败：');
+            console.log(xhr);
+            console.log(err)
           }
-        },
-        error: function(xhr, err){
-          console.log('异步请求登录API失败：')
-          console.log(xhr)
-          console.log(err)
-        }
-      })
-    }else{
-      alert("密码和再次输入密码为空或不匹配，请重新输入！")
+        })
+      }else {
+        alert('新密码和原密码不匹配！')
+      }
     }
   });
 
@@ -219,28 +229,32 @@ $(document).ready(function () {
   $("#updatePassword").click(function () {
     var upwd = $("#oldPassword").val();
     var restpwd = $("#newPassword").val();
-    $.ajax({
-      type:'post',
-      async:true,
-      xhrFields:{withCredentials: true},
-      crossDomain:true,
-      url:basePath+"/user/update",
-      data:{"password":upwd,"restPassword":restpwd},
-      success:function (data,msg,xhr) {
-        console.log('异步请求用户密码修改API成功：', data);
-        if(data.code===200){
-          alert(data.data+'!');
-          $('#updataPasswordModal').modal('hide')
-        }else {
-          alert(data.data)
+    if(upwd===''||restpwd===""){
+      alert('原密码和新密码不能为空！');
+    }else {
+      $.ajax({
+        type:'post',
+        async:true,
+        xhrFields:{withCredentials: true},
+        crossDomain:true,
+        url:basePath+"/user/update",
+        data:{"password":upwd,"restPassword":restpwd},
+        success:function (data,msg,xhr) {
+          console.log('异步请求用户密码修改API成功：', data);
+          if(data.code===200){
+            alert(data.data+'!');
+            $('#updataPasswordModal').modal('hide')
+          }else {
+            alert(data.data)
+          }
+        },
+        error: function(xhr, err){
+          console.log('异步请求用户密码修改API失败：');
+          console.log(xhr);
+          console.log(err)
         }
-      },
-      error: function(xhr, err){
-        console.log('异步请求用户密码修改API失败：');
-        console.log(xhr);
-        console.log(err)
-      }
-    })
+      })
+    }
   });
 
   //刷新页面是判断是否处于登录状态

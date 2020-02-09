@@ -1,3 +1,8 @@
+// 定义服务器的protocol、host, 统一使用basePath作为前缀，不然请求url多了，修改要炸
+var protocol = "http://";
+var host = "www.chenrong.xyz";
+var basePath = protocol + host;
+
 //读取下拉菜单到input中
 $(document).ready(function () {
   $("#character li").click(function () {
@@ -270,7 +275,7 @@ $(document).ready(function () {
       withCredentials: true
     },
     crossDomain: true,
-    url: 'http://www.chenrong.xyz/connectInfo/selectByUserId',
+    url: basePath + "/connectInfo/selectByUserId",
     success: function (result) {
       if(result.code == 200) {
         var arr = result.data;
@@ -294,15 +299,15 @@ $(document).ready(function () {
             "<span class='glyphicon glyphicon-minus'></span>  删除连接" +
             "</button>" +
             // 定义折叠，关联collapse_i折叠内容
-            "<button type='button' class='btn btn-default btn-xs btn-open' data-toggle='collapse' data-parent='#accordion' href='#collapse_" + i + "' style='margin-left: 1%'>" +
+            "<button type='button' class='btn btn-default btn-xs btn-open' data-toggle='collapse' data-parent='#accordion' href='#collapse_" + sub.connectId + "' style='margin-left: 1%'>" +
             "<span id='openAndClose' class='glyphicon glyphicon-th-list'></span>  展开" +
             "</button>" +
             "</p>" +
             // 定义的折叠板
-            "<div id='collapse_" + i + "' class='panel-collapse collapse'>" +
+            "<div id='collapse_" + sub.connectId + "' class='panel-collapse collapse'>" +
             "<div class='panel-body'>" +
             "<ul class='list-group'>" +
-            "<li class='list-group-item'>database1" +
+/*            "<li class='list-group-item'>database1" +
             "<button type='button' class='btn btn-info btn-xs pull-right'>" +
             "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
             "</button>" +
@@ -314,7 +319,7 @@ $(document).ready(function () {
             "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#updateDatabaseModal'>" +
             "<span class='glyphicon glyphicon-pencil'>&nbsp;编辑数据库</span>" +
             "</button>" +
-            "</li>" +
+            "</li>" +*/
             "</ul>" +
             "</div>" +
             "</div>" +
@@ -352,7 +357,7 @@ $(document).ready(function () {
                    withCredentials: true
                   },
                   crossDomain: true,
-                  url: "http://www.chenrong.xyz/connectInfo/insert",
+                  url: basePath + "/connectInfo/insert",
                   data: {"connectName":connectName, "host":connectIP, "port":connectPort, "username":connectUsername, "password":passwd, "isSave":isSave},
                   success: function (result) {
                         if(result.code == 200){
@@ -383,7 +388,7 @@ $(document).ready(function () {
                             "<div id='collapse_" + connectId + "' class='panel-collapse collapse'>" +
                             "<div class='panel-body'>" +
                             "<ul class='list-group'>" +
-                            "<li class='list-group-item'>database1" +
+                           /* "<li class='list-group-item'>database1" +
                             "<button type='button' class='btn btn-info btn-xs pull-right'>" +
                             "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
                             "</button>" +
@@ -395,7 +400,7 @@ $(document).ready(function () {
                             "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#updateDatabaseModal'>" +
                             "<span class='glyphicon glyphicon-pencil'>&nbsp;编辑数据库</span>" +
                             "</button>" +
-                            "</li>" +
+                            "</li>" +*/
                             "</ul>" +
                             "</div>" +
                             "</div>" +
@@ -423,7 +428,7 @@ $(document).ready(function () {
              withCredentials: true
            },
            crossDomain: true,
-           url: "http://www.chenrong.xyz/connectInfo/delete",
+           url: basePath + "/connectInfo/delete",
            data: {"connectId":connectId},
            success: function (result) {
                 if(result.code == 200) {
@@ -464,7 +469,7 @@ $(document).ready(function () {
          withCredentials: true
       },
       crossDomain: true,
-      url: "http://www.chenrong.xyz/connectInfo/update",
+      url: basePath + "/connectInfo/update",
       data: {"connectId":connectId, "connectName":connectName, "host":host, "port":port, "username":username, "password":password, "isSave":isSave},
       success: function (result) {
              if(result.code == 200){
@@ -501,11 +506,79 @@ $(document).ready(function () {
     var father = $(this).parent().parent();
     var connectId = father.attr("data-connectId");
     $("#updateInput").attr("value", connectId);
+    // ajax请求连接的信息，填充到模态框中
+    $.ajax({
+        type: 'get',
+        async: true,
+        xhrFields: {withCredentials:true},
+        crossDomain: true,
+        url: basePath + "/connectInfo/selectByConnectId",
+        data: {"connectId":connectId},
+        success: function (result) {
+              if(result.code == 200){
+                  console.log("查询连接接口成功");
+                  var connectInfo = result.data;
+                  // 填充模态框内容
+                  $("#updateConnectName").attr("value", connectInfo.connectName);
+                  $("#updateConnectIP").attr("value", connectInfo.host);
+                  $("#updateConnectPort").attr("value", connectInfo.port);
+                  $("#updateConnectUsername").attr("value", connectInfo.username);
+                  $("#updateConnectPassword").attr("value", connectInfo.password);
+                  // 填充是否保存
+              }else{
+                  console.log("查询连接接口失败");
+              }
+        },
+        error: function () {
+            console.log("查询连接接口失败");
+        }
+    });
   });
 
   // 定义展开数据库按钮的点击事情
   $(document).on("click", ".btn-open", function () {
+        var connectId = $(this).parents(".panel-heading").attr("data-connectId");
+        // 折叠板 list-group
+        var panel = $(this).parent().next().children().children();
+        // 清空折叠板的内容
+        panel.html("");
         // 请求数据库的查询接口
+        $.ajax({
+            type: 'get',
+            async: true,
+            xhrFields: {withCredentials:true},
+            crossDomain: true,
+            url: basePath + "/database/showDateBase",
+            data: {"connectId":connectId},
+            success: function (result) {
+                   if(result.code == 200){
+                      var arr = result.data;
+                      $(arr).each(function (index, item) {
+                        var collapse =
+                        "<li class='list-group-item'>" + item +
+                        "<button type='button' class='btn btn-info btn-xs pull-right'>" +
+                        "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
+                        "</button>" +
+                        "<a class='pull-right'>&nbsp;&nbsp;</a>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#deleteDatabaseModal'>" +
+                        "<span class='glyphicon glyphicon-minus'>&nbsp;删除数据库</span>" +
+                        "</button>" +
+                        "<a class='pull-right'>&nbsp;&nbsp;</a>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#updateDatabaseModal'>" +
+                        "<span class='glyphicon glyphicon-pencil'>&nbsp;编辑数据库</span>" +
+                        "</button>" +
+                        "</li>";
+                         // 添加内容到折叠板里
+                         panel.append(collapse);
+                      });
+                   }else{
+                      console.log("查询数据库接口失败");
+                   }
+            },
+            error: function () {
+               console.log("查询数据库接口失败");
+            }
+        });
   });
 
 });

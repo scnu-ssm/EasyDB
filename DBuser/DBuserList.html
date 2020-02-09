@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+<!--    <link rel="stylesheet" href="static/bootstrp/css/bootstrap.css">-->
+<!--    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+<!--    <script src="static/bootstrp/js/bootstrap.js"></script>-->
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!--  Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../static/js/DBuser.js"></script>
+    <title>EasyDB</title>
+</head>
+<body>
+<!--  container start -->
+  <div class="container">
+    <!-- header -->
+    <div class="row">
+      <div class="pull-left">
+        <label>欢迎翘毛同学</label>
+        <a href="#">退出</a>
+      </div>
+      <div class="pull-right">
+        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#loginModal">
+          <span>登录</span>
+        </button>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#registerModal">
+          <span>注册</span>
+        </button>
+      </div>
+    </div>
+    <!-- header end -->
+
+    <!-- 导航 start -->
+    <nav class="navbar navbar-default" role="navigation">
+      <!-- 导航居中样式-->
+      <style>
+        .navbar-default .navbar-nav {
+          text-align: center;
+          float: none;
+        }
+
+        .navbar-default .navbar-nav li {
+          display: inline-block;
+          float: none;
+        }
+      </style>
+      <!-- 导航栏内容 -->
+      <div class="container-fluid">
+        <div class="nav navbar-nav">
+          <li><h3>连接xzcLink的用户</h3></li>
+        </div>
+      </div>
+    </nav>
+    <!-- 导航 end -->
+
+
+    <ul class="list-group">
+      <div>
+        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#addDBuserModal">
+          <span class="glyphicon glyphicon-plus"></span> 添加用户
+        </button>
+      </div>
+    </ul>
+
+    <ul class="list-group" id="userUl">
+      <li class="list-group-item">
+        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#editDBuserModal">
+          <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;编辑
+        </button>
+        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#editDBuserModal">
+          <span class="glyphicon glyphicon-ok-circle"></span>&nbsp;&nbsp;权限
+        </button>
+        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#deleteDBuserModal">
+          <span class="glyphicon glyphicon-minus"></span>&nbsp;&nbsp;删除
+        </button>
+        root@localhost
+      </li>
+    </ul>
+<!--  container end-->
+  </div>
+
+<!--删除模态框-->
+<div class="modal fade" id="deleteDBuserModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>删除连接</b></h4>
+        <br>
+        <label>删除连接需慎重，确定删除吗？</label>
+        <br><br>
+        <button  type="button" class="btn btn-warning btn-block" data-dismiss="modal">确定</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--添加模态框-->
+<div class="modal fade" id="addDBuserModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>添加用户</b></h4>
+        <br>
+        <div>
+          <input type="text" class="form-control" placeholder="用户名">
+        </div>
+        <br>
+        <div>
+          <input type="text" class="form-control" placeholder="主机">
+        </div>
+        <br>
+        <div>
+          <input type="password" class="form-control" placeholder="密码">
+        </div>
+        <br>
+        <div>
+          <input type="password" class="form-control" placeholder="再次输入密码">
+        </div>
+        <br>
+        <br><br>
+        <button  type="button" class="btn btn-info btn-block" data-dismiss="modal">添加</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--编辑模态框-->
+<div class="modal fade" id="editDBuserModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>编辑用户</b></h4>
+        <br>
+        <div>
+          <input type="text" class="form-control" placeholder="用户名">
+        </div>
+        <br>
+        <div>
+          <input type="text" class="form-control" placeholder="主机">
+        </div>
+        <br>
+        <div>
+          <input type="password" class="form-control" placeholder="密码">
+        </div>
+        <br>
+        <br><br>
+        <button  type="button" class="btn btn-info btn-block" data-dismiss="modal">确定</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

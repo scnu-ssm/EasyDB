@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <!--    <link rel="stylesheet" href="static/bootstrp/css/bootstrap.css">-->
+  <!--    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+  <!--    <script src="static/bootstrp/js/bootstrap.js"></script>-->
+  <!-- 新 Bootstrap 核心 CSS 文件 -->
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <!--  Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../static/js/designTable.js"></script>
+  <title>EasyDB</title>
+</head>
+<body>
+<!--container start-->
+<div class="container">
+  <!-- header -->
+  <div class="row">
+    <div class="pull-left">
+      <label>欢迎翘毛同学</label>
+      <a href="#">退出</a>
+    </div>
+    <div class="pull-right">
+      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#loginModal">
+        <span>登录</span>
+      </button>
+      &nbsp;&nbsp;
+      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#registerModal">
+        <span>注册</span>
+      </button>
+    </div>
+  </div>
+  <!-- header end -->
+
+  <!-- 导航 start -->
+  <nav class="navbar navbar-default" role="navigation">
+    <!-- 导航居中样式 -->
+    <style>
+      .navbar-default .navbar-nav{
+        text-align: center;
+        float: none;
+      }
+
+      .navbar-default .navbar-nav li{
+        display: inline-block;
+        float: none;
+      }
+    </style>
+    <div class="container-fluid">
+      <!-- <div class="navbar-header">
+        <a class="navbar-brand" href="#">连接</a>
+      </div> -->
+      <div>
+        <!-- Todo js完成清空，插入，删除操作 -->
+        <ul class="nav navbar-nav">
+          <li><a href="#"><span class="glyphicon glyphicon-saved"></span> 保存</a></li>
+          <li><a id="addField"><span class="glyphicon glyphicon-plus"></span> 插入</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- 导航 end -->
+
+  <!-- table start -->
+    <form class="form-inline">
+      <table class="table table-hover" id="myTable">
+        <caption>
+          <label>数据库</label>
+          <input type="text" class="form-control" readonly="readonly"/>
+          <label>表名</label>
+          <input type="text" class="form-control" readonly="readonly"/>
+        </caption>
+        <thead>
+        <tr>
+          <td>名</td>
+          <td>类型</td>
+          <td>长度</td>
+          <td>小数点</td>
+          <td>不是null</td>
+          <td>是主键</td>
+          <th>删除</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <!-- 名 -->
+          <td><input type="text" class="form-control"/></td>
+          <!-- 类型 -->
+          <td>
+            <select class="form-control">
+              <option>bigint</option>
+              <option>bit</option>
+              <option>binary</option>
+              <option>blob</option>
+              <option>char</option>
+              <option>date</option>
+              <option>datetime</option>
+              <option>decimal</option>
+              <option>double</option>
+              <option>enum</option>
+              <option>float</option>
+              <option>geometry</option>
+              <option>geometrycollection</option>
+              <option>int</option>
+              <option>integer</option>
+              <option>json</option>
+              <option>linestring</option>
+              <option>longblob</option>
+              <option>longtext</option>
+              <option>mediumblob</option>
+              <option>mediumint</option>
+              <option>mediumtext</option>
+              <option>multilinestring</option>
+              <option>multipoint</option>
+              <option>multipolygon</option>
+              <option>numeric</option>
+              <option>point</option>
+              <option>polygon</option>
+              <option>real</option>
+              <option>set</option>
+              <option>smallint</option>
+              <option>text</option>
+              <option>time</option>
+              <option>timestamp</option>
+              <option>tinyblob</option>
+              <option>tinyint</option>
+              <option>tinytext</option>
+              <option>varbinary</option>
+              <option>varchar</option>
+              <option>year</option>
+            </select>
+          </td>
+          <!-- 长度 -->
+          <td><input type="text" class="form-control"/></td>
+          <!-- 小数点 -->
+          <td><input type="text" class="form-control"/></td>
+          <!-- 不是null -->
+          <td><input type="checkbox" class="form-control"/></td>
+          <!-- 是主键 -->
+          <td><input type="checkbox" class="form-control" name="primary" id="ckPri"/></td>
+          <!-- 删除-->
+          <td>
+            <button class="form-control btn-danger btn-xs">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </form>
+  <!-- table end -->
+
+<!--container end-->
+</div>
+
+</body>
+</html>

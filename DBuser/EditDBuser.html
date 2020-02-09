@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../static/bootstrp/css/bootstrap.css">
+  <script src="../static/js/vendor/jquery-3.4.1.min.js"></script>
+  <script src="../static/bootstrp/js/bootstrap.js"></script>
+  <script src="../static/js/EditDBuser.js"></script>
+  <title>EasyDB</title>
+</head>
+<body>
+  <div class="container">
+    <!-- header -->
+    <div class="row">
+      <div class="pull-left">
+        <label>欢迎翘毛同学</label>
+        <a href="#">退出</a>
+      </div>
+      <div class="pull-right">
+        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#loginModal">
+          <span>登录</span>
+        </button>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#registerModal">
+          <span>注册</span>
+        </button>
+      </div>
+    </div>
+    <!-- header end -->
+    <!-- 导航 start -->
+    <nav class="navbar navbar-default" role="navigation">
+      <!-- 导航居中样式-->
+      <style>
+        .navbar-default .navbar-nav {
+          text-align: center;
+          float: none;
+        }
+
+        .navbar-default .navbar-nav li {
+          display: inline-block;
+          float: none;
+        }
+      </style>
+      <!-- 导航栏内容 -->
+      <div class="container-fluid">
+        <div class="nav navbar-nav">
+          <li><h3>root@localhost</h3></li>
+        </div>
+      </div>
+    </nav>
+    <!-- 导航 end -->
+
+    <ul class="list-group">
+      <div>
+        <button type="button" class="btn btn-info btn-xs" id="grant">
+          <span class="glyphicon glyphicon-plus"></span> 添加权限
+        </button>
+      </div>
+    </ul>
+
+    <table class="table table-bordered" id="myTable">
+      <thead>
+      <tr>
+        <th>数据库</th>
+        <th>表</th>
+        <th>权限</th>
+        <th>删除</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>test</td>
+        <td>*</td>
+        <td>SELECT,INSERT</td>
+        <td>
+          <button class="btn-danger btn-xs" style="font-size: 10px">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

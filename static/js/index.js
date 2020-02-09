@@ -3,8 +3,9 @@ var protocol = "http://";
 var host = "www.chenrong.xyz";
 var basePath = protocol + host;
 
-//读取下拉菜单到input中
+//taixiong
 $(document).ready(function () {
+  //读取下拉菜单到input中
   $("#character li").click(function () {
     var x = $(this).text();
     $("#characterSet").val(x);
@@ -20,12 +21,10 @@ $(document).ready(function () {
   $("#sortRule1 li").click(function () {
     var y = $(this).text();
     $("#sortRuleSet1").val(y);
-   });
-});
+  });
 
 
-//为登录按钮添加监听事件
-$(document).ready(function () {
+  //为登录按钮添加监听事件
   $("#btLogin").click(function () {
     //读取表单的数据
     var uname = $("#uname").val()
@@ -38,39 +37,33 @@ $(document).ready(function () {
         withCredentials: true
       },
       crossDomain: true,
-      url:'http://www.chenrong.xyz/user/login',
+      url:basePath+"/user/login",
       data:{"username":uname,"password":upwd},
       success:function (data,msg,xhr) {
         console.log('异步请求登录API成功：', data)
         if(data.code===200){
           $('#loginModal').modal('hide')
-          $('#btnLogout').show()
-          $('#btnLogin').hide()
-          $('#btnRegister').hide()
-          $('#btnUserManage').show()
+          window.location.reload()
           alert('登录'+data.status+'    欢迎'+data.data+'!')
-          $('#welcomeText').html('欢迎'+data.data+'!')
         }else {
           alert(data.data)
         }
       },
       error: function(xhr, err){
         console.log('异步请求登录API失败：')
-        console.log(xhr)
+        console.log(xhr);
         console.log(err)
       }
     });
   });
-});
 
-//为注册按钮添加监听事件
-$(document).ready(function () {
+  //为注册按钮添加监听事件
   $("#btRegister").click(function () {
     //读取表单的数据
-    var uname = $("#registerUname").val()
-    var upwd = $("#registerPwd").val()
-    var upwd1 = $("#registerPwd1").val()
-    var email = $("#email").val()
+    var uname = $("#registerUname").val();
+    var upwd = $("#registerPwd").val();
+    var upwd1 = $("#registerPwd1").val();
+    var email = $("#email").val();
     var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
 
     if(upwd!==upwd1 || upwd=="" || upwd1==""){
@@ -85,7 +78,7 @@ $(document).ready(function () {
           async:true,
           xhrFields:{withCredentials: true},
           crossDomain:true,
-          url:'http://www.chenrong.xyz/user/register',
+          url:basePath+"/user/register",
           data:{"username":uname,"password":upwd,"email":email},
           success:function (data,msg,xhr) {
             console.log('异步请求注册API成功：', data)
@@ -104,11 +97,9 @@ $(document).ready(function () {
         })
       }
     }
-  })
-});
+  });
 
-//为获取邮箱验证码添加监听事件
-$(document).ready(function () {
+  //为获取邮箱验证码添加监听事件
   $("#verification").click(function () {
     var uname = $("#verUserName").val()
     console.log(uname)
@@ -117,7 +108,7 @@ $(document).ready(function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/user/generateCode',
+      url:basePath+"/user/generateCode",
       data:{"username":uname},
       success:function (data,msg,xhr) {
         console.log('异步请求生成邮件验证码API成功：', data)
@@ -134,11 +125,9 @@ $(document).ready(function () {
       }
     })
 
-  })
-});
+  });
 
-//为忘记密码添加监听事件
-$(document).ready(function () {
+  //为忘记密码添加监听事件
   $("#updatePasswordByCode").click(function () {
     var x = $("#code").val()
     var y = $("#restPassword").val()
@@ -150,7 +139,7 @@ $(document).ready(function () {
         async:false,
         xhrFields:{withCredentials: true},
         crossDomain:true,
-        url:'http://www.chenrong.xyz/user/UpdatePasswordByCode',
+        url:basePath+"/user/UpdatePasswordByCode",
         data:{"code":x,"restPassword":y},
         success:function (data,msg,xhr) {
           console.log('异步请求登录API成功：', data)
@@ -170,99 +159,117 @@ $(document).ready(function () {
     }else{
       alert("密码和再次输入密码为空或不匹配，请重新输入！")
     }
-  })
-});
+  });
 
-//为退出按钮添加监听事件
-$(document).ready(function () {
+  //为退出按钮添加监听事件
   $("#btnLogoutConfirm").click(function () {
     $.ajax({
       type:'post',
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/user/logout',
+      url:basePath+"/user/logout",
       success:function (data,msg,xhr) {
-        console.log('异步请求注销API成功',data)
+        console.log('异步请求注销API成功',data);
         if(data.code===200){
-          $('#logoutModal').modal('hide')
+          $('#logoutModal').modal('hide');
           window.location.reload()
         }
       },
       error:function (xhr,err) {
-        console.log('异步请求注册API失败：')
-        console.log(xhr)
+        console.log('异步请求注册API失败：');
+        console.log(xhr);
         console.log(err)
       }
     })
-  })
-})
+  });
 
-//点击修改密码按钮隐藏个人中心模态框
-$(document).ready(function () {
+  //点击修改密码按钮隐藏个人中心模态框
   $("#btnUpdatePassword").click(function () {
     $('#userModal').modal('hide')
-  })
-})
+  });
 
-//个人中心的显示页面---待做
-$(document).ready(function () {
+  //个人中心的显示页面
   $("#pensonalCenter").click(function () {
     $.ajax({
       type:'get',
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/user/selectUserByUserId',
+      url:basePath+"/user/selectUserByUserId",
       success:function (data,msg,xhr) {
-        console.log('异步请求查询用户API成功：', data)
+        console.log('异步请求查询用户API成功：', data);
         if(data.code===200){
-          var result = data.data
-
-          var x = result.username
+          var result = data.data;
+          var x = result.username;
           $("#userName").val(x);
-          var y = result.email
+          var y = result.email;
           $("#uesrEmail").val(y);
         }
       },
       error: function(xhr, err){
-        console.log('异步请求查询用户API失败：')
-        console.log(xhr)
+        console.log('异步请求查询用户API失败：');
+        console.log(xhr);
         console.log(err)
       }
     })
-  })
-})
+  });
 
-//为修改密码添加监听事件
-$(document).ready(function () {
+  //为修改密码添加监听事件
   $("#updatePassword").click(function () {
-    var upwd = $("#oldPassword").val()
-    var restpwd = $("#newPassword").val()
+    var upwd = $("#oldPassword").val();
+    var restpwd = $("#newPassword").val();
     $.ajax({
       type:'post',
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:"http://www.chenrong.xyz/user/update",
+      url:basePath+"/user/update",
       data:{"password":upwd,"restPassword":restpwd},
       success:function (data,msg,xhr) {
-        console.log('异步请求用户密码修改API成功：', data)
+        console.log('异步请求用户密码修改API成功：', data);
         if(data.code===200){
-          alert(data.data+'!')
+          alert(data.data+'!');
           $('#updataPasswordModal').modal('hide')
         }else {
           alert(data.data)
         }
       },
       error: function(xhr, err){
-        console.log('异步请求用户密码修改API失败：')
-        console.log(xhr)
+        console.log('异步请求用户密码修改API失败：');
+        console.log(xhr);
         console.log(err)
       }
     })
-  })
-})
+  });
+
+  //刷新页面是判断是否处于登录状态
+  $.ajax({
+    type:'get',
+    async:true,
+    xhrFields:{withCredentials: true},
+    crossDomain:true,
+    url:basePath+"/user/selectUserByUserId",
+    success:function (data,msg,xhr) {
+      console.log('异步请求查询用户API成功：', data);
+      if(data.code===200){
+        $('#btnLogout').show();
+        $('#btnLogin').hide();
+        $('#btnRegister').hide();
+        $('#btnUserManage').show();
+        var result = data.data;
+        $('#welcomeText').html('欢迎'+result.username+'!')
+      }
+    },
+    error: function(xhr, err){
+      console.log('异步请求查询用户API失败：');
+      console.log(xhr);
+      console.log(err)
+    }
+  });
+
+});
+
 
 // ChenRong
 $(document).ready(function () {

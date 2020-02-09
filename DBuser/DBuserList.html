@@ -53,7 +53,7 @@
       <!-- 导航栏内容 -->
       <div class="container-fluid">
         <div class="nav navbar-nav">
-          <li><h3>连接xzcLink的用户</h3></li>
+          <li><h3 id="listHeader"></h3></li>
         </div>
       </div>
     </nav>
@@ -65,6 +65,7 @@
         <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#addDBuserModal">
           <span class="glyphicon glyphicon-plus"></span> 添加用户
         </button>
+        <input type="text" id="connectId" hidden="hidden">
       </div>
     </ul>
 
@@ -95,8 +96,10 @@
         <h4 class="modal-title"><b>删除连接</b></h4>
         <br>
         <label>删除连接需慎重，确定删除吗？</label>
+        <input type="text" id="Dusername" hidden="hidden">
+        <input type="text" id="Dhost" hidden="hidden">
         <br><br>
-        <button  type="button" class="btn btn-warning btn-block" data-dismiss="modal">确定</button>
+        <button  type="button" class="btn btn-info btn-block" data-dismiss="modal" id="btn-del">确定</button>
         <br><br>
       </div>
     </div>
@@ -113,23 +116,23 @@
         <h4 class="modal-title"><b>添加用户</b></h4>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="用户名">
+          <input type="text" class="form-control" placeholder="用户名" id="Ausername">
         </div>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="主机">
+          <input type="text" class="form-control" placeholder="主机" id="Ahost">
         </div>
         <br>
         <div>
-          <input type="password" class="form-control" placeholder="密码">
+          <input type="password" class="form-control" placeholder="密码" id="Apassword">
         </div>
         <br>
         <div>
-          <input type="password" class="form-control" placeholder="再次输入密码">
+          <input type="password" class="form-control" placeholder="再次输入密码" id="Arepwd">
         </div>
         <br>
         <br><br>
-        <button  type="button" class="btn btn-info btn-block" data-dismiss="modal">添加</button>
+        <button  type="button" class="btn btn-info btn-block" data-dismiss="modal" id="Acomfirm">添加</button>
         <br><br>
       </div>
     </div>
@@ -137,32 +140,70 @@
 </div>
 
 <!--编辑模态框-->
-<div class="modal fade" id="editDBuserModal" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+<!--<div class="modal fade" id="editDBuserModal" aria-hidden="true">-->
+<!--  <div class="modal-dialog modal-sm">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-body" style="text-align: center">-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--        <br>-->
+<!--        <h4 class="modal-title"><b>编辑用户</b></h4>-->
+<!--        <br>-->
+<!--        <div>-->
+<!--          <input type="text" class="form-control" id="Eusername" disabled="disabled">-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <div>-->
+<!--          <input type="text" class="form-control" id="Ehost" disabled="disabled">-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <div>-->
+<!--          <input type="password" class="form-control" id="Epwd">-->
+<!--          <input type="text" hidden="hidden" id="Epassword">-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <br><br>-->
+<!--        <button  type="button" class="btn btn-info btn-block" data-dismiss="modal" id="Ebtn">确定</button>-->
+<!--        <br><br>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="modal fade" id="editDBuserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-body" style="text-align: center">
+      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <br>
-        <h4 class="modal-title"><b>编辑用户</b></h4>
-        <br>
-        <div>
-          <input type="text" class="form-control" placeholder="用户名">
-        </div>
-        <br>
-        <div>
-          <input type="text" class="form-control" placeholder="主机">
-        </div>
-        <br>
-        <div>
-          <input type="password" class="form-control" placeholder="密码">
-        </div>
-        <br>
-        <br><br>
-        <button  type="button" class="btn btn-info btn-block" data-dismiss="modal">确定</button>
-        <br><br>
+        <h4 class="modal-title" id="myModalLabel">修改密码</h4>
       </div>
-    </div>
-  </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="Eusername" disabled="disabled">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">主机</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="Ehost" disabled="disabled">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">新密码</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="Epwd">
+              <input type="text" hidden="hidden" id="Epassword">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="Ecomfirm">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
 </div>
 
 

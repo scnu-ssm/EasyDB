@@ -45,21 +45,126 @@
       <!-- 导航栏内容 -->
       <div class="container-fluid">
         <div class="nav navbar-nav">
-          <li><h3>root@localhost</h3></li>
+          <li>
+            <h3 id="h-DBuser">root@localhost</h3>
+          </li>
         </div>
       </div>
     </nav>
     <!-- 导航 end -->
-
-    <ul class="list-group">
-      <div>
-        <button type="button" class="btn btn-info btn-xs" id="grant">
+<!--    删除权限-->
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <button type="button" class="btn btn-info btn-xs" id="del-grant" data-toggle="modal" data-target="#deleteGrantModal">
+          <span class="glyphicon glyphicon-minus"></span> 删除权限
+        </button>
+      </div>
+      <div class="form-group">
+        <label>数据库:</label>
+        <select class="form-control" id="delGrant-db">
+          <option selected="selected"></option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>表:</label>
+        <select class="form-control" id="delGrant-tb">
+          <option selected="selected">*</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>权限</label>
+        <select class="form-control" id="delGrant-sl">
+          <option selected="selected">SELECT</option>
+          <option>INSERT</option>
+          <option>UPDATE</option>
+          <option>DELETE</option>
+          <option>CREATE</option>
+          <option>DROP</option>
+          <option>RELOAD</option>
+          <option>SHUTDOWN</option>
+          <option>PROCESS</option>
+          <option>FILE</option>
+          <option>REFERENCES</option>
+          <option>INDEX</option>
+          <option>ALTER</option>
+          <option>SHOW DATABASES</option>
+          <option>SUPER</option>
+          <option>CREATE TEMPORARY TABLES</option>
+          <option>LOCK TABLES</option>
+          <option>EXECUTE</option>
+          <option>REPLICATION SLAVE</option>
+          <option>REPLICATION CLIENT</option>
+          <option>CREATE VIEW</option>
+          <option>SHOW VIEW</option>
+          <option>CREATE ROUTINE</option>
+          <option>ALTER ROUTINE</option>
+          <option>CREATE USER</option>
+          <option>EVENT</option>
+          <option>TRIGGER</option>
+        </select>
+      </div>
+    </form>
+    <br>
+<!--添加权限-->
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <button type="button" class="btn btn-info btn-xs" id="add-grant" data-toggle="modal" data-target="#addGrantModal">
           <span class="glyphicon glyphicon-plus"></span> 添加权限
         </button>
       </div>
-    </ul>
+      <div class="form-group">
+        <label>数据库:</label>
+        <select class="form-control" id="addGrant-db">
+          <option selected="selected"></option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>表:</label>
+        <select class="form-control" id="addGrant-tb">
+          <option selected="selected">*</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>权限</label>
+        <select class="form-control" id="addGrant-sl">
+          <option selected="selected">SELECT</option>
+          <option>INSERT</option>
+          <option>UPDATE</option>
+          <option>DELETE</option>
+          <option>CREATE</option>
+          <option>DROP</option>
+          <option>RELOAD</option>
+          <option>SHUTDOWN</option>
+          <option>PROCESS</option>
+          <option>FILE</option>
+          <option>REFERENCES</option>
+          <option>INDEX</option>
+          <option>ALTER</option>
+          <option>SHOW DATABASES</option>
+          <option>SUPER</option>
+          <option>CREATE TEMPORARY TABLES</option>
+          <option>LOCK TABLES</option>
+          <option>EXECUTE</option>
+          <option>REPLICATION SLAVE</option>
+          <option>REPLICATION CLIENT</option>
+          <option>CREATE VIEW</option>
+          <option>SHOW VIEW</option>
+          <option>CREATE ROUTINE</option>
+          <option>ALTER ROUTINE</option>
+          <option>CREATE USER</option>
+          <option>EVENT</option>
+          <option>TRIGGER</option>
+        </select>
+      </div>
+    </form>
+    <br>
+
+<!--    隐藏connectId-->
+    <input type="text" id="connectId" hidden="hidden">
+
 
     <table class="table table-bordered" id="myTable">
+      <caption>权限列表</caption>
       <thead>
       <tr>
         <th>数据库</th>
@@ -68,11 +173,11 @@
         <th>删除</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="myTbody">
       <tr>
-        <td>test</td>
-        <td>*</td>
-        <td>SELECT,INSERT</td>
+        <td class="database">test</td>
+        <td class="table">*</td>
+        <td class="grant">SELECT,INSERT</td>
         <td>
           <button class="btn-danger btn-xs" style="font-size: 10px">
             <span class="glyphicon glyphicon-remove"></span>
@@ -81,6 +186,40 @@
       </tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="modal fade" id="deleteGrantModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body" style="text-align: center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <br>
+          <h4 class="modal-title"><b>删除权限</b></h4>
+          <br>
+          <label>删除权限需慎重，确定删除吗？</label>
+          <br><br>
+          <button  type="button" class="btn btn-info btn-block" data-dismiss="modal" id="delComfirm">确定</button>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addGrantModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body" style="text-align: center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <br>
+          <h4 class="modal-title"><b>添加权限</b></h4>
+          <br>
+          <label>确定添加权限吗？</label>
+          <br><br>
+          <button  type="button" class="btn btn-info btn-block" data-dismiss="modal" id="addComfirm">确定</button>
+          <br><br>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>

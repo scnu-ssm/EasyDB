@@ -327,6 +327,20 @@ $(document).ready(function () {
             "</div>"
           $("#accordion").append(connect);
         }
+        //用户按钮下拉列表赋值
+        let usersHtml = ''
+        for(let j in arr){
+          usersHtml += `
+            <li>
+              <a href="DBuser/DBuserList.html" target="_blank" class="toDBuser">
+                ${arr[i].connectName}
+              </a>
+              <input type="text" hidden="hidden" value="${arr[i].connectId}">
+              <input type="text" hidden="hidden" value="${arr[i].connectName}">
+            </li>
+          `
+        }
+        $("#DBuserUl").html(usersHtml)
       }else{
           alert(result.data);
       }
@@ -581,4 +595,13 @@ $(document).ready(function () {
         });
   });
 
+
 });
+
+//跳转到用户页面通过localStorage携带参数connectId
+$(document).on("click",".toDBuser",function () {
+  let connectId = $(this).next().val()
+  let connectName = $(this).next().next().val()
+  localStorage.setItem("connectName",connectName)
+  localStorage.setItem("connectId",connectId)
+})

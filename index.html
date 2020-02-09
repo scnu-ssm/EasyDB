@@ -300,6 +300,7 @@
     <div class="modal-content">
       <div class="modal-body" style="text-align: center">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <input type="hidden" id="createDatabase" value="">
         <br>
         <h4 class="modal-title"><b>新建数据库</b></h4>
         <br>
@@ -313,9 +314,8 @@
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               <span class="caret"></span>
             </button>
-            <ul id="character" class="dropdown-menu pull-right">
-              <li value="utf-8"><a>utf-8</a></li>
-              <li value="gbk"><a>gbk</a></li>
+            <ul id="character" class="dropdown-menu pull-right" style="overflow-y:auto; height: 160px">
+              <!--              <li><a></a></li>-->
             </ul>
           </div>
         </div>
@@ -326,14 +326,13 @@
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               <span class="caret"></span>
             </button>
-            <ul id="sortRule" class="dropdown-menu pull-right">
-              <li><a>utf8_general_ci</a></li>
-              <li><a>utf8_bin</a></li>
+            <ul id="sortRule" class="dropdown-menu pull-right" style="overflow-y:auto; height: 160px">
+              <!--              <li><a></a></li>-->
             </ul>
           </div>
         </div>
         <br><br>
-        <button type="button" class="btn btn-info btn-block">保存</button>
+        <button type="button" class="btn btn-info btn-block" id="createDatabaseSave">保存</button>
         <br><br>
       </div>
     </div>

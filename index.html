@@ -305,7 +305,7 @@
         <h4 class="modal-title"><b>新建数据库</b></h4>
         <br>
         <div>
-          <input type="text" class="form-control" placeholder="数据库名称">
+          <input id="databaseName" type="text" class="form-control" placeholder="数据库名称">
         </div>
         <br>
         <div class="input-group">
@@ -389,43 +389,44 @@
     <div class="modal-content">
       <div class="modal-body" style="text-align: center">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <input id="update-database-input" type="hidden" value="">
         <br>
         <h4 class="modal-title"><b>编辑数据库</b></h4>
         <br>
         <div class="input-group">
           <span class="input-group-addon">数据库名</span>
-          <input type="text" class="form-control">
+          <input id="update-database-name" type="text" class="form-control">
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon">字符集&nbsp;&nbsp;&ensp;</span>
-          <input id="characterSet1" type="text" class="form-control" value="">
+          <input id="update-database-character" type="text" class="form-control" value="">
           <div class="input-group-btn">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               <span class="caret"></span>
             </button>
-            <ul id="character1" class="dropdown-menu pull-right">
-              <li value="utf-8"><a>utf-8</a></li>
-              <li value="gbk"><a>gbk</a></li>
+            <ul id="character-update" class="dropdown-menu pull-right" style="overflow-y:auto; height: 160px">
+<!--              <li value="utf-8"><a>utf-8</a></li>
+              <li value="gbk"><a>gbk</a></li>-->
             </ul>
           </div>
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon">排序规则</span>
-          <input id="sortRuleSet1" type="text" class="form-control" value="">
+          <input id="update-database-sortRule" type="text" class="form-control" value="">
           <div class="input-group-btn">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               <span class="caret"></span>
             </button>
-            <ul id="sortRule1" class="dropdown-menu pull-right">
-              <li><a>utf8_general_ci</a></li>
-              <li><a>utf8_bin</a></li>
+            <ul id="sortRule-update" class="dropdown-menu pull-right" style="overflow-y:auto; height: 160px">
+<!--              <li><a>utf8_general_ci</a></li>
+              <li><a>utf8_bin</a></li>-->
             </ul>
           </div>
         </div>
         <br><br>
-        <button type="button" class="btn btn-info btn-block">保存</button>
+        <button id="update-database-save" type="button" class="btn btn-info btn-block">保存</button>
         <br><br>
       </div>
     </div>
@@ -453,8 +454,9 @@
 </div>
 <!-- 删除连接模态框 end-->
 
+<!-- 删除数据库不用模态框 -->
 <!-- 删除数据库模态框 start-->
-<div class="modal fade" id="deleteDatabaseModal" aria-hidden="true">
+<!--<div class="modal fade" id="deleteDatabaseModal" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body" style="text-align: center">
@@ -469,7 +471,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 <!-- 删除数据库模态框 end-->
 
 <!-- 确认退出模态框 start-->

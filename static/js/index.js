@@ -1,3 +1,25 @@
+//                       .::::.         |-------------|
+//                     .::::::::.       ( I want you! )
+//                    :::::::::::      _|-------------|
+//                 ..:::::::::::'   _-`
+//              '::::::::::::'
+//                .::::::::::
+//           '::::::::::::::..
+//                ..::::::::::::.
+//              ``::::::::::::::::
+//               ::::``:::::::::'        .:::.
+//              ::::'   ':::::'       .::::::::.
+//            .::::'      ::::     .:::::::'::::.
+//           .:::'       :::::  .:::::::::' ':::::.
+//          .::'        :::::.:::::::::'      ':::::.
+//         .::'         ::::::::::::::'         ``::::.
+//     ...:::           ::::::::::::'              ``::.
+//    ````':.          ':::::::::'                  ::::..
+//                       '.:::::'                    ':'````..
+//   ————————————————————————————————————————————————————————————
+//                   女神保佑   代码无BUG
+//
+
 // 定义服务器的protocol、host, 统一使用basePath作为前缀，不然请求url多了，修改要炸
 var protocol = "http://";
 var host = "www.chenrong.xyz";
@@ -529,9 +551,78 @@ $(document).ready(function () {
     $("#updateConnectModal").modal('hide');
   });
 
-  // 新建数据库
+  // 新建数据库保存按钮
   $("#createDatabaseSave").on("click", function () {
+       var connectId = $("#createDatabase").attr("value");
+       var databaseName = $("#databaseName").val();
+       var characterSetDatabase = $("#characterSet").val();
+       var collationDatabase = $("#sortRuleSet").val();
+       $.ajax({
+            type: 'post',
+            async: false,
+            xhrFields: {withCredentials:true},
+            crossDomain: true,
+            url: basePath + "/database/createDateBase",
+            data: {"connectId":connectId, "databaseName":databaseName, "characterSetDatabase":characterSetDatabase, "collationDatabase":collationDatabase},
+            success: function (result) {
+                    if(result.code == 200){
+                         console.log("新建数据库成功");
+                         var collapse =
+                        "<li class='list-group-item' connectId='" + connectId + "'><span>" + databaseName + "</span>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right'>" +
+                        "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
+                        "</button>" +
+                        "<a class='pull-right'>&nbsp;&nbsp;</a>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right delete-database' data-toggle='modal' data-target='#deleteDatabaseModal'>" +
+                        "<span class='glyphicon glyphicon-minus'>&nbsp;删除数据库</span>" +
+                        "</button>" +
+                        "<a class='pull-right'>&nbsp;&nbsp;</a>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right update-database' data-toggle='modal' data-target='#updateDatabaseModal'>" +
+                        "<span class='glyphicon glyphicon-pencil'>&nbsp;编辑数据库</span>" +
+                        "</button>" +
+                        "</li>";
+                         $(".panel-heading").each(function (index, item) {
+                                if($(item).attr("data-connectId") == connectId){
+                                     // 获取对应的ul标签对象
+                                     var listGroup = $(item).children("div").children().children();
+                                     $(listGroup).append(collapse);
+                                }
+                         });
+                    }else{
+                        console.log("新建数据库失败");
+                    }
+            },
+            error: function () {
+                 console.log("新建数据库失败");
+            }
+       });
+       // 模态框关闭
+       $("#newDatabaseModal").modal('hide');
+  });
 
+  // 编辑数据库保存按钮
+  $("#update-database-save").on("click", function () {
+        var connectId = $("#update-database-input").attr("value");
+        var databaseName = $("#update-database-name").val();
+        var characterSetDatabase = $("#update-database-character").val();
+        var collationDatabase = $("#update-database-sortRule").val();
+        // 更新数据库信息
+        $.ajax({
+           type: 'post',
+           async: true,
+           xhrFields: {withCredentials:true},
+           crossDomain: true,
+           url: basePath + "/database/updateDataBase",
+           data: {"connectId":connectId, "databaseName":databaseName, "characterSetDatabase":characterSetDatabase, "collationDatabase":collationDatabase},
+           success: function (result) {
+                console.log(result.data);
+           },
+           error: function () {
+                console.log("更新数据库属性失败")
+           }
+        });
+        // 关闭模态框
+        $("#updateDatabaseModal").modal('hide');
   });
 
   // 定义删除连接按钮的点击事件
@@ -595,16 +686,16 @@ $(document).ready(function () {
                       var arr = result.data;
                       $(arr).each(function (index, item) {
                         var collapse =
-                        "<li class='list-group-item' connectId='" + connectId + "'>" + item +
+                        "<li class='list-group-item' connectId='" + connectId + "'><span>" + item + "</span>" +
                         "<button type='button' class='btn btn-info btn-xs pull-right'>" +
                         "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
                         "</button>" +
                         "<a class='pull-right'>&nbsp;&nbsp;</a>" +
-                        "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#deleteDatabaseModal'>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right delete-database' data-toggle='modal' data-target='#deleteDatabaseModal'>" +
                         "<span class='glyphicon glyphicon-minus'>&nbsp;删除数据库</span>" +
                         "</button>" +
                         "<a class='pull-right'>&nbsp;&nbsp;</a>" +
-                        "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#updateDatabaseModal'>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right update-database' data-toggle='modal' data-target='#updateDatabaseModal'>" +
                         "<span class='glyphicon glyphicon-pencil'>&nbsp;编辑数据库</span>" +
                         "</button>" +
                         "</li>";
@@ -621,7 +712,66 @@ $(document).ready(function () {
         });
   });
 
-  // 新建数据库按钮的监听事件
+  // 编辑数据库按钮的点击事件
+  $(document).on("click", ".update-database", function () {
+          var connectId = $(this).parent().attr("connectid");
+          var databaseName = $(this).parent().children(":first").text();
+          // 将connectId传递给模态框
+          $("#update-database-input").attr("value", connectId);
+
+          // 查询原来数据库的属性
+          $.ajax({
+             type: 'get',
+             async: false,
+             xhrFields: {withCredentials:true},
+             crossDomain: true,
+             cache: false, // 禁止使用缓存
+             url: basePath + "/database/showProperty",
+             data: {"connectId":connectId, "databaseName":databaseName},
+             success: function (result) {
+                    if(result.code == 200){
+                        console.log("查询数据库属性成功");
+                        var json = result.data;
+                        $("#update-database-name").val(json.databaseName);
+                        $("#update-database-character").val(json.characterSetDatabase);
+                        $("#update-database-sortRule").val(json.collationDatabase);
+                    }else{
+                        console.log("查询数据库属性失败");
+                    }
+             },
+             error: function () {
+                   console.log("查询数据库属性失败");
+             }
+          });
+
+         //查询字符集
+         $.ajax({
+           type:'get',
+           async: true,
+           xhrFields: {withCredentials:true},
+           crossDomain: true,
+           url: basePath + "/database/selectCharacterSet",
+           data: {"connectId":connectId},
+           success: function (result) {
+            if(result.code == 200){
+              console.log("查询字符集接口成功");
+              var arr = result.data;
+              $(arr).each(function (index, item) {
+              var li = "<li><a>" + item + "</a></li>";
+              $("#character-update").append(li);
+             });
+            }else{
+              console.log("查询字符集接口失败");
+             }
+            },
+            error: function () {
+            console.log("查询字符集接口失败");
+            }
+        });
+
+  });
+
+  // 新建数据库按钮字符集查询
   $(document).on("click", ".btn-create-database", function () {
        var connectId = $(this).parents(".panel-heading").attr("data-connectId");
        $("#createDatabase").attr("value", connectId);
@@ -629,7 +779,7 @@ $(document).ready(function () {
        //查询字符集
        $.ajax({
           type:'get',
-          async: false,  // 同步请求
+          async: true,
           xhrFields: {withCredentials:true},
           crossDomain: true,
           url: basePath + "/database/selectCharacterSet",
@@ -654,40 +804,124 @@ $(document).ready(function () {
 
   // 为character和sortRule的li添加点击监听事件
   $(document).on("click", "li", function () {
-         var connectId = $("#createDatabase").attr("value");
+         // 新建数据库模块
+         if(($(this).parent().attr("id") == "character") || ($(this).parent().attr("id") == "sortRule")) {
+           var connectId = $("#createDatabase").attr("value");
+           var father = $(this).parent();
+           var characterSet = $(this).children().text();
+           if (father.attr("id") == "character") {
+             // 更新排序规则列表
+             // 先清空ul
+             $("#sortRule").html('');
+             $("#sortRuleSet").val('');
+             $.ajax({
+               type: 'get',
+               async: false,
+               xhrFields: {withCredentials: true},
+               crossDomain: true,
+               url: basePath + "/database/selectCollations",
+               data: {"connectId": connectId, "characterSet": characterSet},
+               success: function (result) {
+                 if (result.code == 200) {
+                   var arr = result.data;
+                   $(arr).each(function (index, item) {
+                     var li = "<li><a>" + item + "</a></li>";
+                     $("#sortRule").append(li);
+                   });
+                 } else {
+                   console.log("查询排序规则失败");
+                 }
+               },
+               error: function () {
+                 console.log("查询排序规则失败");
+               }
+             });
+           }
+           if ((father.attr("id") == "character") || (father.attr("id") == "sortRule")) {
+             father.parent().prev().val(characterSet);
+           }
+         }
+
+         // 编辑数据库模块
+    if(($(this).parent().attr("id") == "character-update") || ($(this).parent().attr("id") == "sortRule-update")) {
+      var connectId = $("#update-database-input").attr("value");
+      var father = $(this).parent();
+      var characterSet = $(this).children().text();
+      if (father.attr("id") == "character-update") {
+        // 更新排序规则列表
+        // 先清空ul
+        $("#sortRule-update").html('');
+        $("#update-database-sortRule").val('');
+        $.ajax({
+          type: 'get',
+          async: false,
+          xhrFields: {withCredentials: true},
+          crossDomain: true,
+          url: basePath + "/database/selectCollations",
+          data: {"connectId": connectId, "characterSet": characterSet},
+          success: function (result) {
+            if (result.code == 200) {
+              var arr = result.data;
+              $(arr).each(function (index, item) {
+                var li = "<li><a>" + item + "</a></li>";
+                $("#sortRule-update").append(li);
+              });
+            } else {
+              console.log("查询排序规则失败");
+            }
+          },
+          error: function () {
+            console.log("查询排序规则失败");
+          }
+        });
+      }
+      if ((father.attr("id") == "character-update") || (father.attr("id") == "sortRule-update")) {
+           father.parent().prev().val(characterSet);
+      }
+    }
+  });
+
+  // 删除数据库按钮添加监听事件
+  $(document).on("click", ".delete-database", function () {
          var father = $(this).parent();
-         var characterSet = $(this).children().text();
-         if(father.attr("id") == "character"){
-               // 更新排序规则列表
-               // 先清空ul
-               $("#sortRule").html('');
-               $("#sortRuleSet").val('');
-               $.ajax({
-                  type: 'get',
-                  async: false,
-                  xhrFields: {withCredentials:true},
-                  crossDomain: true,
-                  url: basePath + "/database/selectCollations",
-                  data: {"connectId":connectId, "characterSet":characterSet},
-                  success: function (result) {
+         var connectId = $(father).attr("connectId");
+         var databaseName = $(father).children(":first").text();
+         $.ajax({
+             type: 'post',
+             async: true,
+             xhrFields: {withCredentials:true},
+             crossDomain: true,
+             url: basePath + "/database/deleteDateBase",
+             data: {"connectId":connectId, "databaseName":databaseName},
+             success: function (result) {
                       if(result.code == 200){
-                         var arr = result.data;
-                         $(arr).each(function (index, item) {
-                           var li = "<li><a>" + item + "</a></li>";
-                           $("#sortRule").append(li);
-                         });
+                          console.log("删除数据库成功");
+                          // 删除对应的li内容
+                          $(father).remove();
                       }else{
-                         console.log("查询排序规则失败");
+                          console.log("删除数据库失败");
                       }
-                  },
-                  error: function () {
-                      console.log("查询排序规则失败");
-                  }
-               });
-         }
-         if((father.attr("id") == "character") || (father.attr("id") == "sortRule")){
-              father.parent().prev().val(characterSet);
-         }
+             },
+             error: function () {
+                  console.log("删除数据库失败");
+             }
+         });
+  });
+
+  // 关闭新建数据库模态框触发的事件
+  $('#newDatabaseModal').on('hidden.bs.modal', function () {
+        console.log("newDatabaseModal模态框关闭了");
+        $("#databaseName").val("");
+        $("#characterSet").val("");
+        $("#sortRuleSet").val("");
+  });
+
+  // 关闭编辑数据库模态框触发的事件
+  $("#updateDatabaseModal").on('hidden.bs.modal', function () {
+        console.log("updateDatabaseModal模态框关闭了");
+        $("#update-database-name").val("");
+        $("#update-database-character").val("");
+        $("#update-database-sortRule").val("");
   });
 
 });

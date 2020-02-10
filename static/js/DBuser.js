@@ -1,6 +1,6 @@
 $(document).ready(function () {
-  let connectId = localStorage.getItem("connectId")
-  let connectName = localStorage.getItem("connectName")
+  let connectId = sessionStorage.getItem("DBconnectId")
+  let connectName = sessionStorage.getItem("DBconnectName")
   $("#listHeader").text(connectName)
   $("#connectId").val(connectId)
   $.ajax({
@@ -164,8 +164,8 @@ $(document).ready(function () {
 $(document).on("click",".mygrant",function () {
   let dbuser = $(this).parent().find("a").text()
   let connectId = $("#connectId").val()
-  localStorage.setItem("connectId",connectId)
-  localStorage.setItem("dbuser",dbuser)
+  sessionStorage.setItem("DBconnectId",connectId)
+  sessionStorage.setItem("dbuser",dbuser)
   window.open("http://www.chenrong.xyz/DBuser/EditDBuser.html")
 })
 /*

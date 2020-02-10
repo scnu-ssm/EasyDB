@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../static/js/showDatabase.js"></script>
+		<title>EasyDB</title>
+
+		<body>
+			<!-- container start -->
+			<div class="container">
+				<!-- header start -->
+				<div class="row">
+					<div class="pull-left list-inline">
+						<label>欢迎陈荣同学！</label>
+						<a href="#">退出</a>
+					</div>
+					<div class="pull-right">
+						<button type="button" class="btn btn-info btn-xs">
+						<span class="glyphicon glyphicon-cog"> 账号管理</span>
+					</button>
+					</div>
+				</div>
+				<!-- header end -->
+
+				<!-- 导航 start -->
+				<nav class="navbar navbar-default" role="navigation">
+					<!-- 导航居中样式 -->
+					<style>
+						.navbar-default .navbar-nav {
+							text-align: center;
+							float: none;
+						}
+
+						.navbar-default .navbar-nav li {
+							display: inline-block;
+							float: none;
+						}
+					</style>
+
+					<div class="container-fluid">
+						<div>
+							<ul class="nav navbar-nav">
+								<li>
+                  <h3 id="DBname">database1</h3>
+                  <input id="connectId" hidden="hidden">
+                </li>
+								<li>
+									<a href="../table/createTable.html" target="_blank" id="newTable"><span class="glyphicon glyphicon-plus"></span> 新建表</a>
+								</li>
+								<li>
+									<a href="showDatabase.html"><span class="glyphicon glyphicon-repeat"></span> 刷新</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<!-- 导航 end -->
+
+				<!--展示数据库所有表-->
+				<div>
+					<ul class="list-group" id="tableUl">
+						<li class="list-group-item">
+              <span>products</span>
+							<button type="button" class="btn btn-info btn-xs pull-right">
+								<span class="glyphicon glyphicon-minus"> 删除</span>
+						    </button>
+						    <a class="pull-right">&nbsp;&nbsp;</a>
+							<button type="button" class="btn btn-info btn-xs pull-right">
+								<span class="glyphicon glyphicon-remove"> 清空</span>
+						    </button>
+						    <a class="pull-right">&nbsp;&nbsp;</a>
+						    <button type="button" class="btn btn-info btn-xs pull-right" onclick="window.open('../table/designTable.html','_blank')">
+								<span class="glyphicon glyphicon-pencil"> 设计</span>
+						    </button>
+						    <a class="pull-right">&nbsp;&nbsp;</a>
+						    <button type="button" class="btn btn-info btn-xs pull-right" onclick="window.open('../table/showTable.html','_blank')">
+								<span class="glyphicon glyphicon-th-large"> 打开</span>
+						    </button>
+						</li>
+					</ul>
+				</div>
+		</body>
+
+</html>

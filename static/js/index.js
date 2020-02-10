@@ -569,7 +569,7 @@ $(document).ready(function () {
                          console.log("新建数据库成功");
                          var collapse =
                         "<li class='list-group-item' connectId='" + connectId + "'><span>" + databaseName + "</span>" +
-                        "<button type='button' class='btn btn-info btn-xs pull-right'>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right' name='openDB'>" +
                         "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
                         "</button>" +
                         "<a class='pull-right'>&nbsp;&nbsp;</a>" +
@@ -687,7 +687,7 @@ $(document).ready(function () {
                       $(arr).each(function (index, item) {
                         var collapse =
                         "<li class='list-group-item' connectId='" + connectId + "'><span>" + item + "</span>" +
-                        "<button type='button' class='btn btn-info btn-xs pull-right'>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right' name='openDB'>" +
                         "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
                         "</button>" +
                         "<a class='pull-right'>&nbsp;&nbsp;</a>" +
@@ -926,10 +926,23 @@ $(document).ready(function () {
 
 });
 
-//跳转到用户页面通过localStorage携带参数connectId
+//跳转到用户页面通过sessionStorage携带参数connectId
 $(document).on("click",".toDBuser",function () {
   let connectId = $(this).next().val()
   let connectName = $(this).next().next().val()
-  localStorage.setItem("connectName",connectName)
-  localStorage.setItem("connectId",connectId)
+  sessionStorage.setItem("DBconnectName",connectName)
+  sessionStorage.setItem("DBconnectId",connectId)
+})
+
+//点击连接列表打开按钮跳转到showDatabase.html
+$(document).on("click","button[name$='openDB']",function () {
+
+  let li = $(this).parent()
+  let connectId = li.attr("connectid")
+  let database = li.children(":first").text()
+  sessionStorage.setItem("connectId",connectId)
+  sessionStorage.setItem("database",database)
+  //TODO:发布前修改url
+  window.open("database/showDatabase.html","_blank")
+  // window.open("http://www.chenrong.xyz/database/showDatabase.html","_blank")
 })

@@ -58,7 +58,7 @@
         <!-- Todo js完成清空，插入，删除操作 -->
         <ul class="nav navbar-nav">
           <li><a href="#"><span class="glyphicon glyphicon-saved"></span> 保存</a></li>
-          <li><a id="addField"><span class="glyphicon glyphicon-plus"></span> 插入</a></li>
+          <li><a href="#" id="addField"><span class="glyphicon glyphicon-plus"></span> 插入</a></li>
         </ul>
       </div>
     </div>
@@ -155,6 +155,32 @@
   </form>
   <!-- table end -->
 
+  <!--Foreign Key table-->
+  <form class="form-inline">
+    <table class="table table-hover" id="myTable">
+      <caption>
+        <label>数据库</label>
+        <input type="text" class="form-control" readonly="readonly"/>
+        <label>表名</label>
+        <input type="text" class="form-control"/>
+      </caption>
+      <thead>
+      <tr>
+        <td>名</td>
+        <td>字段</td>
+        <td>参考模式</td>
+        <td>参考表</td>
+        <td>参考字段</td>
+        <td>删除时</td>
+        <td>更新时</td>
+        <th>删除</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </form>
   <!--container end-->
 </div>
 

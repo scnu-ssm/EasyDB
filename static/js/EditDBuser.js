@@ -1,7 +1,7 @@
 //初始化页面
 $(document).ready(function () {
-  let connectId = localStorage.getItem("connectId")
-  let dbuser = localStorage.getItem("dbuser")
+  let connectId = sessionStorage.getItem("DBconnectId")
+  let dbuser = sessionStorage.getItem("dbuser")
   $("#connectId").val(connectId)
   $("#h-DBuser").text(dbuser)
   let arr = dbuser.split("@")

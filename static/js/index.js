@@ -886,26 +886,47 @@ $(document).ready(function () {
          var father = $(this).parent();
          var connectId = $(father).attr("connectId");
          var databaseName = $(father).children(":first").text();
-         $.ajax({
-             type: 'post',
-             async: true,
-             xhrFields: {withCredentials:true},
-             crossDomain: true,
-             url: basePath + "/database/deleteDateBase",
-             data: {"connectId":connectId, "databaseName":databaseName},
-             success: function (result) {
-                      if(result.code == 200){
-                          console.log("删除数据库成功");
-                          // 删除对应的li内容
-                          $(father).remove();
-                      }else{
-                          console.log("删除数据库失败");
-                      }
-             },
-             error: function () {
-                  console.log("删除数据库失败");
-             }
-         });
+         $("#delete-database-connectId").attr("value", connectId);
+         $("#delete-database-name").attr("value", databaseName);
+         // 按钮未被点击
+         $("#delete-database-confirm").attr("isClick", "false");
+  });
+
+  var jqObj;  // 全局变量，谨慎使用该变量，唯一识别打开模态框的事件
+  // 打开删除数据库模态框触发的事件
+  $("#deleteDatabaseModal").on('shown.bs.modal', function (event) {
+    jqObj = $(event.relatedTarget);
+  });
+
+  // 模态框   确认删除数据库按钮的监听事件
+  $("#delete-database-confirm").on("click", function () {
+         var connectId = $("#delete-database-connectId").attr("value");
+         var databaseName = $("#delete-database-name").attr("value");
+
+    $.ajax({
+      type: 'post',
+      async: true,
+      xhrFields: {withCredentials:true},
+      crossDomain: true,
+      url: basePath + "/database/deleteDateBase",
+      data: {"connectId":connectId, "databaseName":databaseName},
+      success: function (result) {
+        if(result.code == 200){
+          console.log("删除数据库成功");
+          // 模态框的按钮确认被点击
+          $("#delete-database-confirm").attr("isClick", "true");
+        }else{
+          console.log("删除数据库失败");
+        }
+      },
+      error: function () {
+        console.log("删除数据库失败");
+      }
+    });
+        // 删除对应的li
+        $(jqObj).parent().remove();
+        // 关闭模态框
+        $("#deleteDatabaseModal").modal('hide');
   });
 
   // 关闭新建数据库模态框触发的事件

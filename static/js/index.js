@@ -570,7 +570,7 @@ $(document).ready(function () {
                       $(arr).each(function (index, item) {
                         var collapse =
                         "<li class='list-group-item'>" + item +
-                        "<button type='button' class='btn btn-info btn-xs pull-right'>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right' name='openDB'>" +
                         "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
                         "</button>" +
                         "<a class='pull-right'>&nbsp;&nbsp;</a>" +
@@ -605,3 +605,11 @@ $(document).on("click",".toDBuser",function () {
   localStorage.setItem("connectName",connectName)
   localStorage.setItem("connectId",connectId)
 })
+
+//打开按钮，跳转到showDatabase.html
+$(document).on("click","button[name$='openDB']",function () {
+  let father = $(this).parent().parent();
+  let connectId = father.attr("data-connectId");
+  alert(connectId)
+})
+

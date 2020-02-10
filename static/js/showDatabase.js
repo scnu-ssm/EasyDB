@@ -104,7 +104,11 @@ $(document).on("click","button[name$='btn-clean']",function () {
 
 //新建表
 $(document).on("click","#newTable",function () {
-  alert("新建表")
+  let connectId = $("#connectId").val()
+  let database = $("#DBname").text()
+  //使用url传递参数
+  let url = '../table/createTable.html?con='+connectId+'&db='+database
+  window.open(url,'_blank')
 })
 
 //设计表

@@ -57,22 +57,21 @@
       <div>
         <!-- Todo js完成清空，插入，删除操作 -->
         <ul class="nav navbar-nav">
-          <li><a href="#"><span class="glyphicon glyphicon-saved"></span> 保存</a></li>
-          <li><a href="#" id="addField"><span class="glyphicon glyphicon-plus"></span> 插入</a></li>
+          <li><a href="#" id="save"><span class="glyphicon glyphicon-saved"></span> 保存</a></li>
+          <li><a href="#" id="addField"><span class="glyphicon glyphicon-plus"></span> 插入字段</a></li>
         </ul>
       </div>
     </div>
   </nav>
   <!-- 导航 end -->
-
+  <input id="connectId" hidden="hidden">
   <!-- table start -->
-  <form class="form-inline">
     <table class="table table-hover" id="myTable">
       <caption>
         <label>数据库</label>
-        <input type="text" class="form-control" readonly="readonly"/>
+        <input type="text" id="database" readonly="readonly"/>
         <label>表名</label>
-        <input type="text" class="form-control"/>
+        <input type="text" id="table"/>
       </caption>
       <thead>
       <tr>
@@ -85,13 +84,13 @@
         <th>删除</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="fieldTable">
       <tr>
         <!-- 名 -->
-        <td><input type="text" class="form-control"/></td>
+        <td><input type="text" /></td>
         <!-- 类型 -->
         <td>
-          <select class="form-control">
+          <select>
             <option>bigint</option>
             <option>bit</option>
             <option>binary</option>
@@ -105,7 +104,7 @@
             <option>float</option>
             <option>geometry</option>
             <option>geometrycollection</option>
-            <option>int</option>
+            <option selected="selected">int</option>
             <option>integer</option>
             <option>json</option>
             <option>linestring</option>
@@ -135,16 +134,16 @@
           </select>
         </td>
         <!-- 长度 -->
-        <td><input type="text" class="form-control"/></td>
+        <td><input type="number"/></td>
         <!-- 小数点 -->
-        <td><input type="text" class="form-control"/></td>
+        <td><input type="number" value="0"/></td>
         <!-- 不是null -->
-        <td><input type="checkbox" class="form-control"/></td>
+        <td><input type="checkbox"/></td>
         <!-- 是主键 -->
-        <td><input type="checkbox" class="form-control" name="primary" id="ckPri"/></td>
+        <td><input type="checkbox" name="primary"/></td>
         <!-- 删除-->
         <td>
-          <button class="form-control btn-danger btn-xs">
+          <button class="btn-danger btn-xs" name="fieldDel">
             <span class="glyphicon glyphicon-remove"></span>
           </button>
         </td>
@@ -152,17 +151,17 @@
 
       </tbody>
     </table>
-  </form>
+  <br>
+  <hr>
   <!-- table end -->
 
   <!--Foreign Key table-->
-  <form class="form-inline">
-    <table class="table table-hover" id="myTable">
+    <table class="table table-hover">
       <caption>
-        <label>数据库</label>
-        <input type="text" class="form-control" readonly="readonly"/>
-        <label>表名</label>
-        <input type="text" class="form-control"/>
+        <button class="btn-xs btn-info" id="addFK">
+          <span class="glyphicon glyphicon-plus">添加外键</span>
+        </button>
+        <label>创建外键，字段类型与参考字段的类型须一致</label>
       </caption>
       <thead>
       <tr>
@@ -176,11 +175,49 @@
         <th>删除</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="fkTable">
+<!--        <tr>-->
+<!--          <td><input type="text" class="form-control"></td>-->
+<!--          <td><input type="text" class="form-control"></td>-->
+<!--          <td>-->
+<!--            <select class="form-control">-->
 
+<!--            </select>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <select class="form-control">-->
+
+<!--            </select>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <select class="form-control">-->
+
+<!--            </select>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <select class="form-control">-->
+<!--              <option selected="selected">NO ACTION</option>-->
+<!--              <option>CASCADE</option>-->
+<!--              <option>RESTRICT</option>-->
+<!--              <option>SET NULL</option>-->
+<!--            </select>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <select class="form-control">-->
+<!--              <option selected="selected">NO ACTION</option>-->
+<!--              <option>CASCADE</option>-->
+<!--              <option>RESTRICT</option>-->
+<!--              <option>SET NULL</option>-->
+<!--            </select>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <button class="form-control btn-danger btn-xs">-->
+<!--              <span class="glyphicon glyphicon-remove"></span>-->
+<!--            </button>-->
+<!--          </td>-->
+<!--        </tr>-->
       </tbody>
     </table>
-  </form>
   <!--container end-->
 </div>
 

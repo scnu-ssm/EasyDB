@@ -113,7 +113,7 @@ $(document).ready(function () {
       data: {"connectId":connectId,"username":username,"host":host,"pwd":pwd,"repwd":repwd},
       success:function (data) {
         alert(data.data)
-        window.location.href="http://localhost:63342/EasyDB/DBuser/DBuserList.html"
+        window.location.href="http://www.chenrong.xyz/DBuser/DBuserList.html"
       },
       error: function(xhr, err){
         console.log('异步请求登录API失败：')
@@ -149,7 +149,7 @@ $(document).ready(function () {
       data: {"connectId":connectId,"username":username,"host":host},
       success:function (data) {
         alert(data.data)
-        window.location.href="http://localhost:63342/EasyDB/DBuser/DBuserList.html"
+        window.location.href="http://www.chenrong.xyz/DBuser/DBuserList.html"
       },
       error: function(xhr, err){
         console.log('异步请求登录API失败：')
@@ -166,7 +166,7 @@ $(document).on("click",".mygrant",function () {
   let connectId = $("#connectId").val()
   localStorage.setItem("connectId",connectId)
   localStorage.setItem("dbuser",dbuser)
-  window.open("http://localhost:63342/EasyDB/DBuser/EditDBuser.html")
+  window.open("http://www.chenrong.xyz/DBuser/EditDBuser.html")
 })
 /*
   $.ajax({

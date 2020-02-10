@@ -1,10 +1,33 @@
+//                       .::::.         |-------------|
+//                     .::::::::.       ( I want you! )
+//                    :::::::::::      _|-------------|
+//                 ..:::::::::::'   _-`
+//              '::::::::::::'
+//                .::::::::::
+//           '::::::::::::::..
+//                ..::::::::::::.
+//              ``::::::::::::::::
+//               ::::``:::::::::'        .:::.
+//              ::::'   ':::::'       .::::::::.
+//            .::::'      ::::     .:::::::'::::.
+//           .:::'       :::::  .:::::::::' ':::::.
+//          .::'        :::::.:::::::::'      ':::::.
+//         .::'         ::::::::::::::'         ``::::.
+//     ...:::           ::::::::::::'              ``::.
+//    ````':.          ':::::::::'                  ::::..
+//                       '.:::::'                    ':'````..
+//   ————————————————————————————————————————————————————————————
+//                   女神保佑   代码无BUG
+//
+
 // 定义服务器的protocol、host, 统一使用basePath作为前缀，不然请求url多了，修改要炸
 var protocol = "http://";
 var host = "www.chenrong.xyz";
 var basePath = protocol + host;
 
-//读取下拉菜单到input中
+//taixiong
 $(document).ready(function () {
+  //读取下拉菜单到input中
   $("#character li").click(function () {
     var x = $(this).text();
     $("#characterSet").val(x);
@@ -20,107 +43,101 @@ $(document).ready(function () {
   $("#sortRule1 li").click(function () {
     var y = $(this).text();
     $("#sortRuleSet1").val(y);
-   });
-});
+  });
 
 
-//为登录按钮添加监听事件
-$(document).ready(function () {
+  //为登录按钮添加监听事件
   $("#btLogin").click(function () {
     //读取表单的数据
-    var uname = $("#uname").val()
-    var upwd = $("#upwd").val()
+    var uname = $("#uname").val();
+    var upwd = $("#upwd").val();
     //异步提交数据给后台API
-    $.ajax({
-      type:'post',
-      async:true,
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-      url:'http://www.chenrong.xyz/user/login',
-      data:{"username":uname,"password":upwd},
-      success:function (data,msg,xhr) {
-        console.log('异步请求登录API成功：', data)
-        if(data.code===200){
-          $('#loginModal').modal('hide')
-          $('#btnLogout').show()
-          $('#btnLogin').hide()
-          $('#btnRegister').hide()
-          $('#btnUserManage').show()
-          alert('登录'+data.status+'    欢迎'+data.data+'!')
-          $('#welcomeText').html('欢迎'+data.data+'!')
-        }else {
-          alert(data.data)
+    if(uname===''||upwd===''){
+      alert('用户名和密码不能为空！');
+    }else {
+      $.ajax({
+        type:'post',
+        async:true,
+        xhrFields: {
+          withCredentials: true
+        },
+        crossDomain: true,
+        url:basePath+"/user/login",
+        data:{"username":uname,"password":upwd},
+        success:function (data,msg,xhr) {
+          console.log('异步请求登录API成功：', data);
+          if(data.code===200){
+            $('#loginModal').modal('hide');
+            window.location.reload();
+            alert('登录'+data.status+'    欢迎'+data.data+'!')
+          }else {
+            alert(data.data)
+          }
+        },
+        error: function(xhr, err){
+          console.log('异步请求登录API失败：');
+          console.log(xhr);
+          console.log(err)
         }
-      },
-      error: function(xhr, err){
-        console.log('异步请求登录API失败：')
-        console.log(xhr)
-        console.log(err)
-      }
-    });
+      });
+    }
   });
-});
 
-//为注册按钮添加监听事件
-$(document).ready(function () {
+  //为注册按钮添加监听事件
   $("#btRegister").click(function () {
     //读取表单的数据
-    var uname = $("#registerUname").val()
-    var upwd = $("#registerPwd").val()
-    var upwd1 = $("#registerPwd1").val()
-    var email = $("#email").val()
+    var uname = $("#registerUname").val();
+    var upwd = $("#registerPwd").val();
+    var upwd1 = $("#registerPwd1").val();
+    var email = $("#email").val();
     var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
 
-    if(upwd!==upwd1 || upwd=="" || upwd1==""){
-      alert("密码和再次输入密码为空或不匹配，请重新输入！")
+    if(uname===''||upwd===''){
+      alert('用户名和密码不能为空！');
+    }else if(upwd!==upwd1){
+      alert('密码和再次输入密码不匹配，请重新输入！')
     }else {
       if(!reg.test(email)){
         alert("邮箱格式错误，请重新输入！")
-
       }else {
         $.ajax({
           type:'post',
           async:true,
           xhrFields:{withCredentials: true},
           crossDomain:true,
-          url:'http://www.chenrong.xyz/user/register',
+          url:basePath+"/user/register",
           data:{"username":uname,"password":upwd,"email":email},
           success:function (data,msg,xhr) {
-            console.log('异步请求注册API成功：', data)
+            console.log('异步请求注册API成功：', data);
             if(data.code===200){
-              $('#registerModal').modal('hide')
+              $('#registerModal').modal('hide');
               alert('注册'+data.status+'   '+data.data+'!')
             }else {
               alert(data.data)
             }
           },
           error: function(xhr, err){
-            console.log('异步请求注册API失败：')
-            console.log(xhr)
+            console.log('异步请求注册API失败：');
+            console.log(xhr);
             console.log(err)
           }
         })
       }
     }
-  })
-});
+  });
 
-//为获取邮箱验证码添加监听事件
-$(document).ready(function () {
+  //为获取邮箱验证码添加监听事件
   $("#verification").click(function () {
-    var uname = $("#verUserName").val()
-    console.log(uname)
+    var uname = $("#verUserName").val();
     $.ajax({
       type:'post',
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/user/generateCode',
+      url:basePath+"/user/generateCode",
       data:{"username":uname},
       success:function (data,msg,xhr) {
-        console.log('异步请求生成邮件验证码API成功：', data)
+        console.log('异步请求生成邮件验证码API成功：', data);
         if(data.code===200){
           alert('验证码正在发送至'+data.data+'!')
         }else {
@@ -128,141 +145,167 @@ $(document).ready(function () {
         }
       },
       error: function(xhr, err){
-        console.log('异步请求生成邮件验证码API失败：')
-        console.log(xhr)
+        console.log('异步请求生成邮件验证码API失败：');
+        console.log(xhr);
         console.log(err)
       }
     })
 
-  })
-});
+  });
 
-//为忘记密码添加监听事件
-$(document).ready(function () {
+  //为忘记密码添加监听事件
   $("#updatePasswordByCode").click(function () {
-    var x = $("#code").val()
-    var y = $("#restPassword").val()
-    var z = $("#restPassword1").val()
-    console.log(x,y,z)
-    if(x==y&&x!==""||y!==""){
-      $.ajax({
-        type:'post',
-        async:false,
-        xhrFields:{withCredentials: true},
-        crossDomain:true,
-        url:'http://www.chenrong.xyz/user/UpdatePasswordByCode',
-        data:{"code":x,"restPassword":y},
-        success:function (data,msg,xhr) {
-          console.log('异步请求登录API成功：', data)
-          if(data.code===200){
-            $('#forgetPasswordModal').modal('hide')
-            alert(data.data+'!')
-          }else {
-            alert(data.data)
+    var uname = $("#verUserName").val();
+    var code = $("#code").val();
+    var x = $("#restPassword").val();
+    var y = $("#restPassword1").val();
+    if(uname===''){
+      alert('用户名不能为空！');
+    }else if (x === ''){
+      alert('新密码不能为空！');
+    }else {
+      if( x === y ){
+        $.ajax({
+          type:'post',
+          async:false,
+          xhrFields:{withCredentials: true},
+          crossDomain:true,
+          url:basePath+"/user/UpdatePasswordByCode",
+          data:{"code":code,"restPassword":y},
+          success:function (data,msg,xhr) {
+            console.log('异步请求登录API成功：', data);
+            if(data.code===200){
+              $('#forgetPasswordModal').modal('hide');
+              alert(data.data+'!')
+            }else {
+              alert(data.data)
+            }
+          },
+          error: function(xhr, err){
+            console.log('异步请求登录API失败：');
+            console.log(xhr);
+            console.log(err)
           }
-        },
-        error: function(xhr, err){
-          console.log('异步请求登录API失败：')
-          console.log(xhr)
-          console.log(err)
-        }
-      })
-    }else{
-      alert("密码和再次输入密码为空或不匹配，请重新输入！")
+        })
+      }else {
+        alert('新密码和原密码不匹配！')
+      }
     }
-  })
-});
+  });
 
-//为退出按钮添加监听事件
-$(document).ready(function () {
+  //为退出按钮添加监听事件
   $("#btnLogoutConfirm").click(function () {
     $.ajax({
       type:'post',
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/user/logout',
+      url:basePath+"/user/logout",
       success:function (data,msg,xhr) {
-        console.log('异步请求注销API成功',data)
+        console.log('异步请求注销API成功',data);
         if(data.code===200){
-          $('#logoutModal').modal('hide')
+          $('#logoutModal').modal('hide');
           window.location.reload()
         }
       },
       error:function (xhr,err) {
-        console.log('异步请求注册API失败：')
-        console.log(xhr)
+        console.log('异步请求注册API失败：');
+        console.log(xhr);
         console.log(err)
       }
     })
-  })
-})
+  });
 
-//点击修改密码按钮隐藏个人中心模态框
-$(document).ready(function () {
+  //点击修改密码按钮隐藏个人中心模态框
   $("#btnUpdatePassword").click(function () {
     $('#userModal').modal('hide')
-  })
-})
+  });
 
-//个人中心的显示页面---待做
-$(document).ready(function () {
+  //个人中心的显示页面
   $("#pensonalCenter").click(function () {
     $.ajax({
       type:'get',
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/user/selectUserByUserId',
+      url:basePath+"/user/selectUserByUserId",
       success:function (data,msg,xhr) {
-        console.log('异步请求查询用户API成功：', data)
+        console.log('异步请求查询用户API成功：', data);
         if(data.code===200){
-          var result = data.data
-
-          var x = result.username
+          var result = data.data;
+          var x = result.username;
           $("#userName").val(x);
-          var y = result.email
+          var y = result.email;
           $("#uesrEmail").val(y);
         }
       },
       error: function(xhr, err){
-        console.log('异步请求查询用户API失败：')
-        console.log(xhr)
+        console.log('异步请求查询用户API失败：');
+        console.log(xhr);
         console.log(err)
       }
     })
-  })
-})
+  });
 
-//为修改密码添加监听事件
-$(document).ready(function () {
+  //为修改密码添加监听事件
   $("#updatePassword").click(function () {
-    var upwd = $("#oldPassword").val()
-    var restpwd = $("#newPassword").val()
-    $.ajax({
-      type:'post',
-      async:true,
-      xhrFields:{withCredentials: true},
-      crossDomain:true,
-      url:"http://www.chenrong.xyz/user/update",
-      data:{"password":upwd,"restPassword":restpwd},
-      success:function (data,msg,xhr) {
-        console.log('异步请求用户密码修改API成功：', data)
-        if(data.code===200){
-          alert(data.data+'!')
-          $('#updataPasswordModal').modal('hide')
-        }else {
-          alert(data.data)
+    var upwd = $("#oldPassword").val();
+    var restpwd = $("#newPassword").val();
+    if(upwd===''||restpwd===""){
+      alert('原密码和新密码不能为空！');
+    }else {
+      $.ajax({
+        type:'post',
+        async:true,
+        xhrFields:{withCredentials: true},
+        crossDomain:true,
+        url:basePath+"/user/update",
+        data:{"password":upwd,"restPassword":restpwd},
+        success:function (data,msg,xhr) {
+          console.log('异步请求用户密码修改API成功：', data);
+          if(data.code===200){
+            alert(data.data+'!');
+            $('#updataPasswordModal').modal('hide')
+          }else {
+            alert(data.data)
+          }
+        },
+        error: function(xhr, err){
+          console.log('异步请求用户密码修改API失败：');
+          console.log(xhr);
+          console.log(err)
         }
-      },
-      error: function(xhr, err){
-        console.log('异步请求用户密码修改API失败：')
-        console.log(xhr)
-        console.log(err)
+      })
+    }
+  });
+
+  //刷新页面是判断是否处于登录状态
+  $.ajax({
+    type:'get',
+    async:true,
+    xhrFields:{withCredentials: true},
+    crossDomain:true,
+    url:basePath+"/user/selectUserByUserId",
+    success:function (data,msg,xhr) {
+      console.log('异步请求查询用户API成功：', data);
+      if(data.code===200){
+        $('#btnLogout').show();
+        $('#btnLogin').hide();
+        $('#btnRegister').hide();
+        $('#btnUserManage').show();
+        var result = data.data;
+        $('#welcomeText').html('欢迎'+result.username+'!')
       }
-    })
-  })
-})
+    },
+    error: function(xhr, err){
+      console.log('异步请求查询用户API失败：');
+      console.log(xhr);
+      console.log(err)
+    }
+  });
+
+});
+
 
 // ChenRong
 $(document).ready(function () {
@@ -270,7 +313,7 @@ $(document).ready(function () {
   // 访问首页默认ajax请求连接的查询接口,刷新页面时也会访问
   $.ajax({
     type: 'get',
-    async: true,
+    async: false,
     xhrFields: {
       withCredentials: true
     },
@@ -289,7 +332,7 @@ $(document).ready(function () {
             sub.connectName +
             "</h4>" +
             "<p>" +
-            "<button type='button' class='btn btn-default btn-xs' data-toggle='modal' data-target='#newDatabaseModal'>" +
+            "<button type='button' class='btn btn-default btn-xs btn-create-database' data-toggle='modal' data-target='#newDatabaseModal'>" +
             "<span class='glyphicon glyphicon-plus'></span>  新建数据库" +
             "</button>" +
             "<button type='button' class='btn btn-default btn-xs btn-update' data-toggle='modal' data-target='#updateConnectModal' style='margin-left: 1%'>" +
@@ -384,7 +427,7 @@ $(document).ready(function () {
                             connectName +
                             "</h4>" +
                             "<p>" +
-                            "<button type='button' class='btn btn-default btn-xs' data-toggle='modal' data-target='#newDatabaseModal'>" +
+                            "<button type='button' class='btn btn-default btn-xs btn-create-database' data-toggle='modal' data-target='#newDatabaseModal'>" +
                             "<span class='glyphicon glyphicon-plus'></span>  新建数据库" +
                             "</button>" +
                             "<button type='button' class='btn btn-default btn-xs btn-update' data-toggle='modal' data-target='#updateConnectModal' style='margin-left: 1%'>" +
@@ -508,6 +551,80 @@ $(document).ready(function () {
     $("#updateConnectModal").modal('hide');
   });
 
+  // 新建数据库保存按钮
+  $("#createDatabaseSave").on("click", function () {
+       var connectId = $("#createDatabase").attr("value");
+       var databaseName = $("#databaseName").val();
+       var characterSetDatabase = $("#characterSet").val();
+       var collationDatabase = $("#sortRuleSet").val();
+       $.ajax({
+            type: 'post',
+            async: false,
+            xhrFields: {withCredentials:true},
+            crossDomain: true,
+            url: basePath + "/database/createDateBase",
+            data: {"connectId":connectId, "databaseName":databaseName, "characterSetDatabase":characterSetDatabase, "collationDatabase":collationDatabase},
+            success: function (result) {
+                    if(result.code == 200){
+                         console.log("新建数据库成功");
+                         var collapse =
+                        "<li class='list-group-item' connectId='" + connectId + "'><span>" + databaseName + "</span>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right'>" +
+                        "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
+                        "</button>" +
+                        "<a class='pull-right'>&nbsp;&nbsp;</a>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right delete-database' data-toggle='modal' data-target='#deleteDatabaseModal'>" +
+                        "<span class='glyphicon glyphicon-minus'>&nbsp;删除数据库</span>" +
+                        "</button>" +
+                        "<a class='pull-right'>&nbsp;&nbsp;</a>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right update-database' data-toggle='modal' data-target='#updateDatabaseModal'>" +
+                        "<span class='glyphicon glyphicon-pencil'>&nbsp;编辑数据库</span>" +
+                        "</button>" +
+                        "</li>";
+                         $(".panel-heading").each(function (index, item) {
+                                if($(item).attr("data-connectId") == connectId){
+                                     // 获取对应的ul标签对象
+                                     var listGroup = $(item).children("div").children().children();
+                                     $(listGroup).append(collapse);
+                                }
+                         });
+                    }else{
+                        console.log("新建数据库失败");
+                    }
+            },
+            error: function () {
+                 console.log("新建数据库失败");
+            }
+       });
+       // 模态框关闭
+       $("#newDatabaseModal").modal('hide');
+  });
+
+  // 编辑数据库保存按钮
+  $("#update-database-save").on("click", function () {
+        var connectId = $("#update-database-input").attr("value");
+        var databaseName = $("#update-database-name").val();
+        var characterSetDatabase = $("#update-database-character").val();
+        var collationDatabase = $("#update-database-sortRule").val();
+        // 更新数据库信息
+        $.ajax({
+           type: 'post',
+           async: true,
+           xhrFields: {withCredentials:true},
+           crossDomain: true,
+           url: basePath + "/database/updateDataBase",
+           data: {"connectId":connectId, "databaseName":databaseName, "characterSetDatabase":characterSetDatabase, "collationDatabase":collationDatabase},
+           success: function (result) {
+                console.log(result.data);
+           },
+           error: function () {
+                console.log("更新数据库属性失败")
+           }
+        });
+        // 关闭模态框
+        $("#updateDatabaseModal").modal('hide');
+  });
+
   // 定义删除连接按钮的点击事件
   $(document).on("click", ".btn-delete", function () {
      var father = $(this).parent().parent();
@@ -569,16 +686,16 @@ $(document).ready(function () {
                       var arr = result.data;
                       $(arr).each(function (index, item) {
                         var collapse =
-                        "<li class='list-group-item'>" + item +
-                        "<button type='button' class='btn btn-info btn-xs pull-right' name='openDB'>" +
+                        "<li class='list-group-item' connectId='" + connectId + "'><span>" + item + "</span>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right'>" +
                         "<span class='glyphicon glyphicon-th-large'>&nbsp;打开</span>" +
                         "</button>" +
                         "<a class='pull-right'>&nbsp;&nbsp;</a>" +
-                        "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#deleteDatabaseModal'>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right delete-database' data-toggle='modal' data-target='#deleteDatabaseModal'>" +
                         "<span class='glyphicon glyphicon-minus'>&nbsp;删除数据库</span>" +
                         "</button>" +
                         "<a class='pull-right'>&nbsp;&nbsp;</a>" +
-                        "<button type='button' class='btn btn-info btn-xs pull-right' data-toggle='modal' data-target='#updateDatabaseModal'>" +
+                        "<button type='button' class='btn btn-info btn-xs pull-right update-database' data-toggle='modal' data-target='#updateDatabaseModal'>" +
                         "<span class='glyphicon glyphicon-pencil'>&nbsp;编辑数据库</span>" +
                         "</button>" +
                         "</li>";
@@ -595,6 +712,217 @@ $(document).ready(function () {
         });
   });
 
+  // 编辑数据库按钮的点击事件
+  $(document).on("click", ".update-database", function () {
+          var connectId = $(this).parent().attr("connectid");
+          var databaseName = $(this).parent().children(":first").text();
+          // 将connectId传递给模态框
+          $("#update-database-input").attr("value", connectId);
+
+          // 查询原来数据库的属性
+          $.ajax({
+             type: 'get',
+             async: false,
+             xhrFields: {withCredentials:true},
+             crossDomain: true,
+             cache: false, // 禁止使用缓存
+             url: basePath + "/database/showProperty",
+             data: {"connectId":connectId, "databaseName":databaseName},
+             success: function (result) {
+                    if(result.code == 200){
+                        console.log("查询数据库属性成功");
+                        var json = result.data;
+                        $("#update-database-name").val(json.databaseName);
+                        $("#update-database-character").val(json.characterSetDatabase);
+                        $("#update-database-sortRule").val(json.collationDatabase);
+                    }else{
+                        console.log("查询数据库属性失败");
+                    }
+             },
+             error: function () {
+                   console.log("查询数据库属性失败");
+             }
+          });
+
+         //查询字符集
+         $.ajax({
+           type:'get',
+           async: true,
+           xhrFields: {withCredentials:true},
+           crossDomain: true,
+           url: basePath + "/database/selectCharacterSet",
+           data: {"connectId":connectId},
+           success: function (result) {
+            if(result.code == 200){
+              console.log("查询字符集接口成功");
+              var arr = result.data;
+              $(arr).each(function (index, item) {
+              var li = "<li><a>" + item + "</a></li>";
+              $("#character-update").append(li);
+             });
+            }else{
+              console.log("查询字符集接口失败");
+             }
+            },
+            error: function () {
+            console.log("查询字符集接口失败");
+            }
+        });
+
+  });
+
+  // 新建数据库按钮字符集查询
+  $(document).on("click", ".btn-create-database", function () {
+       var connectId = $(this).parents(".panel-heading").attr("data-connectId");
+       $("#createDatabase").attr("value", connectId);
+
+       //查询字符集
+       $.ajax({
+          type:'get',
+          async: true,
+          xhrFields: {withCredentials:true},
+          crossDomain: true,
+          url: basePath + "/database/selectCharacterSet",
+          data: {"connectId":connectId},
+          success: function (result) {
+                if(result.code == 200){
+                   console.log("查询字符集接口成功");
+                   var arr = result.data;
+                   $(arr).each(function (index, item) {
+                       var li = "<li><a>" + item + "</a></li>";
+                       $("#character").append(li);
+                   });
+                }else{
+                   console.log("查询字符集接口失败");
+                }
+          },
+          error: function () {
+              console.log("查询字符集接口失败");
+          }
+       });
+  });
+
+  // 为character和sortRule的li添加点击监听事件
+  $(document).on("click", "li", function () {
+         // 新建数据库模块
+         if(($(this).parent().attr("id") == "character") || ($(this).parent().attr("id") == "sortRule")) {
+           var connectId = $("#createDatabase").attr("value");
+           var father = $(this).parent();
+           var characterSet = $(this).children().text();
+           if (father.attr("id") == "character") {
+             // 更新排序规则列表
+             // 先清空ul
+             $("#sortRule").html('');
+             $("#sortRuleSet").val('');
+             $.ajax({
+               type: 'get',
+               async: false,
+               xhrFields: {withCredentials: true},
+               crossDomain: true,
+               url: basePath + "/database/selectCollations",
+               data: {"connectId": connectId, "characterSet": characterSet},
+               success: function (result) {
+                 if (result.code == 200) {
+                   var arr = result.data;
+                   $(arr).each(function (index, item) {
+                     var li = "<li><a>" + item + "</a></li>";
+                     $("#sortRule").append(li);
+                   });
+                 } else {
+                   console.log("查询排序规则失败");
+                 }
+               },
+               error: function () {
+                 console.log("查询排序规则失败");
+               }
+             });
+           }
+           if ((father.attr("id") == "character") || (father.attr("id") == "sortRule")) {
+             father.parent().prev().val(characterSet);
+           }
+         }
+
+         // 编辑数据库模块
+    if(($(this).parent().attr("id") == "character-update") || ($(this).parent().attr("id") == "sortRule-update")) {
+      var connectId = $("#update-database-input").attr("value");
+      var father = $(this).parent();
+      var characterSet = $(this).children().text();
+      if (father.attr("id") == "character-update") {
+        // 更新排序规则列表
+        // 先清空ul
+        $("#sortRule-update").html('');
+        $("#update-database-sortRule").val('');
+        $.ajax({
+          type: 'get',
+          async: false,
+          xhrFields: {withCredentials: true},
+          crossDomain: true,
+          url: basePath + "/database/selectCollations",
+          data: {"connectId": connectId, "characterSet": characterSet},
+          success: function (result) {
+            if (result.code == 200) {
+              var arr = result.data;
+              $(arr).each(function (index, item) {
+                var li = "<li><a>" + item + "</a></li>";
+                $("#sortRule-update").append(li);
+              });
+            } else {
+              console.log("查询排序规则失败");
+            }
+          },
+          error: function () {
+            console.log("查询排序规则失败");
+          }
+        });
+      }
+      if ((father.attr("id") == "character-update") || (father.attr("id") == "sortRule-update")) {
+           father.parent().prev().val(characterSet);
+      }
+    }
+  });
+
+  // 删除数据库按钮添加监听事件
+  $(document).on("click", ".delete-database", function () {
+         var father = $(this).parent();
+         var connectId = $(father).attr("connectId");
+         var databaseName = $(father).children(":first").text();
+         $.ajax({
+             type: 'post',
+             async: true,
+             xhrFields: {withCredentials:true},
+             crossDomain: true,
+             url: basePath + "/database/deleteDateBase",
+             data: {"connectId":connectId, "databaseName":databaseName},
+             success: function (result) {
+                      if(result.code == 200){
+                          console.log("删除数据库成功");
+                          // 删除对应的li内容
+                          $(father).remove();
+                      }else{
+                          console.log("删除数据库失败");
+                      }
+             },
+             error: function () {
+                  console.log("删除数据库失败");
+             }
+         });
+  });
+
+  // 关闭新建数据库模态框触发的事件
+  $('#newDatabaseModal').on('hidden.bs.modal', function () {
+        console.log("newDatabaseModal模态框关闭了");
+        $("#databaseName").val("");
+        $("#characterSet").val("");
+        $("#sortRuleSet").val("");
+  });
+
+  // 关闭编辑数据库模态框触发的事件
+  $("#updateDatabaseModal").on('hidden.bs.modal', function () {
+        console.log("updateDatabaseModal模态框关闭了");
+        $("#update-database-name").val("");
+        $("#update-database-character").val("");
+        $("#update-database-sortRule").val("");
+  });
 
 });
 
@@ -605,11 +933,3 @@ $(document).on("click",".toDBuser",function () {
   localStorage.setItem("connectName",connectName)
   localStorage.setItem("connectId",connectId)
 })
-
-//打开按钮，跳转到showDatabase.html
-$(document).on("click","button[name$='openDB']",function () {
-  let father = $(this).parent().parent();
-  let connectId = father.attr("data-connectId");
-  alert(connectId)
-})
-

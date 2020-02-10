@@ -263,7 +263,7 @@
         <h4 class="modal-title"><b>新建连接</b></h4>
         <br>
         <div>
-          <input type="text" id="connectName" class="form-control" placeholder="连接名">
+          <input type="text" id="connectName" class="form-control" placeholder="连接名" autocomplete="off">
         </div>
         <br>
         <div>
@@ -285,7 +285,12 @@
         <div>
           <input type="password" id="connectRepeatPassword" class="form-control" placeholder="再次输入密码">
         </div>
-        <br><br>
+        <div class="checkbox" style="text-align: right">
+          <label>
+            <input type="checkbox">保存密码
+          </label>
+        </div>
+        <br>
         <button type="button" id="connectSave" class="btn btn-info btn-block">保存</button>
         <br><br>
       </div>
@@ -374,7 +379,12 @@
           <span class="input-group-addon">密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
           <input type="password" class="form-control" id="updateConnectPassword">
         </div>
-        <br><br>
+        <div class="checkbox" style="text-align: right">
+          <label>
+            <input type="checkbox">保存密码
+          </label>
+        </div>
+        <br>
         <button type="button" id="updateSave" class="btn btn-info btn-block">保存</button>
         <br><br>
       </div>

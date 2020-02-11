@@ -1,7 +1,7 @@
 //初始化页面
 $(document).ready(function () {
-  let connectId = localStorage.getItem("connectId")
-  let dbuser = localStorage.getItem("dbuser")
+  let connectId = sessionStorage.getItem("DBconnectId")
+  let dbuser = sessionStorage.getItem("dbuser")
   $("#connectId").val(connectId)
   $("#h-DBuser").text(dbuser)
   let arr = dbuser.split("@")
@@ -144,7 +144,7 @@ $(document).ready(function () {
       data: JSON.stringify(mydata),
       success:function (data) {
         alert(data.data)
-        window.location.href="http://localhost:63342/EasyDB/DBuser/EditDBuser.html"
+        window.location.href="http://www.chenrong.xyz/DBuser/EditDBuser.html"
       },
       error: function(xhr, err){
         console.log('异步请求登录API失败：')
@@ -179,7 +179,7 @@ $(document).ready(function () {
       data: JSON.stringify(mydata),
       success:function (data) {
         alert(data.data)
-        window.location.href="http://localhost:63342/EasyDB/DBuser/EditDBuser.html"
+        window.location.href="http://www.chenrong.xyz/DBuser/EditDBuser.html"
       },
       error: function(xhr, err){
         console.log('异步请求登录API失败：')

@@ -43,10 +43,10 @@
                     <input type="text" class="form-control" aria-label="...">
                     <div class="input-group-btn">
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#">连接 1</a></li>
-                        <li><a href="#">连接 2</a></li>
-                        <li><a href="#">连接 3</a></li>
+                      <ul id="sourceConnect" class="dropdown-menu dropdown-menu-right">
+<!--                        <li><a href="#">连接 1</a></li>-->
+<!--                        <li><a href="#">连接 2</a></li>-->
+<!--                        <li><a href="#">连接 3</a></li>-->
                       </ul>
                     </div><!-- /btn-group -->
                   </div><!-- /input-group -->
@@ -56,13 +56,13 @@
                 <p style="margin-top: 30px"><span>数据库: </span></p>
                 <div class="col-lg-6" style="padding-left: 0px; padding-right: 0px;">
                   <div class="input-group">
-                    <input type="text" class="form-control" aria-label="...">
+                    <input id="databaseSet" type="text" class="form-control" aria-label="...">
                     <div class="input-group-btn">
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#">数据库 1</a></li>
-                        <li><a href="#">数据库 2</a></li>
-                        <li><a href="#">数据库 3</a></li>
+                      <ul id="database" class="dropdown-menu dropdown-menu-right">
+<!--                        <li><a href="#">数据库 1</a></li>-->
+<!--                        <li><a href="#">数据库 2</a></li>-->
+<!--                        <li><a href="#">数据库 3</a></li>-->
                       </ul>
                     </div><!-- /btn-group -->
                   </div><!-- /input-group -->
@@ -83,10 +83,10 @@
                     <input type="text" class="form-control" aria-label="...">
                     <div class="input-group-btn">
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#">连接 1</a></li>
-                        <li><a href="#">连接 2</a></li>
-                        <li><a href="#">连接 3</a></li>
+                      <ul id="targetConnect" class="dropdown-menu dropdown-menu-right">
+<!--                        <li><a href="#">连接 1</a></li>-->
+<!--                        <li><a href="#">连接 2</a></li>-->
+<!--                        <li><a href="#">连接 3</a></li>-->
                       </ul>
                     </div><!-- /btn-group -->
                   </div><!-- /input-group -->
@@ -96,13 +96,13 @@
                 <p style="margin-top: 30px"><span>数据库: </span></p>
                 <div class="col-lg-6" style="padding-left: 0px; padding-right: 0px;">
                   <div class="input-group">
-                    <input type="text" class="form-control" aria-label="...">
+                    <input id="targetDatabaseSet" type="text" class="form-control" aria-label="...">
                     <div class="input-group-btn">
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#">数据库 1</a></li>
-                        <li><a href="#">数据库 2</a></li>
-                        <li><a href="#">数据库 3</a></li>
+                      <ul id="targetDatabase" class="dropdown-menu dropdown-menu-right">
+<!--                        <li><a href="#">数据库 1</a></li>-->
+<!--                        <li><a href="#">数据库 2</a></li>-->
+<!--                        <li><a href="#">数据库 3</a></li>-->
                       </ul>
                     </div><!-- /btn-group -->
                   </div><!-- /input-group -->
@@ -114,11 +114,11 @@
                <div class="information" style="width: 45%">
                      <div style="position:relative; left: 40%">
                        <p><span style="color: #2aabd2; font-size: medium">信息</span></p>
-                       <p>项目名：<span></span></p>
-                       <p>连接名：<span></span></p>
-                       <p>主机：<span></span></p>
-                       <p>端口：<span></span></p>
-                       <p>服务器版本：<span></span></p>
+                       <p>项目名：<span>我的连接</span></p>
+                       <p>连接名：<span id="connectName"></span></p>
+                       <p>主机：<span id="host"></span></p>
+                       <p>端口：<span id="port"></span></p>
+                       <p>服务器版本：<span id="version"></span></p>
                      </div>
                </div>
                <div class="information" style="width: 1px; background: #9d9d9d; height: 70%; position: relative; left: 4%">
@@ -126,11 +126,11 @@
                <div class="information" style="width: 45%;">
                      <div style="position: relative; left: 32%">
                        <p><span style="color: #2aabd2; font-size: medium">信息</span></p>
-                       <p>项目名：<span></span></p>
-                       <p>连接名：<span></span></p>
-                       <p>主机：<span></span></p>
-                       <p>端口：<span></span></p>
-                       <p>服务器版本：<span></span></p>
+                       <p>项目名：<span>我的连接</span></p>
+                       <p>连接名：<span id="targetConnectName"></span></p>
+                       <p>主机：<span id="targetHost"></span></p>
+                       <p>端口：<span id="targetPort"></span></p>
+                       <p>服务器版本：<span id="targetVersion"></span></p>
                      </div>
                </div>
           </div>

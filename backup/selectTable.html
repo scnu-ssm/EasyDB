@@ -51,10 +51,10 @@
                </div>
                <br>
                <div style="margin-top: 3%">
-               <select id="sel_userName" class="selectpicker" multiple  title="请选择传输的数据表" data-actions-box="true">
-                   <option value="1" style="font-size: large">demo</option>
-                   <option value="2" style="font-size: large">connectInfo</option>
-                   <option value="3" style="font-size: large">user</option>
+               <select id="sel_userName" class="selectpicker" multiple  title="请选择传输的数据表" data-actions-box="true"  data-dropup-auto="false">
+<!--                   <option value="1" style="font-size: large">demo</option>-->
+<!--                   <option value="2" style="font-size: large">connectInfo</option>-->
+<!--                   <option value="3" style="font-size: large">user</option>-->
                </select>
                </div>
                <br>
@@ -62,7 +62,8 @@
            </div>
            <div style="margin-top: 20%">
                  <button type="button" class="btn btn-success" onclick="window.location.href='./transfer.html'" style="float: left; position: relative; left: 20%;">上一步</button>
-                 <button type="button" class="btn btn-success" onclick="window.location.href='../index.html'" style="float: right; position: relative; right: 20%">开始传输</button>
+                 <button id="transfer" type="button" class="btn btn-success"  style="float: right; position: relative; right: 20%">开始传输</button>
+<!--             onclick="window.location.href='../index.html'"-->
            </div>
      </div>
 </body>

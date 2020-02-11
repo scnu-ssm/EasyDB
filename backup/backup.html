@@ -12,6 +12,7 @@
     <script src="../static/bootstrp/js/bootstrap-select.min.js"></script>
     <script src="../static/js/transfer.js"></script>
     <script src="../static/js/selectTable.js"></script>
+    <script src="../static/js/backup.js"></script>
     <title>EasyDB-backup</title>
 </head>
 <body>
@@ -45,13 +46,13 @@
                <p><span>连接: </span></p>
                <div class="col-lg-6" style="padding-left: 0px; padding-right: 0px">
                  <div class="input-group">
-                   <input type="text" class="form-control" aria-label="...">
+                   <input id="connectIdSet" type="text" class="form-control" aria-label="...">
                    <div class="input-group-btn">
-                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
-                     <ul class="dropdown-menu dropdown-menu-right">
-                       <li><a href="#">连接 1</a></li>
-                       <li><a href="#">连接 2</a></li>
-                       <li><a href="#">连接 3</a></li>
+                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                     <ul id="connectId" class="dropdown-menu dropdown-menu-right" >
+<!--                       <li><a>连接 1</a></li>-->
+<!--                       <li><a>连接 2</a></li>-->
+<!--                       <li><a>连接 3</a></li>-->
                      </ul>
                    </div><!-- /btn-group -->
                  </div><!-- /input-group -->
@@ -61,13 +62,13 @@
                <p style="margin-top: 30px"><span>数据库: </span></p>
                <div class="col-lg-6" style="padding-left: 0px; padding-right: 0px;">
                  <div class="input-group">
-                   <input type="text" class="form-control" aria-label="...">
+                   <input id="databaseSet" type="text" class="form-control" aria-label="...">
                    <div class="input-group-btn">
-                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
-                     <ul class="dropdown-menu dropdown-menu-right">
-                       <li><a href="#">数据库 1</a></li>
-                       <li><a href="#">数据库 2</a></li>
-                       <li><a href="#">数据库 3</a></li>
+                     <button id="btnDatabase" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+                     <ul id="database" class="dropdown-menu dropdown-menu-right">
+<!--                       <li><a href="#">数据库 1</a></li>-->
+<!--                       <li><a href="#">数据库 2</a></li>-->
+<!--                       <li><a href="#">数据库 3</a></li>-->
                      </ul>
                    </div><!-- /btn-group -->
                  </div><!-- /input-group -->
@@ -83,11 +84,11 @@
              <div style="position: relative; left: 21%">
                <p><span style="color: #2aabd2; font-size: medium">信息</span></p>
                <br>
-               <p>项目名：<span></span></p>
-               <p>连接名：<span></span></p>
-               <p>主机：<span></span></p>
-               <p>端口：<span></span></p>
-               <p>服务器版本：<span></span></p>
+               <p>项目名：<span>我的连接</span></p>
+               <p>连接名：<span id="connectName"></span></p>
+               <p>主机：<span id="host"></span></p>
+               <p>端口：<span id="port"></span></p>
+               <p>服务器版本：<span id="version"></span></p>
              </div>
            </div>
          </div>
@@ -105,10 +106,10 @@
                </div>
                <br>
                <div style="margin-top: 3%">
-                 <select id="sel_userName2" class="selectpicker" multiple  title="请选择备份的数据表" data-actions-box="true">
-                   <option value="1" style="font-size: large">demo</option>
-                   <option value="2" style="font-size: large">connectInfo</option>
-                   <option value="3" style="font-size: large">user</option>
+                 <select id="sel_userName2" class="selectpicker" multiple  title="请选择备份的数据表" data-actions-box="true" data-dropup-auto="false">
+<!--                   <option value="1" style="font-size: large">demo</option>-->
+<!--                   <option value="2" style="font-size: large">connectInfo</option>-->
+<!--                   <option value="3" style="font-size: large">user</option>-->
                  </select>
                </div>
                <br>

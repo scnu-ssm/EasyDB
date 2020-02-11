@@ -27,25 +27,6 @@ var basePath = protocol + host;
 
 //taixiong
 $(document).ready(function () {
-  //读取下拉菜单到input中
-  $("#character li").click(function () {
-    var x = $(this).text();
-    $("#characterSet").val(x);
-  });
-  $("#character1 li").click(function () {
-    var x = $(this).text();
-    $("#characterSet1").val(x);
-  });
-  $("#sortRule li").click(function () {
-    var y = $(this).text();
-    $("#sortRuleSet").val(y);
-  });
-  $("#sortRule1 li").click(function () {
-    var y = $(this).text();
-    $("#sortRuleSet1").val(y);
-  });
-
-
   //为登录按钮添加监听事件
   $("#btLogin").click(function () {
     //读取表单的数据

@@ -35,13 +35,12 @@ $(document).ready(function () {
       }
     },
   });
-
+  //开始传输
   $(document).on("click","#transfer",function (){
     var tableList = [];
     $("#sel_userName option:selected").each(function () {
       tableList.push($(this).val())
     });
-    console.log(connectId,databaseName,targetConnect,targetDatabase,tableList,checkbox);
     tableList = tableList.toString();
     $.ajax({
       type: 'post',

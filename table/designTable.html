@@ -36,126 +36,460 @@
   </div>
   <!-- header end -->
 
-  <!-- 导航 start -->
-  <nav class="navbar navbar-default" role="navigation">
-    <!-- 导航居中样式 -->
-    <style>
-      .navbar-default .navbar-nav{
-        text-align: center;
-        float: none;
-      }
+  <br>
+  <hr>
 
-      .navbar-default .navbar-nav li{
-        display: inline-block;
-        float: none;
-      }
-    </style>
-    <div class="container-fluid">
-      <!-- <div class="navbar-header">
-        <a class="navbar-brand" href="#">连接</a>
-      </div> -->
-      <div>
-        <!-- Todo js完成清空，插入，删除操作 -->
-        <ul class="nav navbar-nav">
-          <li><a href="#"><span class="glyphicon glyphicon-saved"></span> 保存</a></li>
-          <li><a id="addField"><span class="glyphicon glyphicon-plus"></span> 插入</a></li>
-        </ul>
+  <input id="connectId" hidden="hidden">
+
+  <!-- field table -->
+  <table class="table table-bordered" id="myTable">
+    <caption>
+      <button class="btn-xs btn-info" data-toggle="modal" data-target="#addFieldModal">
+        <span class="glyphicon glyphicon-plus">添加字段</span>
+      </button>
+      <label>数据库</label>
+      <input type="text" id="database" readonly="readonly"/>
+      <label>表名</label>
+      <input type="text" id="table" readonly="readonly"/>
+      <button class="btn-xs btn-info" data-toggle="modal" data-target="#renameModal" id="btn-rename">
+        <span class="glyphicon glyphicon-pencil">修改表名</span>
+      </button>
+    </caption>
+    <thead>
+    <tr>
+      <td>名</td>
+      <td>类型</td>
+      <td>长度</td>
+      <td>不是null</td>
+      <td>是主键</td>
+      <th>删除</th>
+      <th>修改</th>
+    </tr>
+    </thead>
+    <tbody id="fieldTable">
+    <tr>
+      <!-- 名 -->
+      <td name="fieldName">name</td>
+      <!-- 类型 -->
+      <td>type</td>
+      <!-- 长度 -->
+      <td>length</td>
+      <!-- 不是null -->
+      <td><input type="checkbox" disabled="disabled"/></td>
+      <!-- 是主键 -->
+      <td><input type="checkbox" name="primary"/></td>
+      <!-- 删除-->
+      <td>
+        <button class="btn-danger btn-xs" name="delField">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </td>
+      <td>
+        <button class="btn-xs btn-success" data-toggle="modal" data-target="#editFieldModal" name="editField">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <hr>
+
+  <!--Foreign Key table-->
+  <table class="table table-bordered">
+    <caption>
+      <button class="btn-xs btn-info"  data-toggle="modal" data-target="#addFkModal" id="addFk">
+        <span class="glyphicon glyphicon-plus">添加外键</span>
+      </button>
+      <label>创建外键，字段类型与参考字段的类型须一致</label>
+    </caption>
+    <thead>
+    <tr>
+      <td>名</td>
+      <td>字段</td>
+      <td>参考模式</td>
+      <td>参考表</td>
+      <td>参考字段</td>
+      <td>删除时</td>
+      <td>更新时</td>
+      <th>删除</th>
+    </tr>
+    </thead>
+    <tbody id="fkTable">
+            <tr>
+              <td name="fkName">name</td>
+              <td>field</td>
+              <td>database</td>
+              <td>table</td>
+              <td>field</td>
+              <td>delete</td>
+              <td>update</td>
+              <td>
+                <button class="btn-xs btn-danger" name="delFk">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+              </td>
+<!--              <td>-->
+<!--                <button class="btn-xs btn-success" data-toggle="modal" data-target="#editFkModal">-->
+<!--                  <span class="glyphicon glyphicon-edit"></span>-->
+<!--                </button>-->
+<!--              </td>-->
+            </tr>
+    </tbody>
+  </table>
+<!--container end-->
+</div>
+
+
+<!--添加字段模态框-->
+<div class="modal fade" id="addFieldModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">添加字段</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">字段名</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="m-name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">类型</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="m-type">
+                <option>bigint</option>
+                <option>bit</option>
+                <option>binary</option>
+                <option>blob</option>
+                <option>char</option>
+                <option>date</option>
+                <option>datetime</option>
+                <option>decimal</option>
+                <option>double</option>
+                <option>enum</option>
+                <option>float</option>
+                <option>geometry</option>
+                <option>geometrycollection</option>
+                <option selected="selected">int</option>
+                <option>integer</option>
+                <option>json</option>
+                <option>linestring</option>
+                <option>longblob</option>
+                <option>longtext</option>
+                <option>mediumblob</option>
+                <option>mediumint</option>
+                <option>mediumtext</option>
+                <option>multilinestring</option>
+                <option>multipoint</option>
+                <option>multipolygon</option>
+                <option>numeric</option>
+                <option>point</option>
+                <option>polygon</option>
+                <option>real</option>
+                <option>set</option>
+                <option>smallint</option>
+                <option>text</option>
+                <option>time</option>
+                <option>timestamp</option>
+                <option>tinyblob</option>
+                <option>tinyint</option>
+                <option>tinytext</option>
+                <option>varbinary</option>
+                <option>varchar</option>
+                <option>year</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">长度</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="m-length">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">小数点</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" value="0" id="m-point">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">不为空</label>
+            <div class="col-sm-10">
+              <input type="checkbox" class="form-control" id="m-notNull">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"  id="btn-addField">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+<!--修改字段模态框-->
+<div class="modal fade" id="editFieldModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">修改字段</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">字段名</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="e-name">
+              <input type="text" hidden="hidden" id="e-oldname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">类型</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="e-type">
+                <option>bigint</option>
+                <option>bit</option>
+                <option>binary</option>
+                <option>blob</option>
+                <option>char</option>
+                <option>date</option>
+                <option>datetime</option>
+                <option>decimal</option>
+                <option>double</option>
+                <option>enum</option>
+                <option>float</option>
+                <option>geometry</option>
+                <option>geometrycollection</option>
+                <option selected="selected">int</option>
+                <option>integer</option>
+                <option>json</option>
+                <option>linestring</option>
+                <option>longblob</option>
+                <option>longtext</option>
+                <option>mediumblob</option>
+                <option>mediumint</option>
+                <option>mediumtext</option>
+                <option>multilinestring</option>
+                <option>multipoint</option>
+                <option>multipolygon</option>
+                <option>numeric</option>
+                <option>point</option>
+                <option>polygon</option>
+                <option>real</option>
+                <option>set</option>
+                <option>smallint</option>
+                <option>text</option>
+                <option>time</option>
+                <option>timestamp</option>
+                <option>tinyblob</option>
+                <option>tinyint</option>
+                <option>tinytext</option>
+                <option>varbinary</option>
+                <option>varchar</option>
+                <option>year</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">长度</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="e-length">
+            </div>
+          </div>
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">小数点</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="number" class="form-control">-->
+<!--            </div>-->
+<!--          </div>-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label">不为空</label>
+            <div class="col-sm-10">
+              <input type="checkbox" class="form-control" id="e-notNull">
+              <input type="text" hidden="hidden" id="e-primary">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="e-editField">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+<!--添加外键-->
+<div class="modal fade" id="addFkModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">添加外键</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">外键名</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="m-fname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">字段</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="m-ffield">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">参考模式</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="m-fdatabase"></select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">参考表</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="m-ftable"></select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">参考字段</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="m-fwfield"></select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">删除时</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="m-fdelete">
+                <option selected="selected">NO ACTION</option>
+                <option>CASCADE</option>
+                <option>RESTRICT</option>
+                <option>SET NULL</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">更新时</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="m-fupdate">
+                <option selected="selected">NO ACTION</option>
+                <option>CASCADE</option>
+                <option>RESTRICT</option>
+                <option>SET NULL</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-addFK">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+<!--修改外键-->
+<!--<div class="modal fade" id="editFkModal" tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--        <h4 class="modal-title">添加外键</h4>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form class="form-horizontal" role="form">-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">外键名</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="text" class="form-control">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">字段</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="text" class="form-control">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">参考模式</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <select class="form-control"></select>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">参考表</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <select class="form-control"></select>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">参考字段</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <select class="form-control"></select>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">删除时</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <select class="form-control">-->
+<!--                <option selected="selected">NO ACTION</option>-->
+<!--                <option>CASCADE</option>-->
+<!--                <option>RESTRICT</option>-->
+<!--                <option>SET NULL</option>-->
+<!--              </select>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">更新时</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <select class="form-control">-->
+<!--                <option selected="selected">NO ACTION</option>-->
+<!--                <option>CASCADE</option>-->
+<!--                <option>RESTRICT</option>-->
+<!--                <option>SET NULL</option>-->
+<!--              </select>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+<!--        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+<!--      </div>-->
+<!--    </div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+<!--  </div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--</div>-->
+
+<div class="modal fade" id="renameModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>修改表名</b></h4>
+        <br>
+        <div>
+          <input type="text" id="renameInput" class="form-control">
+        </div>
+        <div>
+          <input type="text" id="allTableName" hidden="hidden">
+        </div>
+        <br><br>
+        <button type="button" id="renameSave" class="btn btn-info btn-block" data-dismiss="modal">确定</button>
+        <br><br>
       </div>
     </div>
-  </nav>
-  <!-- 导航 end -->
-
-  <!-- table start -->
-    <form class="form-inline">
-      <table class="table table-hover" id="myTable">
-        <caption>
-          <label>数据库</label>
-          <input type="text" class="form-control" readonly="readonly"/>
-          <label>表名</label>
-          <input type="text" class="form-control" readonly="readonly"/>
-        </caption>
-        <thead>
-        <tr>
-          <td>名</td>
-          <td>类型</td>
-          <td>长度</td>
-          <td>小数点</td>
-          <td>不是null</td>
-          <td>是主键</td>
-          <th>删除</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <!-- 名 -->
-          <td><input type="text" class="form-control"/></td>
-          <!-- 类型 -->
-          <td>
-            <select class="form-control">
-              <option>bigint</option>
-              <option>bit</option>
-              <option>binary</option>
-              <option>blob</option>
-              <option>char</option>
-              <option>date</option>
-              <option>datetime</option>
-              <option>decimal</option>
-              <option>double</option>
-              <option>enum</option>
-              <option>float</option>
-              <option>geometry</option>
-              <option>geometrycollection</option>
-              <option>int</option>
-              <option>integer</option>
-              <option>json</option>
-              <option>linestring</option>
-              <option>longblob</option>
-              <option>longtext</option>
-              <option>mediumblob</option>
-              <option>mediumint</option>
-              <option>mediumtext</option>
-              <option>multilinestring</option>
-              <option>multipoint</option>
-              <option>multipolygon</option>
-              <option>numeric</option>
-              <option>point</option>
-              <option>polygon</option>
-              <option>real</option>
-              <option>set</option>
-              <option>smallint</option>
-              <option>text</option>
-              <option>time</option>
-              <option>timestamp</option>
-              <option>tinyblob</option>
-              <option>tinyint</option>
-              <option>tinytext</option>
-              <option>varbinary</option>
-              <option>varchar</option>
-              <option>year</option>
-            </select>
-          </td>
-          <!-- 长度 -->
-          <td><input type="text" class="form-control"/></td>
-          <!-- 小数点 -->
-          <td><input type="text" class="form-control"/></td>
-          <!-- 不是null -->
-          <td><input type="checkbox" class="form-control"/></td>
-          <!-- 是主键 -->
-          <td><input type="checkbox" class="form-control" name="primary" id="ckPri"/></td>
-          <!-- 删除-->
-          <td>
-            <button class="form-control btn-danger btn-xs">
-              <span class="glyphicon glyphicon-remove"></span>
-            </button>
-          </td>
-        </tr>
-
-        </tbody>
-      </table>
-    </form>
-  <!-- table end -->
-
-<!--container end-->
+  </div>
 </div>
 
 </body>

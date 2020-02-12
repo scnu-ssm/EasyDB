@@ -113,8 +113,12 @@ $(document).on("click","#newTable",function () {
 
 //设计表
 $(document).on("click","button[name$='btn-design']",function () {
-  alert("design table")
-  window.open('../table/designTable.html','_blank')
+  let connectId = $("#connectId").val()
+  let database = $("#DBname").text()
+  let parentLi = $(this).parent()
+  let table = parentLi.find("span:first").text()
+  let url = '../table/designTable.html?con='+connectId+'&db='+database+'&tb='+table
+  window.open(url,'_blank')
 })
 
 //打开表

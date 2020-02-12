@@ -929,7 +929,7 @@ $(document).ready(function () {
         $("#deleteDatabaseModal").modal('hide');
   });
 
-  // 关闭新建数据库模态框触发的事件
+  // 模态框   关闭新建数据库触发的事件
   $('#newDatabaseModal').on('hidden.bs.modal', function () {
         console.log("newDatabaseModal模态框关闭了");
         $("#databaseName").val("");
@@ -937,7 +937,7 @@ $(document).ready(function () {
         $("#sortRuleSet").val("");
   });
 
-  // 关闭编辑数据库模态框触发的事件
+  // 模态框   关闭编辑数据库触发的事件
   $("#updateDatabaseModal").on('hidden.bs.modal', function () {
         console.log("updateDatabaseModal模态框关闭了");
         $("#update-database-name").val("");

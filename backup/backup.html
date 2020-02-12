@@ -32,7 +32,7 @@
            <div class="right" style="text-align: left">
              <span>目标</span>
              <br>
-             <span>SQL文件</span>
+             <span>SQL、CSV文件</span>
            </div>
          </div>
          <br>
@@ -122,17 +122,23 @@
            <div class="information" style="width: 45%;">
              <div style="position: relative; left: 21%">
                <p><span style="color: #2aabd2; font-size: medium">目标</span></p>
-               <div style="position: relative;">
-                     <p>另存为路径：</p>
-                     <input type="text" class="form-control" placeholder="例如:   D:/chenrong/user.sql" style="width: 260px">
+               <div style="position: relative; margin-top: 6%">
+                    <p>文件类型：</p>
+                    <div class="radio radio-success" style="margin-top: 4%">
+                       <input type="radio" id="singleRadio" value="option" name="radioSingle" checked>
+                       <label>&nbsp;&nbsp;&nbsp;&nbsp;SQL文件</label>
+                    </div>
+                    <div class="radio radio-success" style="margin-top: 3%">
+                       <input type="radio"  id="singleRadio2" value="option2" name="radioSingle">
+                       <label>&nbsp;&nbsp;&nbsp;&nbsp;CSV文件</label>
+                    </div>
                </div>
-               <div class="alert alert-danger" role="alert" style="height: 45px; margin-top: 12px; width: 260px">注意: 路径必须带有文件名称及后缀</div>
              </div>
            </div>
          </div>
          <div style="text-align: right; padding-right: 10%; margin-top: 3%">
            <!-- Indicates a successful or positive action -->
-           <button type="button" class="btn btn-success" onclick="window.location.href='../index.html'">开始</button>
+           <button type="button" class="btn btn-success" >开始</button>
          </div>
        </div>
 </body>

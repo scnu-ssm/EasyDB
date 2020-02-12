@@ -46,10 +46,10 @@
                <p><span>连接: </span></p>
                <div class="col-lg-6" style="padding-left: 0px; padding-right: 0px">
                  <div class="input-group">
-                   <input id="connectIdSet" type="text" class="form-control" aria-label="...">
+                   <input type="text" class="form-control" aria-label="...">
                    <div class="input-group-btn">
                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                     <ul id="connectId" class="dropdown-menu dropdown-menu-right" >
+                     <ul id="connect" class="dropdown-menu dropdown-menu-right" >
 <!--                       <li><a>连接 1</a></li>-->
 <!--                       <li><a>连接 2</a></li>-->
 <!--                       <li><a>连接 3</a></li>-->
@@ -97,7 +97,7 @@
              <div>
                <p style="position: relative; right: 1%"><span style="color: #2aabd2; font-size: medium">数据库对象</span></p>
                <br>
-               <div>
+               <div id="choice">
                  <img src="../static/img/table.png" style="width: 32px; position: relative;"><span></span>
                  <div class="checkbox checkbox-success checkbox-inline" style="position: relative; left: 5%">
                    <input type="checkbox" class="styled" id="inlineCheckbox2" value="option1">
@@ -139,7 +139,7 @@
          </div>
          <div style="text-align: right; padding-right: 10%; margin-top: 3%">
            <!-- Indicates a successful or positive action -->
-           <button type="button" class="btn btn-success" >开始</button>
+           <button id="backup" type="button" class="btn btn-success" >开始</button>
          </div>
        </div>
 </body>

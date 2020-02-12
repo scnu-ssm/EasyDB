@@ -144,7 +144,7 @@ $(document).ready(function () {
       data: JSON.stringify(mydata),
       success:function (data) {
         alert(data.data)
-        window.location.href="http://www.chenrong.xyz/DBuser/EditDBuser.html"
+        window.location.href="EditDBuser.html"
       },
       error: function(xhr, err){
         console.log('异步请求登录API失败：')
@@ -179,7 +179,7 @@ $(document).ready(function () {
       data: JSON.stringify(mydata),
       success:function (data) {
         alert(data.data)
-        window.location.href="http://www.chenrong.xyz/DBuser/EditDBuser.html"
+        window.location.href="EditDBuser.html"
       },
       error: function(xhr, err){
         console.log('异步请求登录API失败：')

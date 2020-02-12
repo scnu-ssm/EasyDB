@@ -370,20 +370,6 @@ $(document).ready(function () {
             "</div>"
           $("#accordion").append(connect);
         }
-        //用户按钮下拉列表赋值
-        let usersHtml = ''
-        for(let j in arr){
-          usersHtml += `
-            <li>
-              <a href="DBuser/DBuserList.html" target="_blank" class="toDBuser">
-                ${arr[i].connectName}
-              </a>
-              <input type="text" hidden="hidden" value="${arr[i].connectId}">
-              <input type="text" hidden="hidden" value="${arr[i].connectName}">
-            </li>
-          `
-        }
-        $("#DBuserUl").html(usersHtml)
       }else{
           alert(result.data);
       }
@@ -966,4 +952,43 @@ $(document).on("click","button[name$='openDB']",function () {
   //TODO:发布前修改url
   window.open("database/showDatabase.html","_blank")
   // window.open("http://www.chenrong.xyz/database/showDatabase.html","_blank")
+})
+
+//点击导航用户事件，更新用户列表
+$(document).on("click","#openDBuserUl",function () {
+
+  $.ajax({
+    type: 'get',
+    async: false,
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true,
+    url: basePath + "/connectInfo/selectByUserId",
+    success: function (result) {
+      if(result.code == 200) {
+        var arr = result.data;
+        //用户按钮下拉列表赋值
+        let usersHtml = ''
+        for(let i in arr){
+          usersHtml += `
+            <li>
+              <a href="DBuser/DBuserList.html" target="_blank" class="toDBuser">
+                ${arr[i].connectName}
+              </a>
+              <input type="text" hidden="hidden" value="${arr[i].connectId}">
+              <input type="text" hidden="hidden" value="${arr[i].connectName}">
+            </li>
+          `
+        }
+        $("#DBuserUl").html(usersHtml)
+      }else{
+        alert(result.data);
+      }
+    },
+    error: function () {
+      alert("请求查询连接接口失败");
+    }
+  });
+
 })

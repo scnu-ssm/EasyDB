@@ -166,7 +166,7 @@ $(document).on("click",".mygrant",function () {
   let connectId = $("#connectId").val()
   sessionStorage.setItem("DBconnectId",connectId)
   sessionStorage.setItem("dbuser",dbuser)
-  window.open("http://www.chenrong.xyz/DBuser/EditDBuser.html")
+  window.open("EditDBuser.html")
 })
 /*
   $.ajax({

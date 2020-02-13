@@ -117,9 +117,12 @@ $(document).ready(function () {
   $(document).on("click","#recovery",function () {
     var connectId = sessionStorage.getItem("destConnect");
     var destDatabase = sessionStorage.getItem("destDatabase");
+    var form = new FormData();
     var files = $("#file")[0].files;
-    file = files[0];
-    console.log(connectId,destDatabase,files);
+    form.append("sqlFile",files[0]);
+    form.append("connectId",connectId);
+    form.append("database",destDatabase)
+    console.log(form);
     $.ajax({
       type:'post',
       async:true,
@@ -127,7 +130,8 @@ $(document).ready(function () {
       xhrFields:{withCredentials:true},
       crossDomain:true,
       processData: false,
-      data:{"connectId":connectId,"database":destDatabase,"sqlFile":files},
+      contentType:false,
+      data:form,
       success:function (result) {
         console.log("请求成功");
         if (result.code==200){

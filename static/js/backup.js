@@ -142,6 +142,36 @@ $(document).ready(function () {
 
   });
 
+  //传参的方法
+  var DownLoadFile = function (options) {
+    var config = $.extend(true, { method: 'post' }, options);
+    var $iframe = $('<iframe id="down-file-iframe" />');
+    var $form = $('<form target="down-file-iframe" method="' + config.method + '" />');
+    $form.attr('action', config.url);
+    for (var key in config.data) {
+      $form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
+    }
+    $iframe.append($form);
+    $(document.body).append($iframe);
+    $form[0].submit();
+    $iframe.remove();
+  };
+
+  //传参的方法
+  var DownLoadFile = function (options) {
+    var config = $.extend(true, { method: 'post' }, options);
+    var $iframe = $('<iframe id="down-file-iframe" />');
+    var $form = $('<form target="down-file-iframe" method="' + config.method + '" />');
+    $form.attr('action', config.url);
+    for (var key in config.data) {
+      $form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
+    }
+    $iframe.append($form);
+    $(document.body).append($iframe);
+    $form[0].submit();
+    $iframe.remove();
+  };
+
   //开始备份
   $(document).on("click","#backup",function (){
     var connectId = sessionStorage.getItem("connect");
@@ -152,53 +182,26 @@ $(document).ready(function () {
       tableList.push($(this).val())
     });
     tableList = tableList.toString();
-    console.log($("#singleRadio").prop('checked'))
-    console.log($("#singleRadio2").prop('checked'))
     if($("#singleRadio").prop('checked')){
-      console.log(connectId,databaseName,tableList,checkbox)
-      $.ajax({
-        type: 'post',
-        async: true,
-        xhrFields:{withCredentials: true},
-        url: basePath+"/mysql/backup",
-        crossDomain: true,
-        data:{"conenctId":connectId,"database":databaseName,"tables":tableList,"isOnlyStructor":checkbox},
-        success:function (result) {
-          console.log("请求备份sql接口成功");
-          console.log(result.code);
-          if(result.data==200){
-            alert(result.data)
-          }else {
-            alert(result.data)
-          }
-        },
-        error:function () {
-          console.log("请求备份sql接口失败")
-        }
-      })
+
+      //调用函数
+      DownLoadFile({
+
+        url:basePath+"/mysql/backup",
+
+        data:{connectId:connectId,database:databaseName,tables:tableList,isOnlyStructor:checkbox}//要发送的数据
+
+      });
     };
     if($("#singleRadio2").prop('checked')){
-      console.log(connectId,databaseName,tableList)
-      $.ajax({
-        type: 'post',
-        async: true,
-        xhrFields:{withCredentials: true},
-        url: basePath+"/mysql/leadingOutCSV",
-        crossDomain: true,
-        data:{"conenctId":connectId,"database":databaseName,"tables":tableList},
-        success:function (result) {
-          console.log("请求备份csv接口成功");
-          console.log(result.code);
-          if(result.data==200){
-            alert(result.data)
-          }else {
-            alert(result.data)
-          }
-        },
-        error:function () {
-          console.log("请求备份csv接口失败")
-        }
-      })
+      //调用函数
+      DownLoadFile({
+
+        url:basePath+"/mysql/leadingOutCSV",
+
+        data:{connectId:connectId,database:databaseName,tables:tableList}//要发送的数据
+
+      });
     };
   });
 })

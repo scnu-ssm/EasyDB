@@ -5532,7 +5532,7 @@
         preferIconicPreview: false,
         preferIconicZoomPreview: false,
         allowedFileTypes: null,
-        allowedFileExtensions: null,
+        allowedFileExtensions: ['sql'], // 只允许sql的文件
         allowedPreviewTypes: undefined,
         allowedPreviewMimeTypes: null,
         allowedPreviewExtensions: null,

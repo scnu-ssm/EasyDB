@@ -1,3 +1,6 @@
+var protocol = "http://";
+var host = "www.chenrong.xyz";
+var basePath = protocol + host;
 //初始化
 $(document).ready(function () {
   let connectId = sessionStorage.getItem("connectId")
@@ -9,7 +12,7 @@ $(document).ready(function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/showtables',
+    url:basePath + '/tableinfo/showtables',
     data: {"connectId":connectId,"databaseName":database},
     success:function (data) {
       let tables = data.data
@@ -60,7 +63,7 @@ $(document).on("click","button[name$='btn-del']",function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/tableinfo/droptable',
+      url:basePath + '/tableinfo/droptable',
       data: {"connectId":connectId,"database":database,"table":table},
       success:function (data) {
         alert(data.data)
@@ -88,7 +91,7 @@ $(document).on("click","button[name$='btn-clean']",function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/tableinfo/truncatetable',
+      url:basePath +'/tableinfo/truncatetable',
       data: {"connectId":connectId,"database":database,"table":table},
       success:function (data) {
         alert(data.data)
@@ -123,8 +126,10 @@ $(document).on("click","button[name$='btn-design']",function () {
 
 //打开表
 $(document).on("click","button[name$='btn-open']",function () {
-  alert("open table")
-  window.open('../table/showTable.html','_blank')
+   var table = $(this).parent().children('span').text();
+   // 通过sessionStorage传递tableName
+   sessionStorage.setItem("table", table);
+   window.open('../table/showTable.html','_blank');
 })
 
 

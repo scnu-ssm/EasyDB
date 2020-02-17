@@ -40,7 +40,7 @@
               <li><h3><span id="table"></span>&nbsp;&nbsp;</h3></li>
 							<li>
 								<form class="form-inline">
-									<a type="button" id="find" class="btn btn-info btn-sm">
+									<a type="button" id="find" class="btn btn-info btn-sm" flag="false">
 										<span class="glyphicon glyphicon-search"></span> 查找
 									</a>
 									<select class="form-control" id="selectColumn">
@@ -52,11 +52,11 @@
 										<option>imgurl</option>
 										<option>description</option>
 									</select>
-									<input class="form-control" type="text" placeholder="value" />
+									<input id="selectInput" class="form-control" type="text" placeholder="value" />
 								</form>
 							</li>
-							<li><a href="#" id="asc"><span class="glyphicon glyphicon-sort-by-order"></span> 升序</a></li>
-							<li><a href="#" id="desc"><span class="glyphicon glyphicon-sort-by-order-alt"></span> 降序</a></li>
+							<li><a href="#" id="asc" flag="false"><span class="glyphicon glyphicon-sort-by-order"></span> 升序</a></li>
+							<li><a href="#" id="desc" flag="false"><span class="glyphicon glyphicon-sort-by-order-alt"></span> 降序</a></li>
 							<li><a href="#" id="refresh"><span class="glyphicon glyphicon-repeat"></span> 刷新</a></li>
 						</ul>
 					</div>
@@ -85,7 +85,7 @@
       </div>
       <!-- 记录操作 end-->
 
-			<!-- table start -->
+			<!-- table start-->
       <div>
       <table class="table table-striped table-bordered table-hover" style="margin-top: 1%">
         <thead>
@@ -127,7 +127,13 @@
       <!-- page start-->
       <div style="text-align: center">
       <nav>
-        <ul class="pagination pagination-sm">
+        <span style="position: relative; bottom: 30px" id="current">当前 10 条</span>&nbsp;&nbsp;&nbsp;
+        <ul class="pagination pagination-sm" id="PageUl">
+          <li class="disabled">
+            <a href="#" aria-label="Start">
+              <span aria-hidden="true">首页</span>
+            </a>
+          </li>
           <li class="disabled">
             <a href="#" aria-label="Previous">
               <span aria-hidden="true">«</span>
@@ -138,12 +144,20 @@
           <li><a href="#">3</a></li>
           <li><a href="#">4</a></li>
           <li><a href="#">5</a></li>
+          <li><a href="#">6</a></li>
+          <li><a href="#">7</a></li>
           <li>
             <a href="#" aria-label="Next">
               <span aria-hidden="true">»</span>
             </a>
           </li>
+          <li>
+            <a href="#" aria-label="End">
+              <span aria-hidden="true">末页</span>
+            </a>
+          </li>
         </ul>
+        &nbsp;&nbsp;&nbsp;<span style="position: relative; bottom: 30px" id="all">共  20  条</span>
       </nav>
       </div>
       <!-- page end-->

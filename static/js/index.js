@@ -22,7 +22,7 @@
 
 // 定义服务器的protocol、host, 统一使用basePath作为前缀，不然请求url多了，修改要炸
 var protocol = "http://";
-var host = "www.chenrong.xyz";
+var host = "localhost";
 var basePath = protocol + host;
 
 //taixiong

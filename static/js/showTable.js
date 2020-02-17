@@ -1,5 +1,5 @@
 var protocol = "http://";
-var host = "www.chenrong.xyz";
+var host = "localhost";
 var basePath = protocol + host;
 
 var connectId = sessionStorage.getItem("connectId");
@@ -69,6 +69,60 @@ $(function(){
           sessionStorage.setItem("primaryKeys", JSON.stringify(primaryKeys));
 
           //设置分页的数据
+          var page = result.data.page;
+          $("#PageUl").html('');
+          var start = `          <li id="start" value="${page.start}">
+                                      <a href="#" aria-label="Start">
+                                      <span aria-hidden="true">首页</span>
+                                      </a>
+                                 </li>`;
+          var pre = `            <li id="pre" value="${page.prePage}">
+                                      <a href="#" aria-label="Previous">
+                                      <span aria-hidden="true">«</span>
+                                      </a>
+                                 </li>`;
+          $("#PageUl").append(start);
+          $("#PageUl").append(pre);
+          var current = page.current;
+          var pageArr = page.pageArr;
+          for(var i = 0; i < pageArr.length; i++){
+                   if(pageArr[i] == current){
+                        $("#PageUl").append(`<li class="active" value="${pageArr[i]}"><a href="#">${pageArr[i]}</a></li>`);
+                   }else{
+                        $("#PageUl").append(`<li value="${pageArr[i]}"><a href="#">${pageArr[i]}</a></li>`);
+                   }
+          }
+          var next = `           <li id="next" value="${page.nextPage}">
+                                      <a href="#" aria-label="Next">
+                                      <span aria-hidden="true">»</span>
+                                      </a>
+                                 </li>`;
+          var end = `            <li id="end" value="${page.end}">
+                                      <a href="#" aria-label="End">
+                                      <span aria-hidden="true">末页</span>
+                                      </a>
+                                 </li>`;
+          $("#PageUl").append(next);
+          $("#PageUl").append(end);
+
+          // 设置首页、前一页不可动
+          if(page.start == current){
+               $("#start").addClass("disabled");
+               $("#pre").addClass("disabled");
+          }
+          // 设置末页、下一页不可动
+          if(page.end == current){
+               $("#next").addClass("disabled");
+               $("#end").addClass("disabled");
+          }
+
+          // 设置当前记录和总记录
+          $("#current").html('');
+          $("#all").html('');
+
+          $("#current").append(`当前 ${page.rows} 条`);
+          $("#all").append(`共  ${page.allRows}  条`);
+
         } else {
           console.log("查询记录接口失败")
         }
@@ -77,6 +131,8 @@ $(function(){
         console.log("查询记录接口失败")
       }
     });
+    // 自动添加复选框
+    initTableCheckBox();
   }
 
   // 初始化表
@@ -124,8 +180,6 @@ $(function(){
       $(this).find('input').click();
     });
   }
-  // 自动添加复选框
-  initTableCheckBox();
 
   // 清除body掩盖
   $("body").removeAttr("style");
@@ -232,8 +286,26 @@ $(function(){
                         console.log(result.data);
                        if(result.code == 200){
                               // 重新刷新页面
-                              innitTable();
-                              initTableCheckBox();
+                              //innitTable();
+                         var current = $("#PageUl .active").children().text();
+                         var findFlag = $("#find").attr("flag");
+                         var ascFlag = $("#asc").attr("flag");
+                         var descFlag = $("#desc").attr("flag");
+                         var orderColumn = $("#selectColumn option:selected").text();
+
+                         if(findFlag == "false" && ascFlag == "false" && descFlag == "false"){
+                           // 按照页码查询
+                           innitTable(current);
+                         }
+                         if(ascFlag == "true"){
+                           innitTable(current, orderColumn, "asc");
+                         }
+                         if(descFlag == "true"){
+                           innitTable(current, orderColumn, "desc");
+                         }
+                         if(findFlag == "true"){
+                           findRecords(current);
+                         }
                        }
               },
               error: function () {
@@ -300,82 +372,48 @@ $(function(){
 
   // 刷新按钮监听事件
   $(document).on("click", "#refresh", function () {
+           // flag标志
+           $("#asc").attr("flag", "false");
+           $("#desc").attr("flag", "false");
+           $("#find").attr("flag", "false");
            innitTable();
-           initTableCheckBox();
    });
 
   // 升序按钮监听事件
   $(document).on("click", "#asc", function () {
        var orderColumn = $("#selectColumn option:selected").text();
        var orderType = "asc";
-
-       innitTable(null, orderColumn, orderType);
-       initTableCheckBox();
+       // 标记位，用于选择页码
+       $("#asc").attr("flag", "true");
+       $("#desc").attr("flag", "false");
+       $("#find").attr("flag", "false");
+       // 默认从第一页开始排序
+       innitTable(1, orderColumn, orderType);
   });
 
   // 降序按钮监听事件
   $(document).on("click", "#desc", function () {
        var orderColumn = $("#selectColumn option:selected").text();
        var orderType = "desc";
-
-       innitTable(null, orderColumn, orderType);
-       initTableCheckBox();
+       // 标记位，用于选择页码
+       $("#asc").attr("flag", "false");
+       $("#desc").attr("flag", "true");
+       $("#find").attr("flag", "false");
+       // 默认从第一页开始排序
+       innitTable(1, orderColumn, orderType);
   });
 
   // 查找按钮监听事件
   $(document).on("click", "#find", function () {
-       var columnName = $("#selectColumn option:selected").text();
-       var value = $(this).next().next().val();
 
-       $.ajax({
-           type: 'get',
-           async: true,
-           xhrFields: {withCredentials: true},
-           crossDomain: true,
-           url: basePath + "/record/selectRecordsByColumn",
-           data: {"connectId":connectId, "database":database, "table":table, "columnName":columnName, "value":value},
-           success: function (result) {
-                      if(result.code == 200){
-                        console.log("指定字段查询记录接口成功");
-                        // 初始化查找下拉列表、初始化表头
-                        var arrColumn = result.data.columnsName;
-                        $('#selectColumn').html('');
-                        $('#theadTr').html('');
-                        for (var i in arrColumn) {
-                          $('#selectColumn').append(`<option>${arrColumn[i]}</option>`)
-                          $('#theadTr').append(`<th class="text-primary"><h4>${arrColumn[i]}</h4></th>`)
-                        }
+       // 标记位，用于选择页码
+       $("#asc").attr("flag", "false");
+       $("#desc").attr("flag", "false");
+       $("#find").attr("flag", "true");
 
-                        // 将列列表存储到sessionStorage
-                        sessionStorage.setItem("arrColumn", JSON.stringify(arrColumn));
+       // 默认查询第一页的数据
+       findRecords(1);
 
-                        // 初始化tbody
-                        var arrRecords = result.data.records;
-                        $("#tbody").html('');
-                        for (var i in arrRecords) {
-                          var html = `<tr>`;
-                          for (var j in arrColumn) {
-                            if (arrRecords[i][arrColumn[j]] != undefined) {
-                              html += (`<td key="${arrColumn[j]}">${arrRecords[i][arrColumn[j]]}</td>`);
-                            } else {
-                              html += (`<td key="${arrColumn[j]}"></td>`);
-                            }
-                          }
-                          html += `</tr>`;
-                          $("#tbody").append(html);
-                        }
-
-                        // 添加复选框
-                        initTableCheckBox();
-
-                      }else{
-                          console.log("指定字段查询记录失败");
-                      }
-           },
-           error: function () {
-               console.log("指定字段查询记录失败");
-           }
-       });
   });
 
   // 模态框  增加记录保存按钮监听事件
@@ -408,8 +446,26 @@ $(function(){
         if(result.code == 200){
           console.log(result.data);
           // 重新刷新表
-          innitTable();
-          initTableCheckBox();
+          //innitTable();
+          var current = $("#PageUl .active").children().text();
+          var findFlag = $("#find").attr("flag");
+          var ascFlag = $("#asc").attr("flag");
+          var descFlag = $("#desc").attr("flag");
+          var orderColumn = $("#selectColumn option:selected").text();
+
+          if(findFlag == "false" && ascFlag == "false" && descFlag == "false"){
+            // 按照页码查询
+            innitTable(current);
+          }
+          if(ascFlag == "true"){
+            innitTable(current, orderColumn, "asc");
+          }
+          if(descFlag == "true"){
+            innitTable(current, orderColumn, "desc");
+          }
+          if(findFlag == "true"){
+               findRecords(current);
+          }
         }else{
           console.log(result.data);
         }
@@ -486,5 +542,149 @@ $(function(){
            // 关闭模态框
            $("#updateRecord").modal('hide');
   });
+
+  // 页面按钮监听事件
+  $(document).on("click", "#PageUl li", function () {
+          var current = $(this).attr("value");
+          var findFlag = $("#find").attr("flag");
+          var ascFlag = $("#asc").attr("flag");
+          var descFlag = $("#desc").attr("flag");
+          var orderColumn = $("#selectColumn option:selected").text();
+
+          if(findFlag == "false" && ascFlag == "false" && descFlag == "false"){
+                   // 按照页码查询
+                   innitTable(current);
+          }
+          if(ascFlag == "true"){
+                   innitTable(current, orderColumn, "asc");
+          }
+          if(descFlag == "true"){
+                   innitTable(current, orderColumn, "desc");
+          }
+          if(findFlag == "true"){
+                   findRecords(current);
+          }
+  });
+
+  // 按照指定字段查询记录的事件
+  function findRecords(current) {
+    var columnName = $("#selectColumn option:selected").text();
+    var value = $("#selectInput").val();
+
+    $.ajax({
+      type: 'get',
+      async: true,
+      xhrFields: {withCredentials: true},
+      crossDomain: true,
+      url: basePath + "/record/selectRecordsByColumn",
+      data: {"connectId":connectId, "database":database, "table":table, "columnName":columnName, "value":value, "current":current},
+      success: function (result) {
+        if(result.code == 200){
+          console.log("指定字段查询记录接口成功");
+          // 初始化查找下拉列表、初始化表头
+          var arrColumn = result.data.columnsName;
+          $('#selectColumn').html('');
+          $('#theadTr').html('');
+          for (var i in arrColumn) {
+            $('#selectColumn').append(`<option>${arrColumn[i]}</option>`)
+            $('#theadTr').append(`<th class="text-primary"><h4>${arrColumn[i]}</h4></th>`)
+          }
+
+          // 将列列表存储到sessionStorage
+          sessionStorage.setItem("arrColumn", JSON.stringify(arrColumn));
+
+          // 初始化tbody
+          var arrRecords = result.data.records;
+          $("#tbody").html('');
+          for (var i in arrRecords) {
+            var html = `<tr>`;
+            for (var j in arrColumn) {
+              if (arrRecords[i][arrColumn[j]] != undefined) {
+                html += (`<td key="${arrColumn[j]}">${arrRecords[i][arrColumn[j]]}</td>`);
+              } else {
+                html += (`<td key="${arrColumn[j]}"></td>`);
+              }
+            }
+            html += `</tr>`;
+            $("#tbody").append(html);
+          }
+
+          // 添加复选框
+          initTableCheckBox();
+
+          // 清空页码，不分页
+          //设置分页的数据
+          var page = result.data.page;
+          $("#PageUl").html('');
+          var start = `          <li id="start" value="${page.start}">
+                                      <a href="#" aria-label="Start">
+                                      <span aria-hidden="true">首页</span>
+                                      </a>
+                                 </li>`;
+          var pre = `            <li id="pre" value="${page.prePage}">
+                                      <a href="#" aria-label="Previous">
+                                      <span aria-hidden="true">«</span>
+                                      </a>
+                                 </li>`;
+          $("#PageUl").append(start);
+          $("#PageUl").append(pre);
+          var current = page.current;
+          var pageArr = page.pageArr;
+          for(var i = 0; i < pageArr.length; i++){
+            if(pageArr[i] == current){
+              $("#PageUl").append(`<li class="active" value="${pageArr[i]}"><a href="#">${pageArr[i]}</a></li>`);
+            }else{
+              $("#PageUl").append(`<li value="${pageArr[i]}"><a href="#">${pageArr[i]}</a></li>`);
+            }
+          }
+          var next = `           <li id="next" value="${page.nextPage}">
+                                      <a href="#" aria-label="Next">
+                                      <span aria-hidden="true">»</span>
+                                      </a>
+                                 </li>`;
+          var end = `            <li id="end" value="${page.end}">
+                                      <a href="#" aria-label="End">
+                                      <span aria-hidden="true">末页</span>
+                                      </a>
+                                 </li>`;
+          $("#PageUl").append(next);
+          $("#PageUl").append(end);
+
+          // 设置首页、前一页不可动
+          if(page.start == current){
+            $("#start").addClass("disabled");
+            $("#pre").addClass("disabled");
+          }
+          // 设置末页、下一页不可动
+          if(page.end == current){
+            $("#next").addClass("disabled");
+            $("#end").addClass("disabled");
+          }
+
+          // 设置当前记录和总记录
+          $("#current").html('');
+          $("#all").html('');
+
+          $("#current").append(`当前 ${page.rows} 条`);
+          $("#all").append(`共  ${page.allRows}  条`);
+
+          // 重新设置选中
+          var arr = $("#selectColumn option");
+          for(var i = 0; i < arr.length; i++){
+            if(columnName == $(arr[i]).text()){
+              arr[i].selected = 'selected';
+              break;
+            }
+          }
+
+        }else{
+          console.log("指定字段查询记录失败");
+        }
+      },
+      error: function () {
+        console.log("指定字段查询记录失败");
+      }
+    });
+  }
 
 });

@@ -254,25 +254,20 @@ $(function(){
 
           // 找到对应tr的td数组
           var arrInput = $tbr.find('input:checked');
-          var oldRecords = "[";
+          var oldRecords = [];
           for(var i = 0;  i < arrInput.length; i++) {
 
             // 组装oldRecord对象
             var arr = $(arrInput[i]).parent().parent().children();
-            var oldRecord = "{";
+            var oldRecord = {};
             for (var j = 1; j < arr.length; j++) {
               var key = $(arr[j]).attr("key");
               var value = $(arr[j]).text();
-              oldRecord += ('"' + key + '":"' + value + '",');
+              oldRecord[key] = value;
             }
-            oldRecord = oldRecord.substring(0, oldRecord.length - 1) + "}";
 
-            oldRecords += oldRecord;
-            oldRecords +=",";
-
+            oldRecords.push(oldRecord);
           }
-          oldRecords = oldRecords.substring(0, oldRecords.length - 1) + "]";
-          oldRecords = JSON.parse(oldRecords);
 
           // 获取主键
           var primaryKeys = sessionStorage.getItem("primaryKeys") == null ? null : JSON.parse(sessionStorage.getItem("primaryKeys"));
@@ -424,15 +419,12 @@ $(function(){
   $(document).on("click", "#insertSave", function () {
     // 组装newRecord对象
     var arr = $("#insertDiv .input-group");
-    var newRecord = "{";
+    var newRecord = {};
     for(var i = 0; i < arr.length; i++){
       var key = $(arr[i]).children('span').text();
       var value = $(arr[i]).children('input').val();
-      newRecord += ('"' + key + '":"' + value + '",');
+      newRecord[key] = value;
     }
-    newRecord = newRecord.substring(0, newRecord.length - 1) + "}";
-    newRecord = JSON.parse(newRecord);
-
     var connectId = sessionStorage.getItem("connectId");
     var database = sessionStorage.getItem("database");
     var table = sessionStorage.getItem("table");
@@ -498,24 +490,18 @@ $(function(){
   $(document).on("click", "#updateSave", function () {
 
            // 组装oldRecord
-           var oldRecord = "{";
+           var oldRecord = {};
            // 组装newRecord
-           var newRecord = "{";
+           var newRecord = {};
 
            var arr = $("#updateDiv .input-group");
            for(var i = 0; i < arr.length; i++){
                   var key = $(arr[i]).find('span').text();
                   var oldValue = $(arr[i]).find('input').attr("value");
                   var newValue = $(arr[i]).find('input').val();
-                  oldRecord += '"' + key + '":"' + oldValue + '",';
-                  newRecord += '"' + key + '":"' + newValue + '",';
+                  oldRecord[key] = oldValue;
+                  newRecord[key] = newValue;
            }
-           oldRecord = oldRecord.substring(0, oldRecord.length - 1) + "}";
-           newRecord = newRecord.substring(0, newRecord.length - 1) + "}";
-
-           // 将字符串转化为对象
-           oldRecord = JSON.parse(oldRecord);
-           newRecord = JSON.parse(newRecord);
 
            //请求更新数据接口
            $.ajax({

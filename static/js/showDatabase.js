@@ -1,5 +1,5 @@
 var protocol = "http://";
-var host = "localhost";
+var host = "www.chenrong.xyz";
 var basePath = protocol + host;
 //初始化
 $(document).ready(function () {

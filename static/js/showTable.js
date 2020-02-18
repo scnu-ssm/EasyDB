@@ -1,5 +1,5 @@
 var protocol = "http://";
-var host = "localhost";
+var host = "www.chenrong.xyz";
 var basePath = protocol + host;
 
 var connectId = sessionStorage.getItem("connectId");
@@ -38,6 +38,7 @@ $(function(){
 
           // 初始化查找下拉列表、初始化表头
           var arrColumn = result.data.columnsName;
+          var types = result.data.types;
           $('#selectColumn').html('');
           $('#theadTr').html('');
           for (var i in arrColumn) {
@@ -47,6 +48,8 @@ $(function(){
 
           // 将列列表存储到sessionStorage
           sessionStorage.setItem("arrColumn", JSON.stringify(arrColumn));
+          // 将字段类型列表存到sessionStorage
+          sessionStorage.setItem("types", JSON.stringify(types));
 
           // 初始化tbody
           var arrRecords = result.data.records;
@@ -228,10 +231,11 @@ $(function(){
   $(document).on("click", "#insert", function () {
     $("#insertDiv").html('');
     var arrColumn = JSON.parse(sessionStorage.getItem("arrColumn"));
+    var types = JSON.parse(sessionStorage.getItem("types"));
     for(var i in arrColumn){
       var html = `  <div class="input-group">
                          <span class="input-group-addon" style="text-align: left">${arrColumn[i]}</span>
-                         <input type="text" class="form-control" >
+                         <input type="text" class="form-control" placeholder="${types[arrColumn[i]]}">
                     </div>
                     <br>`;
       $("#insertDiv").append(html);
@@ -585,9 +589,11 @@ $(function(){
           var arrColumn = result.data.columnsName;
           $('#selectColumn').html('');
           $('#theadTr').html('');
+          $('#theadTrTwo').html('');
           for (var i in arrColumn) {
             $('#selectColumn').append(`<option>${arrColumn[i]}</option>`)
             $('#theadTr').append(`<th class="text-primary"><h4>${arrColumn[i]}</h4></th>`)
+            $('#theadTrTwo').append(`<th class="text-primary"><h4>${arrColumn[i]}</h4></th>`)
           }
 
           // 将列列表存储到sessionStorage

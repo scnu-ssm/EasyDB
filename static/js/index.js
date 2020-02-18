@@ -22,7 +22,7 @@
 
 // 定义服务器的protocol、host, 统一使用basePath作为前缀，不然请求url多了，修改要炸
 var protocol = "http://";
-var host = "localhost";
+var host = "www.chenrong.xyz";
 var basePath = protocol + host;
 
 //taixiong
@@ -360,7 +360,19 @@ $(document).ready(function () {
     }
   });
 
-  // 新建连接
+  // 新建连接按钮
+  $("#createConnection").click(function () {
+    //清空原有内容
+    $("#connectName").val('');
+    $("#connectIP").val('');
+    $("#connectPort").val('');
+    $("#connectUsername").val('');
+    $("#connectPassword").val('');
+    $("#connectRepeatPassword").val('');
+
+  });
+
+  // 新建连接保存按钮
   $("#connectSave").click(function () {
           var connectName = $("#connectName").val();
           var connectIP = $("#connectIP").val();
@@ -370,7 +382,6 @@ $(document).ready(function () {
           var repeatPasswd = $("#connectRepeatPassword").val();
           // 缺少是否保存
           var isSave = 0;
-          $('#newConnectModal').modal('hide');
           if(passwd != repeatPasswd){
                  alert("两次输入的密码不一致");
           }else{
@@ -439,6 +450,9 @@ $(document).ready(function () {
                     console.log("请求新建连接的接口失败");
                   }
                });
+
+               // 关闭模态框
+               $('#newConnectModal').modal('hide');
           }
   });
 

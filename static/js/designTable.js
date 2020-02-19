@@ -22,6 +22,9 @@
  * 　　　　 　┗┻┛ ┗┻┛+ + + +
  *
  */
+var protocol = "http://";
+var host = "www.chenrong.xyz";
+var basePath = protocol + host;
 //初始化
 $(document).ready(function () {
   //获取url参数
@@ -42,7 +45,7 @@ $(document).ready(function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/showtablemsg',
+    url:basePath+'/tableinfo/showtablemsg',
     data: {"connectId":connectId,"database":database,"table":table},
     success:function (data) {
       let fieldHtml = ''
@@ -91,7 +94,7 @@ $(document).ready(function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/allfk',
+    url:basePath+'/tableinfo/allfk',
     data: {"connectId":connectId,"database":database,"table":table},
     success:function (data) {
       let fkHtml = ''
@@ -148,7 +151,7 @@ $(document).on("click","input:checkbox[name$='primary']",function () {
         async:true,
         xhrFields:{withCredentials: true},
         crossDomain:true,
-        url:'http://www.chenrong.xyz/tableinfo/setpk',
+        url:basePath+'/tableinfo/setpk',
         data: {"connectId":connectId,"database":database,"table":table,"field":fieldname},
         success:function (data) {
           if(data.code == 200){
@@ -171,7 +174,7 @@ $(document).on("click","input:checkbox[name$='primary']",function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/tableinfo/deletepk',
+      url:basePath+'/tableinfo/deletepk',
       data: {"connectId":connectId,"database":database,"table":table},
       success:function (data) {
         if(data.code == 200){
@@ -204,7 +207,7 @@ $(document).on("click","button[name$='delField']",function () {
       async: true,
       xhrFields: {withCredentials: true},
       crossDomain: true,
-      url: 'http://www.chenrong.xyz/tableinfo/dropfield',
+      url: basePath+'/tableinfo/dropfield',
       data: {"connectId": connectId, "database": database, "table": table, "field": fieldname},
       success: function (data) {
         if(data.code == 200){
@@ -237,7 +240,7 @@ $(document).on("click","button[name$='delFk']",function () {
       async: true,
       xhrFields: {withCredentials: true},
       crossDomain: true,
-      url: 'http://www.chenrong.xyz/tableinfo/deletefk',
+      url: basePath+'/tableinfo/deletefk',
       data: {"connectId": connectId, "database": database, "table": table, "fname": fname},
       success: function (data) {
         if (data.code == 200) {
@@ -317,41 +320,43 @@ $(document).on("click","#btn-addField",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/insertfield',
+    url:basePath+'/tableinfo/insertfield',
     data: JSON.stringify(mydata),
     success:function (data) {
       if(data.code == 200){
         alert("插入字段成功")
-        html = `    <tr>
-      <!-- 名 -->
-      <td name="fieldName">${name}</td>
-      <!-- 类型 -->
-      <td>${type}</td>
-      <!-- 长度 -->
-      <td>${length}</td>
-      <!-- 不是null -->
-      <td><input type="checkbox" disabled="disabled" ${notNull=="1"?'checked="checked"':null}/></td>
-      <!-- 是主键 -->
-      <td><input type="checkbox" name="primary"/></td>
-      <!-- 删除-->
-      <td>
-        <button class="btn-danger btn-xs" name="delField">
-          <span class="glyphicon glyphicon-remove"></span>
-        </button>
-      </td>
-      <td>
-        <button class="btn-xs btn-success" data-toggle="modal" data-target="#editFieldModal">
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
-      </td>
-    </tr>`
-        $("#fieldTable").append(html)
+    //     html = `    <tr>
+    //   <!-- 名 -->
+    //   <td name="fieldName">${name}</td>
+    //   <!-- 类型 -->
+    //   <td>${type}</td>
+    //   <!-- 长度 -->
+    //   <td>${length}</td>
+    //   <!-- 不是null -->
+    //   <td><input type="checkbox" disabled="disabled" ${notNull=="1"?'checked="checked"':null}/></td>
+    //   <!-- 是主键 -->
+    //   <td><input type="checkbox" name="primary"/></td>
+    //   <!-- 删除-->
+    //   <td>
+    //     <button class="btn-danger btn-xs" name="delField">
+    //       <span class="glyphicon glyphicon-remove"></span>
+    //     </button>
+    //   </td>
+    //   <td>
+    //     <button class="btn-xs btn-success" data-toggle="modal" data-target="#editFieldModal">
+    //       <span class="glyphicon glyphicon-edit"></span>
+    //     </button>
+    //   </td>
+    // </tr>`
+    //     $("#fieldTable").append(html)
+        $("#addFieldModal").modal('hide')
+        window.location.href='designTable.html?con='+connectId+'&db='+database+'&tb='+table
       }else {
         alert(data.data)
       }
     },
     error: function(xhr, err){
-      console.log('异步请求createtable API失败：')
+      console.log('异步请求insertfield API失败：')
       console.log(xhr)
       console.log(err)
     }
@@ -368,7 +373,7 @@ $(document).on("click","#addFk",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/database/showDateBase',
+    url:basePath+'/database/showDateBase',
     data:{"connectId":connectId},
     success:function (data) {
       let dblist = data.data
@@ -397,7 +402,7 @@ $(document).on("change","#m-fdatabase",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/showtables',
+    url:basePath+'/tableinfo/showtables',
     data: {"connectId":connectId,"databaseName":database},
     success:function (data) {
       let tables = data.data
@@ -426,7 +431,7 @@ $(document).on("change","#m-ftable",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/showcolumns',
+    url:basePath+'/tableinfo/showcolumns',
     data: {"connectId":connectId,"database":database,"table":table},
     success:function (data) {
       let fields = data.data
@@ -525,7 +530,7 @@ $(document).on("click","#btn-addFK",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/insertfk',
+    url:basePath+'/tableinfo/insertfk',
     data: JSON.stringify(mydata),
     success:function (data) {
       if(data.code == 200){
@@ -545,6 +550,7 @@ $(document).on("click","#btn-addFK",function () {
               </td>
             </tr>`
         $("#fkTable").append(fkHtml)
+        $("#addFkModal").modal('hide')
       }else {
         alert(data.data)
       }
@@ -647,7 +653,7 @@ $(document).on("click","#e-editField",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/changefield',
+    url:basePath+'/tableinfo/changefield',
     data: JSON.stringify(mydata),
     success:function (data) {
       if(data.code == 200){
@@ -668,6 +674,7 @@ $(document).on("click","#e-editField",function () {
         }else {
           tds.eq(3).find("input:checkbox:checked").removeAttr("checked")
         }
+        $("#editFieldModal").modal('hide')
       }else {
         alert(data.data)
       }
@@ -692,7 +699,7 @@ $(document).on("click","#btn-rename",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/showtables',
+    url:basePath+'/tableinfo/showtables',
     data: {"connectId":connectId,"databaseName":database},
     success:function (data) {
       $("#allTableName").val(data.data)
@@ -737,7 +744,7 @@ $(document).on("click","#renameSave",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/renametable',
+    url:basePath+'/tableinfo/renametable',
     data: {"connectId":connectId,"database":database,"table":table,"rename":rename},
     success:function (data) {
       if(data.code == 200){

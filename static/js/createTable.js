@@ -22,6 +22,9 @@
  * 　　　　 　┗┻┛ ┗┻┛+ + + +
  *
  */
+var protocol = "http://";
+var host = "www.chenrong.xyz";
+var basePath = protocol + host;
 
 $(document).ready(function () {
 
@@ -146,7 +149,7 @@ $(document).ready(function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/database/showDateBase',
+    url:basePath+'/database/showDateBase',
     data:{"connectId":connectId},
     success:function (data) {
       let dblist = data.data
@@ -221,7 +224,7 @@ $(document).on("change","select[name$='fkDB']",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/showtables',
+    url:basePath+'/tableinfo/showtables',
     data: {"connectId":connectId,"databaseName":database},
     success:function (data) {
       let tables = data.data
@@ -256,7 +259,7 @@ $(document).on("change","select[name$='fkTB']",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/tableinfo/showcolumns',
+    url:basePath+'/tableinfo/showcolumns',
     data: {"connectId":connectId,"database":database,"table":table},
     success:function (data) {
       let fields = data.data
@@ -423,7 +426,7 @@ $(document).on("click","#save",function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/tableinfo/createtable',
+      url:basePath+'/tableinfo/createtable',
       data: JSON.stringify(mydata),
       success:function (data) {
         if(data.code == 200){

@@ -7,11 +7,11 @@
 <!--    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
 <!--    <script src="static/bootstrp/js/bootstrap.js"></script>-->
     <!-- 新 Bootstrap 核心 CSS 文件 -->
-    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/bootstrp/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../static/js/vendor/jquery-3.4.1.min.js"></script>
     <!--  Bootstrap 核心 JavaScript 文件 -->
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../static/bootstrp/js/bootstrap.min.js"></script>
     <script src="../static/js/DBuser.js"></script>
     <title>EasyDB</title>
 </head>
@@ -122,73 +122,79 @@
   </div>
 </div>
 
-<!--编辑模态框-->
-<!--<div class="modal fade" id="editDBuserModal" aria-hidden="true">-->
-<!--  <div class="modal-dialog modal-sm">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-body" style="text-align: center">-->
-<!--        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-<!--        <br>-->
-<!--        <h4 class="modal-title"><b>编辑用户</b></h4>-->
-<!--        <br>-->
-<!--        <div>-->
-<!--          <input type="text" class="form-control" id="Eusername" disabled="disabled">-->
-<!--        </div>-->
-<!--        <br>-->
-<!--        <div>-->
-<!--          <input type="text" class="form-control" id="Ehost" disabled="disabled">-->
-<!--        </div>-->
-<!--        <br>-->
-<!--        <div>-->
-<!--          <input type="password" class="form-control" id="Epwd">-->
-<!--          <input type="text" hidden="hidden" id="Epassword">-->
-<!--        </div>-->
-<!--        <br>-->
-<!--        <br><br>-->
-<!--        <button  type="button" class="btn btn-info btn-block" data-dismiss="modal" id="Ebtn">确定</button>-->
-<!--        <br><br>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<div class="modal fade" id="editDBuserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">修改密码</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">用户名</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="Eusername" disabled="disabled">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">主机</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="Ehost" disabled="disabled">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">新密码</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="Epwd">
-              <input type="text" hidden="hidden" id="Epassword">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" id="Ecomfirm">确定</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-</div>
 
+<!--编辑模态框-->
+<!--<div class="modal fade" id="editDBuserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--        <h4 class="modal-title" id="myModalLabel">修改密码</h4>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form class="form-horizontal" role="form">-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">用户名</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="text" class="form-control" id="Eusername" disabled="disabled">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">主机</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="text" class="form-control" id="Ehost" disabled="disabled">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">新密码</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="text" class="form-control" id="Epwd">-->
+<!--              <input type="text" hidden="hidden" id="Epassword">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+<!--        <button type="button" class="btn btn-primary" data-dismiss="modal" id="Ecomfirm">确定</button>-->
+<!--      </div>-->
+<!--    </div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+<!--  </div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--</div>-->
+
+<!-- 编辑用户模态框 start-->
+<div class="modal fade" id="editDBuserModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>修改密码</b></h4>
+        <br>
+        <div id="insertDiv">
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">用户名</span>
+            <input type="text" class="form-control" id="Eusername" disabled="disabled">
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">主&emsp;机</span>
+            <input type="text" class="form-control" id="Ehost" disabled="disabled">
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">新密码</span>
+            <input type="text" class="form-control" id="Epwd">
+            <input type="text" hidden="hidden" id="Epassword">
+          </div>
+          <br>
+        </div>
+        <button type="button"  id="Ecomfirm" class="btn btn-info btn-block">确定</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

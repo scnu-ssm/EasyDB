@@ -1,3 +1,7 @@
+var protocol = "http://";
+var host = "www.chenrong.xyz";
+var basePath = protocol + host;
+
 $(document).ready(function () {
   let connectId = sessionStorage.getItem("DBconnectId")
   let connectName = sessionStorage.getItem("DBconnectName")
@@ -8,7 +12,7 @@ $(document).ready(function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/dbuser/allusers',
+    url:basePath+'/dbuser/allusers',
     data:{"connectId":connectId},
     success:function (data) {
       let users = data.data
@@ -50,7 +54,7 @@ $(document).on("click",".myedit",function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/dbuser/oneuser',
+    url:basePath+'/dbuser/oneuser',
     data: {"connectId":connectId,"username":username,"host":host},
     success:function (data) {
       let user = data.data
@@ -81,10 +85,11 @@ $(document).ready(function () {
         async:true,
         xhrFields:{withCredentials: true},
         crossDomain:true,
-        url:'http://www.chenrong.xyz/dbuser/updatepwd',
+        url:basePath+'/dbuser/updatepwd',
         data: {"connectId":connectId,"username":username,"host":host, "pwd":pwd},
         success:function (data) {
           alert(data.data)
+          $("#editDBuserModal").modal('hide')
         },
         error: function(xhr, err){
           console.log('异步请求登录API失败：')
@@ -109,11 +114,11 @@ $(document).ready(function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/dbuser/createuser',
+      url:basePath+'/dbuser/createuser',
       data: {"connectId":connectId,"username":username,"host":host,"pwd":pwd,"repwd":repwd},
       success:function (data) {
         alert(data.data)
-        window.location.href="http://www.chenrong.xyz/DBuser/DBuserList.html"
+        window.location.href=basePath+"/DBuser/DBuserList.html"
       },
       error: function(xhr, err){
         console.log('异步请求登录API失败：')
@@ -145,11 +150,11 @@ $(document).ready(function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/dbuser/dropuser',
+      url:basePath+'/dbuser/dropuser',
       data: {"connectId":connectId,"username":username,"host":host},
       success:function (data) {
         alert(data.data)
-        window.location.href="http://www.chenrong.xyz/DBuser/DBuserList.html"
+        window.location.href=basePath+"/DBuser/DBuserList.html"
       },
       error: function(xhr, err){
         console.log('异步请求登录API失败：')

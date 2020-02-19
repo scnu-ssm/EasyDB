@@ -7,11 +7,11 @@
   <!--    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
   <!--    <script src="static/bootstrp/js/bootstrap.js"></script>-->
   <!-- 新 Bootstrap 核心 CSS 文件 -->
-  <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/bootstrp/css/bootstrap.min.css" rel="stylesheet">
   <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="../static/js/vendor/jquery-3.4.1.min.js"></script>
   <!--  Bootstrap 核心 JavaScript 文件 -->
-  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../static/bootstrp/js/bootstrap.min.js"></script>
   <script src="../static/js/designTable.js"></script>
   <title>EasyDB</title>
 </head>
@@ -126,263 +126,352 @@
 
 
 <!--添加字段模态框-->
-<div class="modal fade" id="addFieldModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">添加字段</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">字段名</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="m-name">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">类型</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="m-type">
-                <option>bigint</option>
-                <option>bit</option>
-                <option>binary</option>
-                <option>blob</option>
-                <option>char</option>
-                <option>date</option>
-                <option>datetime</option>
-                <option>decimal</option>
-                <option>double</option>
-                <option>enum</option>
-                <option>float</option>
-                <option>geometry</option>
-                <option>geometrycollection</option>
-                <option selected="selected">int</option>
-                <option>integer</option>
-                <option>json</option>
-                <option>linestring</option>
-                <option>longblob</option>
-                <option>longtext</option>
-                <option>mediumblob</option>
-                <option>mediumint</option>
-                <option>mediumtext</option>
-                <option>multilinestring</option>
-                <option>multipoint</option>
-                <option>multipolygon</option>
-                <option>numeric</option>
-                <option>point</option>
-                <option>polygon</option>
-                <option>real</option>
-                <option>set</option>
-                <option>smallint</option>
-                <option>text</option>
-                <option>time</option>
-                <option>timestamp</option>
-                <option>tinyblob</option>
-                <option>tinyint</option>
-                <option>tinytext</option>
-                <option>varbinary</option>
-                <option>varchar</option>
-                <option>year</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">长度</label>
-            <div class="col-sm-10">
-              <input type="number" class="form-control" id="m-length">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">小数点</label>
-            <div class="col-sm-10">
-              <input type="number" class="form-control" value="0" id="m-point">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">不为空</label>
-            <div class="col-sm-10">
-              <input type="checkbox" class="form-control" id="m-notNull">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal"  id="btn-addField">确定</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-</div>
-
-<!--修改字段模态框-->
-<div class="modal fade" id="editFieldModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">修改字段</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">字段名</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="e-name">
-              <input type="text" hidden="hidden" id="e-oldname">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">类型</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="e-type">
-                <option>bigint</option>
-                <option>bit</option>
-                <option>binary</option>
-                <option>blob</option>
-                <option>char</option>
-                <option>date</option>
-                <option>datetime</option>
-                <option>decimal</option>
-                <option>double</option>
-                <option>enum</option>
-                <option>float</option>
-                <option>geometry</option>
-                <option>geometrycollection</option>
-                <option selected="selected">int</option>
-                <option>integer</option>
-                <option>json</option>
-                <option>linestring</option>
-                <option>longblob</option>
-                <option>longtext</option>
-                <option>mediumblob</option>
-                <option>mediumint</option>
-                <option>mediumtext</option>
-                <option>multilinestring</option>
-                <option>multipoint</option>
-                <option>multipolygon</option>
-                <option>numeric</option>
-                <option>point</option>
-                <option>polygon</option>
-                <option>real</option>
-                <option>set</option>
-                <option>smallint</option>
-                <option>text</option>
-                <option>time</option>
-                <option>timestamp</option>
-                <option>tinyblob</option>
-                <option>tinyint</option>
-                <option>tinytext</option>
-                <option>varbinary</option>
-                <option>varchar</option>
-                <option>year</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">长度</label>
-            <div class="col-sm-10">
-              <input type="number" class="form-control" id="e-length">
-            </div>
-          </div>
+<!--<div class="modal fade" id="addFieldModal" tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--        <h4 class="modal-title">添加字段</h4>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form class="form-horizontal" role="form">-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">字段名</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="text" class="form-control" id="m-name">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">类型</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <select class="form-control" id="m-type">-->
+<!--                <option>bigint</option>-->
+<!--                <option>bit</option>-->
+<!--                <option>binary</option>-->
+<!--                <option>blob</option>-->
+<!--                <option>char</option>-->
+<!--                <option>date</option>-->
+<!--                <option>datetime</option>-->
+<!--                <option>decimal</option>-->
+<!--                <option>double</option>-->
+<!--                <option>enum</option>-->
+<!--                <option>float</option>-->
+<!--                <option>geometry</option>-->
+<!--                <option>geometrycollection</option>-->
+<!--                <option selected="selected">int</option>-->
+<!--                <option>integer</option>-->
+<!--                <option>json</option>-->
+<!--                <option>linestring</option>-->
+<!--                <option>longblob</option>-->
+<!--                <option>longtext</option>-->
+<!--                <option>mediumblob</option>-->
+<!--                <option>mediumint</option>-->
+<!--                <option>mediumtext</option>-->
+<!--                <option>multilinestring</option>-->
+<!--                <option>multipoint</option>-->
+<!--                <option>multipolygon</option>-->
+<!--                <option>numeric</option>-->
+<!--                <option>point</option>-->
+<!--                <option>polygon</option>-->
+<!--                <option>real</option>-->
+<!--                <option>set</option>-->
+<!--                <option>smallint</option>-->
+<!--                <option>text</option>-->
+<!--                <option>time</option>-->
+<!--                <option>timestamp</option>-->
+<!--                <option>tinyblob</option>-->
+<!--                <option>tinyint</option>-->
+<!--                <option>tinytext</option>-->
+<!--                <option>varbinary</option>-->
+<!--                <option>varchar</option>-->
+<!--                <option>year</option>-->
+<!--              </select>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">长度</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="number" class="form-control" id="m-length">-->
+<!--            </div>-->
+<!--          </div>-->
 <!--          <div class="form-group">-->
 <!--            <label class="col-sm-2 control-label">小数点</label>-->
 <!--            <div class="col-sm-10">-->
-<!--              <input type="number" class="form-control">-->
+<!--              <input type="number" class="form-control" value="0" id="m-point">-->
 <!--            </div>-->
 <!--          </div>-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label">不为空</label>
-            <div class="col-sm-10">
-              <input type="checkbox" class="form-control" id="e-notNull">
-              <input type="text" hidden="hidden" id="e-primary">
-            </div>
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">不为空</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="checkbox" class="form-control" id="m-notNull">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+<!--        <button type="button" class="btn btn-primary" data-dismiss="modal"  id="btn-addField">确定</button>-->
+<!--      </div>-->
+<!--    </div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+<!--  </div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--</div>-->
+
+<!--添加字段模态框-->
+<div class="modal fade" id="addFieldModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>添加字段</b></h4>
+        <br>
+        <div>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">字段名</span>
+            <input type="text" class="form-control" id="m-name">
           </div>
-        </form>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">类&emsp;型</span>
+            <select class="form-control" id="m-type">
+              <option>bigint</option>
+              <option>bit</option>
+              <option>binary</option>
+              <option>blob</option>
+              <option>char</option>
+              <option>date</option>
+              <option>datetime</option>
+              <option>decimal</option>
+              <option>double</option>
+              <option>enum</option>
+              <option>float</option>
+              <option>geometry</option>
+              <option>geometrycollection</option>
+              <option selected="selected">int</option>
+              <option>integer</option>
+              <option>json</option>
+              <option>linestring</option>
+              <option>longblob</option>
+              <option>longtext</option>
+              <option>mediumblob</option>
+              <option>mediumint</option>
+              <option>mediumtext</option>
+              <option>multilinestring</option>
+              <option>multipoint</option>
+              <option>multipolygon</option>
+              <option>numeric</option>
+              <option>point</option>
+              <option>polygon</option>
+              <option>real</option>
+              <option>set</option>
+              <option>smallint</option>
+              <option>text</option>
+              <option>time</option>
+              <option>timestamp</option>
+              <option>tinyblob</option>
+              <option>tinyint</option>
+              <option>tinytext</option>
+              <option>varbinary</option>
+              <option>varchar</option>
+              <option>year</option>
+            </select>
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">长&emsp;度</span>
+            <input type="number" class="form-control" id="m-length">
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">小数点</span>
+            <input type="number" class="form-control" value="0" id="m-point">
+          </div>
+          <br>
+          <div class="checkbox" style="text-align: right">
+            <label>
+              <input type="checkbox" id="m-notNull">不为空
+            </label>
+          </div>
+          <br>
+        </div>
+        <button type="button"  id="btn-addField" class="btn btn-info btn-block">确定</button>
+        <br><br>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" id="e-editField">确定</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
+    </div>
+  </div>
 </div>
+
+<!--修改字段模态框-->
+<!--<div class="modal fade" id="editFieldModal" tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--        <h4 class="modal-title">修改字段</h4>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form class="form-horizontal" role="form">-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">字段名</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="text" class="form-control" id="e-name">-->
+<!--              <input type="text" hidden="hidden" id="e-oldname">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">类型</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <select class="form-control" id="e-type">-->
+<!--                <option>bigint</option>-->
+<!--                <option>bit</option>-->
+<!--                <option>binary</option>-->
+<!--                <option>blob</option>-->
+<!--                <option>char</option>-->
+<!--                <option>date</option>-->
+<!--                <option>datetime</option>-->
+<!--                <option>decimal</option>-->
+<!--                <option>double</option>-->
+<!--                <option>enum</option>-->
+<!--                <option>float</option>-->
+<!--                <option>geometry</option>-->
+<!--                <option>geometrycollection</option>-->
+<!--                <option selected="selected">int</option>-->
+<!--                <option>integer</option>-->
+<!--                <option>json</option>-->
+<!--                <option>linestring</option>-->
+<!--                <option>longblob</option>-->
+<!--                <option>longtext</option>-->
+<!--                <option>mediumblob</option>-->
+<!--                <option>mediumint</option>-->
+<!--                <option>mediumtext</option>-->
+<!--                <option>multilinestring</option>-->
+<!--                <option>multipoint</option>-->
+<!--                <option>multipolygon</option>-->
+<!--                <option>numeric</option>-->
+<!--                <option>point</option>-->
+<!--                <option>polygon</option>-->
+<!--                <option>real</option>-->
+<!--                <option>set</option>-->
+<!--                <option>smallint</option>-->
+<!--                <option>text</option>-->
+<!--                <option>time</option>-->
+<!--                <option>timestamp</option>-->
+<!--                <option>tinyblob</option>-->
+<!--                <option>tinyint</option>-->
+<!--                <option>tinytext</option>-->
+<!--                <option>varbinary</option>-->
+<!--                <option>varchar</option>-->
+<!--                <option>year</option>-->
+<!--              </select>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">长度</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="number" class="form-control" id="e-length">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label">不为空</label>-->
+<!--            <div class="col-sm-10">-->
+<!--              <input type="checkbox" class="form-control" id="e-notNull">-->
+<!--              <input type="text" hidden="hidden" id="e-primary">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+<!--        <button type="button" class="btn btn-primary" data-dismiss="modal" id="e-editField">确定</button>-->
+<!--      </div>-->
+<!--    </div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+<!--  </div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--</div>-->
+<!--修改字段模态框-->
+<div class="modal fade" id="editFieldModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>修改字段</b></h4>
+        <br>
+        <div>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">字段名</span>
+            <input type="text" class="form-control" id="e-name">
+            <input type="text" hidden="hidden" id="e-oldname">
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">类&emsp;型</span>
+            <select class="form-control" id="e-type">
+              <option>bigint</option>
+              <option>bit</option>
+              <option>binary</option>
+              <option>blob</option>
+              <option>char</option>
+              <option>date</option>
+              <option>datetime</option>
+              <option>decimal</option>
+              <option>double</option>
+              <option>enum</option>
+              <option>float</option>
+              <option>geometry</option>
+              <option>geometrycollection</option>
+              <option selected="selected">int</option>
+              <option>integer</option>
+              <option>json</option>
+              <option>linestring</option>
+              <option>longblob</option>
+              <option>longtext</option>
+              <option>mediumblob</option>
+              <option>mediumint</option>
+              <option>mediumtext</option>
+              <option>multilinestring</option>
+              <option>multipoint</option>
+              <option>multipolygon</option>
+              <option>numeric</option>
+              <option>point</option>
+              <option>polygon</option>
+              <option>real</option>
+              <option>set</option>
+              <option>smallint</option>
+              <option>text</option>
+              <option>time</option>
+              <option>timestamp</option>
+              <option>tinyblob</option>
+              <option>tinyint</option>
+              <option>tinytext</option>
+              <option>varbinary</option>
+              <option>varchar</option>
+              <option>year</option>
+            </select>
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">长&emsp;度</span>
+            <input type="number" class="form-control" id="e-length">
+          </div>
+          <br>
+          <div class="checkbox" style="text-align: right">
+            <label>
+              <input type="checkbox" id="e-notNull">不为空
+            </label>
+            <input type="text" hidden="hidden" id="e-primary">
+          </div>
+          <br>
+        </div>
+        <button type="button"  id="e-editField" class="btn btn-info btn-block">确定</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!--添加外键-->
-<div class="modal fade" id="addFkModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">添加外键</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">外键名</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="m-fname">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">字段</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="m-ffield">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">参考模式</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="m-fdatabase"></select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">参考表</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="m-ftable"></select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">参考字段</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="m-fwfield"></select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">删除时</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="m-fdelete">
-                <option selected="selected">NO ACTION</option>
-                <option>CASCADE</option>
-                <option>RESTRICT</option>
-                <option>SET NULL</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">更新时</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="m-fupdate">
-                <option selected="selected">NO ACTION</option>
-                <option>CASCADE</option>
-                <option>RESTRICT</option>
-                <option>SET NULL</option>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-addFK">确定</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-</div>
-
-<!--修改外键-->
-<!--<div class="modal fade" id="editFkModal" tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--<div class="modal fade" id="addFkModal" tabindex="-1" role="dialog" aria-hidden="true">-->
 <!--  <div class="modal-dialog">-->
 <!--    <div class="modal-content">-->
 <!--      <div class="modal-header">-->
@@ -394,37 +483,37 @@
 <!--          <div class="form-group">-->
 <!--            <label class="col-sm-2 control-label">外键名</label>-->
 <!--            <div class="col-sm-10">-->
-<!--              <input type="text" class="form-control">-->
+<!--              <input type="text" class="form-control" id="m-fname">-->
 <!--            </div>-->
 <!--          </div>-->
 <!--          <div class="form-group">-->
 <!--            <label class="col-sm-2 control-label">字段</label>-->
 <!--            <div class="col-sm-10">-->
-<!--              <input type="text" class="form-control">-->
+<!--              <input type="text" class="form-control" id="m-ffield">-->
 <!--            </div>-->
 <!--          </div>-->
 <!--          <div class="form-group">-->
 <!--            <label class="col-sm-2 control-label">参考模式</label>-->
 <!--            <div class="col-sm-10">-->
-<!--              <select class="form-control"></select>-->
+<!--              <select class="form-control" id="m-fdatabase"></select>-->
 <!--            </div>-->
 <!--          </div>-->
 <!--          <div class="form-group">-->
 <!--            <label class="col-sm-2 control-label">参考表</label>-->
 <!--            <div class="col-sm-10">-->
-<!--              <select class="form-control"></select>-->
+<!--              <select class="form-control" id="m-ftable"></select>-->
 <!--            </div>-->
 <!--          </div>-->
 <!--          <div class="form-group">-->
 <!--            <label class="col-sm-2 control-label">参考字段</label>-->
 <!--            <div class="col-sm-10">-->
-<!--              <select class="form-control"></select>-->
+<!--              <select class="form-control" id="m-fwfield"></select>-->
 <!--            </div>-->
 <!--          </div>-->
 <!--          <div class="form-group">-->
 <!--            <label class="col-sm-2 control-label">删除时</label>-->
 <!--            <div class="col-sm-10">-->
-<!--              <select class="form-control">-->
+<!--              <select class="form-control" id="m-fdelete">-->
 <!--                <option selected="selected">NO ACTION</option>-->
 <!--                <option>CASCADE</option>-->
 <!--                <option>RESTRICT</option>-->
@@ -435,7 +524,7 @@
 <!--          <div class="form-group">-->
 <!--            <label class="col-sm-2 control-label">更新时</label>-->
 <!--            <div class="col-sm-10">-->
-<!--              <select class="form-control">-->
+<!--              <select class="form-control" id="m-fupdate">-->
 <!--                <option selected="selected">NO ACTION</option>-->
 <!--                <option>CASCADE</option>-->
 <!--                <option>RESTRICT</option>-->
@@ -446,13 +535,78 @@
 <!--        </form>-->
 <!--      </div>-->
 <!--      <div class="modal-footer">-->
-<!--        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
-<!--        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+<!--        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+<!--        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-addFK">确定</button>-->
 <!--      </div>-->
 <!--    </div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
 <!--  </div>&lt;!&ndash; /.modal &ndash;&gt;-->
 <!--</div>-->
 
+<!--添加外键模态框-->
+<div class="modal fade" id="addFkModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align: center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br>
+        <h4 class="modal-title"><b>添加外键</b></h4>
+        <br>
+        <div>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">外键名&emsp;</span>
+            <input type="text" class="form-control" id="m-fname">
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">字&emsp;&emsp;段</span>
+            <input type="text" class="form-control" id="m-ffield">
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">参考模式</span>
+            <select class="form-control" id="m-fdatabase"></select>
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">参考表&emsp;</span>
+            <select class="form-control" id="m-ftable"></select>
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">参考字段</span>
+            <select class="form-control" id="m-fwfield"></select>
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">删除时&emsp;</span>
+            <select class="form-control" id="m-fdelete">
+              <option selected="selected">NO ACTION</option>
+              <option>CASCADE</option>
+              <option>RESTRICT</option>
+              <option>SET NULL</option>
+            </select>
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon" style="text-align: left">更新时&emsp;</span>
+            <select class="form-control" id="m-fupdate">
+              <option selected="selected">NO ACTION</option>
+              <option>CASCADE</option>
+              <option>RESTRICT</option>
+              <option>SET NULL</option>
+            </select>
+          </div>
+          <br>
+        </div>
+        <button type="button"  id="btn-addFK" class="btn btn-info btn-block">确定</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--修改表名模态框-->
 <div class="modal fade" id="renameModal" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">

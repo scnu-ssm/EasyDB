@@ -1,3 +1,7 @@
+var protocol = "http://";
+var host = "www.chenrong.xyz";
+var basePath = protocol + host;
+
 //初始化页面
 $(document).ready(function () {
   let connectId = sessionStorage.getItem("DBconnectId")
@@ -14,7 +18,7 @@ $(document).ready(function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/dbuser/showprivs',
+    url:basePath+'/dbuser/showprivs',
     data: {"connectId":connectId,"username":username,"host":host},
     success:function (data) {
       let grants = data.data
@@ -49,7 +53,7 @@ $(document).ready(function () {
     async:true,
     xhrFields:{withCredentials: true},
     crossDomain:true,
-    url:'http://www.chenrong.xyz/database/showDateBase',
+    url:basePath+'/database/showDateBase',
     data: {"connectId":connectId},
     success:function (data) {
       let databases = data.data
@@ -75,7 +79,7 @@ $(document).ready(function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/tableinfo/showtables',
+      url:basePath+'/tableinfo/showtables',
       data: {"connectId":connectId,"databaseName":databaseName},
       success:function (data) {
         let tables = data.data
@@ -101,7 +105,7 @@ $(document).ready(function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/tableinfo/showtables',
+      url:basePath+'/tableinfo/showtables',
       data: {"connectId":connectId,"databaseName":databaseName},
       success:function (data) {
         let tables = data.data
@@ -140,7 +144,7 @@ $(document).ready(function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/dbuser/grant',
+      url:basePath+'/dbuser/grant',
       data: JSON.stringify(mydata),
       success:function (data) {
         alert(data.data)
@@ -175,7 +179,7 @@ $(document).ready(function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/dbuser/revoke',
+      url:basePath+'/dbuser/revoke',
       data: JSON.stringify(mydata),
       success:function (data) {
         alert(data.data)
@@ -239,7 +243,7 @@ $(document).on("click",".btn-danger",function () {
       async:true,
       xhrFields:{withCredentials: true},
       crossDomain:true,
-      url:'http://www.chenrong.xyz/dbuser/revoke',
+      url:basePath+'/dbuser/revoke',
       data: JSON.stringify(mydata),
       success:function (data) {
         alert(data.data)

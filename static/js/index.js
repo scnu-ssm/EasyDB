@@ -64,6 +64,12 @@ $(document).ready(function () {
     }
   });
 
+  //隐藏登录模态框时清空input数据
+  $("#loginModal").on('hidden.bs.modal',function () {
+    $("#uname").val('');
+    $("#upwd").val('');
+  });
+
   //为注册按钮添加监听事件
   $("#btRegister").click(function () {
     //读取表单的数据
@@ -105,6 +111,14 @@ $(document).ready(function () {
         })
       }
     }
+  });
+
+  //隐藏注册模态框时清空input数据
+  $("#registerModal").on('hidden.bs.modal',function () {
+    $("#registerUname").val('');
+    $("#registerPwd").val('');
+    $("#registerPwd1").val('');
+    $("#email").val('');
   });
 
   //为获取邮箱验证码添加监听事件
@@ -172,6 +186,14 @@ $(document).ready(function () {
         alert('新密码和原密码不匹配！')
       }
     }
+  });
+
+  //隐藏忘记密码模态框清空input数据
+  $("#forgetPasswordModal").on('hidden.bs.modal',function () {
+    $("#verUserName").val('');
+    $("#restPassword").val('');
+    $("#restPassword1").val('');
+    $("#code").val('');
   });
 
   //为退出按钮添加监听事件
@@ -258,6 +280,12 @@ $(document).ready(function () {
         }
       })
     }
+  });
+
+  //隐藏修改密码模态框时清空input数据
+  $("#updataPasswordModal").on('hidden.bs.modal',function () {
+    $("#oldPassword").val('');
+    $("#newPassword").val('');
   });
 
   //刷新页面是判断是否处于登录状态

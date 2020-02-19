@@ -82,7 +82,7 @@ $(document).ready(function () {
     if(uname===''||upwd===''){
       alert('用户名和密码不能为空！');
     }else if(upwd!==upwd1){
-      alert('密码和再次输入密码不匹配，请重新输入！')
+      alert('密码和重复密码不匹配，请重新输入！')
     }else {
       if(!reg.test(email)){
         alert("邮箱格式错误，请重新输入！")
@@ -183,7 +183,7 @@ $(document).ready(function () {
           }
         })
       }else {
-        alert('新密码和原密码不匹配！')
+        alert('新密码和重复密码不匹配！')
       }
     }
   });

@@ -1,6 +1,3 @@
-var protocol = "http://";
-var host = "www.chenrong.xyz";
-var basePath = protocol + host;
 
 var connectId = sessionStorage.getItem("connectId");
 var database = sessionStorage.getItem("database");

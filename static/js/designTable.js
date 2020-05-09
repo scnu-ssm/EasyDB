@@ -22,9 +22,7 @@
  * 　　　　 　┗┻┛ ┗┻┛+ + + +
  *
  */
-var protocol = "http://";
-var host = "www.chenrong.xyz";
-var basePath = protocol + host;
+
 //初始化
 $(document).ready(function () {
   //获取url参数

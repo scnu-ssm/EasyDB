@@ -1,6 +1,3 @@
-var protocol = "http://";
-var host = "www.chenrong.xyz";
-var basePath = protocol + host;
 
 $(document).ready(function () {
   let connectId = sessionStorage.getItem("DBconnectId")

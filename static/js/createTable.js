@@ -22,9 +22,6 @@
  * 　　　　 　┗┻┛ ┗┻┛+ + + +
  *
  */
-var protocol = "http://";
-var host = "www.chenrong.xyz";
-var basePath = protocol + host;
 
 $(document).ready(function () {
 

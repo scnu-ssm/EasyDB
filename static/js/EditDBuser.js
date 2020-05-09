@@ -1,6 +1,3 @@
-var protocol = "http://";
-var host = "www.chenrong.xyz";
-var basePath = protocol + host;
 
 //初始化页面
 $(document).ready(function () {

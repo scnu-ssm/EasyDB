@@ -181,6 +181,12 @@ $(document).ready(function () {
     $("#sel_userName2 option:selected").each(function () {
       tableList.push($(this).val())
     });
+
+    if(tableList.length == 0){
+      alert("请至少选择一个数据表");
+      return;
+    }
+
     tableList = tableList.toString();
     if($("#singleRadio").prop('checked')){
 
